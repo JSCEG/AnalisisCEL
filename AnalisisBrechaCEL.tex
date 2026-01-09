@@ -1,0 +1,1497 @@
+\DocumentMetadata{
+  pdfversion=2.0,
+  lang=es-MX,
+  pdfstandard=ua-2
+}
+
+\documentclass{cel}
+
+
+
+% --- Metadatos PDF/UA (Accesibilidad Universal) ---
+\hypersetup{
+  pdftitle={Análisis de Brecha y Solución Sistémica: Ecosistema CEL},
+  pdfauthor={SENER},
+  pdfsubject={Ecosistema CEL},
+  pdfkeywords={Energía, CEL, Certificados},
+  pdfversion={1}
+}
+
+% --- Metadatos del Documento ---
+\title{Análisis de Brecha y Solución Sistémica: Ecosistema CEL}
+\subtitle{Diagnóstico y Propuestas}
+\author{SENER}
+\date{\today}
+\institucion{Secretaría de Energía (SENER)}
+\unidad{Unidad de Planeación Energética}
+\setDocumentoCorto{Ecosistema CEL}
+\palabrasclave{Energía, CEL}
+\version{1}
+
+\begin{document}
+
+\portadafondo[img/portadacel.png]
+
+% Índice General (TOC)
+{
+  \hypersetup{linkcolor=gobmxGuinda}
+  \tableofcontents
+}
+\newpage
+
+\phantomsection
+\addcontentsline{toc}{section}{Introducción}
+\section*{Introducción}
+
+\textbf{Análisis de la Brecha Operativa y Normativa del Sistema de Certificados de Energía Limpia (CEL)}
+
+El presente documento expone un análisis inicial para la mejora del Sistema de Certificados de Energía Limpia (CEL), a partir de la identificación de discrepancias críticas observadas en la operación del sistema, así como de una revisión del marco normativo vigente y su interacción con los procesos actuales de gestión y cumplimiento.
+
+Este análisis parte del reconocimiento de que la operación cotidiana del sistema CEL ha puesto de manifiesto una disociación estructural: existe una brecha entre la generación limpia física que alimenta al Sistema Eléctrico Nacional y los Certificados que jurídicamente nacen para acreditarla. El diseño normativo actual, concebido para un esquema manual y declarativo, resulta cada vez menos compatible con las necesidades de trazabilidad, validación técnica automatizada y certeza jurídica que el mercado requiere.
+
+Desde esta perspectiva, se identifican problemáticas operativas recurrentes, siendo una de las más graves la ``invisibilidad'' regulatoria de la generación limpia no inscrita. Factores como la falta de dictámenes técnicos oportunos o la complejidad en el cálculo de la Energía Libre de Combustible (ELC) provocan que volúmenes significativos de energía limpia no se traduzcan en CELs, distorsionando la señal económica del mercado y extinguiendo el atributo limpio antes de que pueda ser contabilizado para las metas nacionales o asignado a la Bolsa No Onerosa.
+
+El objetivo de este análisis no es señalar responsabilidades operativas, sino identificar las áreas de mejora que requieren atención normativa urgente, a fin de que los nuevos lineamientos del sistema CEL:
+
+\begin{itemize}
+    \item Cierren la brecha entre la generación física y la acreditación legal.
+    \item Desmitifiquen el destino de los CELs no emitidos.
+    \item Habiliten un modelo de operación más robusto, donde el cálculo de la ELC y la inscripción sean procesos fluidos que garanticen la integridad del mercado.
+\end{itemize}
+
+En este sentido, el documento presenta una visión de mejora enfocada en:
+
+\begin{itemize}
+    \item La identificación de problemáticas operativas relevantes, como la gestión de participantes no inscritos.
+    \item El análisis de los riesgos regulatorios asociados a su permanencia.
+    \item La definición de criterios normativos para fortalecer la operación futura del sistema.
+\end{itemize}
+
+Este análisis se plantea como un insumo técnico-normativo orientado a apoyar la elaboración de los nuevos lineamientos, asegurando que el marco regulatorio evolucione a la par de la realidad operativa del sector energético.
+
+% Contenido principal
+
+
+
+\portadaseccion{1}{Trazabilidad de certificados y Folio}{}
+\section{Trazabilidad de certificados y Folio}
+
+\subsection{Diagnóstico Forense (Estado Actual): La Falla del ``Folio Semántico''}
+
+Actualmente, el Sistema de Gestión de Certificados y Cumplimiento de Obligaciones de Energías Limpias (S-CEL) utiliza una lógica de identificación basada en una matrícula ``semántica'' o inteligente. De conformidad con el Numeral 22 del Anexo Único de la Resolución RES/174/2016 (Disposiciones Administrativas de Carácter General del S-CEL), la estructura del folio se compone rígidamente de datos administrativos:
+
+\begin{quote}
+\textbf{Estructura Actual (RES/174/2016):} \texttt{P P P P C T M M A A X X X X X X} \\
+Donde \texttt{PPPP} corresponde a los dígitos del Número de Permiso, \texttt{C} al tipo de participante, \texttt{T} a la tecnología, y \texttt{MMAA} a la fecha de generación.
+\end{quote}
+
+\textbf{La problemática:} Al vincular la identidad del activo digital (CEL) a atributos administrativos cambiantes (como el Número de Permiso), se rompe la trazabilidad histórica ante eventos comunes como:
+
+\begin{itemize}
+    \item \textbf{Cesión de Derechos:} Si una central cambia de dueño y se le asigna un nuevo permiso, los CELs generados anteriormente pierden vinculación directa en la base de datos con la nueva identidad de la planta.
+    \item \textbf{Modificaciones Técnicas:} Cambios en la tecnología primaria o repotenciaciones que alteren la clave T.
+    \item \textbf{Migración de Régimen:} El paso de permisos legados a permisos únicos de generación bajo la LIE.
+\end{itemize}
+
+Esto fragmenta la historia del activo, impidiendo una auditoría continua desde el ``nacimiento'' hasta la ``liquidación'' del certificado si las condiciones administrativas del generador cambian.
+
+\subsection{Visión Objetivo (Deber Ser): El CEL como Activo Digital Inmutable (UUID)}
+
+Se propone la transición hacia un Identificador Único Universal (UUID). Bajo este esquema, el Folio del CEL se convierte en una cadena alfanumérica aleatoria, única e irrepetible (ej. \texttt{123e4567-e89b-12d3-a456-426614174000}), desvinculada de los atributos de la central.
+
+\begin{description}
+    \item[Identidad vs. Atributos:] El UUID es la identidad (que nunca cambia). Los datos como Permiso, Tecnología y Fecha se convierten en metadatos asociados al UUID en el registro (Ledger).
+    \item[Ventaja:] Si el permiso cambia, simplemente se actualiza el metadato asociado en el registro, pero el CEL mantiene su identidad histórica, garantizando trazabilidad perpetua y facilitando la integración con mercados secundarios y estándares internacionales (I-REC, TIGRs).
+\end{description}
+
+\subsection{Arquitectura de Sistemas (Especificación Técnica SNIEr)}
+
+Para soportar el cambio de un folio semántico a un UUID, la arquitectura del SNIEr debe evolucionar de un modelo de ``Base de Datos Plana'' a un modelo de ``Registro de Activos Digitales'' (Digital Asset Ledger).
+
+\textbf{Componentes Críticos:}
+
+\begin{itemize}
+    \item \textbf{Motor de Tokenización (Minting Engine):} Un microservicio que, al recibir la validación de generación limpia (medición certificada), crea el activo digital y le asigna el UUID versión 4 (aleatorio) o versión 5 (basado en nombres para consistencia criptográfica).
+    \item \textbf{Capa de Metadatos Desacoplados:} A diferencia del sistema actual donde los datos viven en el folio, en la nueva arquitectura los datos (Permiso, Tecnología, Ubicación) son atributos vinculados al UUID en una base de datos relacional o grafo.
+\end{itemize}
+
+\textbf{Beneficio:} Esto permite actualizar el atributo ``Titular del Permiso'' sin destruir ni alterar el UUID del certificado.
+
+\textbf{Inmutabilidad del Registro:} Se implementará una tabla de ``Ledger'' donde solo se permiten operaciones de \texttt{INSERT} (crear) y \texttt{APPEND} (transferir/cancelar), bloqueando operaciones de \texttt{UPDATE} o \texttt{DELETE} sobre los registros históricos de los CELs.
+
+\subsection{Reingeniería de Procesos (Flujo de Ciclo de Vida)}
+El cambio de folio implica simplificar radicalmente el proceso de emisión y gestión:
+
+\textbf{A. Flujo Actual (Ineficiente):}
+\begin{itemize}
+    \item Cálculo manual de la cadena de caracteres (\texttt{PPPP+C+T...}).
+    \item Validación humana de que la ``T'' (Tecnología) coincida con el permiso.
+    \item Emisión del título.
+    \item \textbf{Quiebre:} Si hay un cambio administrativo, el proceso se detiene o requiere cancelación y reemisión.
+\end{itemize}
+
+\textbf{B. Nuevo Flujo Propuesto (Automatizado):}
+\begin{itemize}
+    \item \textbf{Disparo (Trigger):} La lectura del medidor (validada por CENACE/Transportista) ingresa al sistema.
+    \item \textbf{Acuñación (Minting):} El sistema genera automáticamente el UUID y estampa la fecha de creación (Timestamp).
+    \item \textbf{Asociación Dinámica:} El sistema consulta la base de datos de permisos vigente en ese milisegundo y asocia los metadatos al UUID.
+\end{itemize}
+
+\textbf{Ciclo de Vida:}
+\begin{itemize}
+    \item \textbf{Transferencia:} El UUID pasa de la Billetera A a la Billetera B.
+    \item \textbf{Liquidación:} El UUID se marca como ``REDIMIDO'' en el Ledger.
+    \item \textbf{Transición:} El UUID nunca cambia, asegurando que un CEL generado en 2024 pueda ser auditado en 2030 independientemente de los cambios de dueño de la planta.
+\end{itemize}
+
+\subsection{Blindaje Normativo y Modificaciones Específicas}
+Para implementar este cambio, es necesario modificar dos instrumentos regulatorios clave jerarquizados:
+
+\subsubsection*{A. Instrumento: Lineamientos CEL (SENER)}
+\textbf{Estatus:} Vigentes (Publicados en el DOF el 31/10/2014). \\
+\textbf{Acción:} MODIFICACIÓN del Numeral 10. \\
+\textbf{Justificación:} El Numeral 10 establece actualmente la información mínima que debe contener el título. Se debe reformar para eliminar la obligatoriedad de que el folio contenga información visual y sustituirlo por un estándar de identificación digital.
+
+\textbf{Redacción Sugerida (Modificación al Numeral 10):}
+\begin{displayquote}
+``10. Los Certificados de Energías Limpias se emitirán en medios electrónicos y contarán con un Folio Electrónico único, inmutable y no semántico (UUID) asignado por el Sistema, que asegure su identidad individual. El Sistema asociará a dicho folio, a modo de metadatos consultables, la siguiente información: I. Nombre y Domicilio del Generador... II. Tecnología... III. Periodo de Generación...''
+\end{displayquote}
+
+\subsubsection*{B. Instrumento: Disposiciones Administrativas del S-CEL (CRE / CNE)}
+\textbf{Estatus:} Vigentes (Resolución RES/174/2016). \\
+\textbf{Acción:} DEROGACIÓN del Numeral 22 y MODIFICACIÓN del Numeral 21. \\
+\textbf{Justificación:}
+\begin{itemize}
+    \item El Numeral 22 impone la fórmula rígida (\texttt{PPPP...}). Debe ser derogado para eliminar la restricción técnica de la matrícula semántica.
+    \item El Numeral 21 debe modificarse para facultar al sistema informático (SNIEr/S-CEL) a generar los folios aleatorios automáticamente mediante algoritmos criptográficos.
+\end{itemize}
+
+\begin{tabladoradoCorto}
+  \caption{Tabla 1.1 Resumen de Impacto Regulatorio}
+  \begin{tabularx}{\textwidth}{L{0.15\textwidth} L{0.18\textwidth} L{0.12\textwidth} L{0.10\textwidth} X}
+    \toprule
+    \rowcolor{gobmxDorado} \encabezadodorado{Nivel Jerárquico} & \encabezadodorado{Instrumento} & \encabezadodorado{Numeral} & \encabezadodorado{Acción} & \encabezadodorado{Objetivo} \\
+    \midrule
+    \textbf{1. Política Pública} & Lineamientos CEL (SENER) & Numeral 10 & Modificar & Redefinir el CEL como activo con identidad digital (UUID) en lugar de un título con texto fijo. \\
+    \textbf{2. Regulación Operativa} & DACG S-CEL (RES/174/2016) & Numeral 22 & Derogar & Eliminar la fórmula obligatoria de 16 caracteres que ata el CEL al número de permiso. \\
+    \textbf{2. Regulación Operativa} & DACG S-CEL (RES/174/2016) & Numeral 38 & Adicionar & Permitir explícitamente el uso de tecnologías de registro distribuido (Blockchain) para garantizar la inmutabilidad del UUID. \\
+    \bottomrule
+  \end{tabularx}
+\end{tabladoradoCorto}
+
+\portadaseccion{2}{DECLARACEL: Interoperabilidad y Cero Captura}{}
+\section{DECLARACEL: Interoperabilidad y Cero Captura}
+
+\subsection{Diagnóstico Forense (Estado Actual): El ``Silo'' de Información y la Doble Verdad}
+
+Bajo la arquitectura actual del S-CEL (regida por la Resolución RES/174/2016), la plataforma opera como un repositorio aislado (``Silo''). El flujo de información depende de la carga manual o importación de archivos planos (CSV) por parte de los sujetos obligados.
+
+\begin{description}
+    \item[La Falla Operativa:] Esto genera una disociación de datos o ``Doble Verdad''. El CENACE emite una Liquidación Final (Factura) con valores precisos de energía. El Participante descarga esa información y la manipula manualmente para subirla al S-CEL.
+    \item[Error de Conciliación:] Si existe una discrepancia mínima (ej. redondeo de decimales) entre el archivo subido y los parámetros pre-definidos, el sistema rechaza la carga, obligando a procesos de aclaración burocrática que retrasan el cumplimiento.
+\end{description}
+
+\subsection{Visión Objetivo (Deber Ser): Principio de Fuente Única de Verdad (SSOT)}
+
+El nuevo módulo de Cumplimiento en el SNIEr opera bajo el principio de Interoperabilidad Nativa. Se elimina la obligación de ``captura'' y se sustituye por una obligación de ``validación''.
+
+\begin{itemize}
+    \item \textbf{Integración M2M (Machine-to-Machine):} La información de generación y consumo fluye directamente desde los servidores de medición fiscal del CENACE y los Transportistas hacia el expediente del usuario en el SNIEr, sin intervención humana.
+    \item \textbf{Inversión de la Carga de Prueba:} El dato del CENACE se presume cierto salvo prueba en contrario. El usuario ya no ``reporta'', solo ``visa'' u ``objeta''.
+\end{itemize}
+
+\subsection{Arquitectura de Sistemas (Especificación Técnica SNIEr)}
+
+La infraestructura deberá migrar de una base de datos monolítica a una arquitectura de microservicios orientada a eventos:
+
+\begin{itemize}
+    \item \textbf{Ingesta Automatizada (API Gateway):} Conexión segura (VPN/TLS) con el CENACE para la recepción automática de los paquetes de liquidación final (XML/JSON) al cierre de cada mes.
+    \item \textbf{Motor de Conciliación (Reconciliation Engine):} Algoritmo que cruza automáticamente \texttt{[Dato CENACE] vs [Permiso CNE]}. Si los datos coinciden, el sistema genera un ``Borrador de Declaración'' pre-aprobado.
+    \item \textbf{Firma Electrónica (Non-Repudiation):} El usuario ingresa solo para firmar la conformidad del dato pre-cargado utilizando su e.firma (SAT), lo que detona la emisión inmediata de los Certificados.
+\end{itemize}
+
+\subsection{Reingeniería de Procesos (Flujo de Cumplimiento)}
+
+\begin{tabladoradoCorto}
+  \caption{Tabla 2.1 Transformación del Flujo de Cumplimiento}
+  \begin{tabularx}{\textwidth}{L{0.15\textwidth} L{0.40\textwidth} X}
+    \toprule
+    \rowcolor{gobmxDorado} \encabezadodorado{Etapa} & \encabezadodorado{Modelo Anterior (Carga Manual)} & \encabezadodorado{Nuevo Modelo (Validación)} \\
+    \midrule
+    \textbf{Inicio} & El Usuario descarga datos del CENACE, formatea un Excel y lo sube al portal de la CRE. & \textbf{Automático:} El SNIEr ingesta la data del CENACE y notifica: ``Su liquidación de Marzo está lista para firma''. \\
+    \textbf{Validación} & Revisión humana por parte de la autoridad (sujeta a tiempos de espera y discrecionalidad). & \textbf{Autogestión:} El usuario revisa las cifras. \newline \textbf{Opción A (Aceptar):} Firma con e.firma. \newline \textbf{Opción B (Objetar):} Abre ticket de controversia. \\
+    \textbf{Resultado} & Emisión tardía tras validación administrativa. & \textbf{Emisión Instantánea:} Al firmar la aceptación, el Smart Contract acuña los CELs en segundos. \\
+    \bottomrule
+  \end{tabularx}
+\end{tabladoradoCorto}
+
+\subsection{Blindaje Normativo y Modificaciones Específicas}
+
+Para habilitar este modelo, se requiere modificar las Disposiciones Administrativas del S-CEL (RES/174/2016) para dar validez legal a los datos pre-cargados.
+
+\textbf{Instrumento:} DACG S-CEL (CRE/CNE) \\
+\textbf{Acción:} ADICIÓN de un Capítulo de ``Interoperabilidad y Validación de Información''.
+
+\textbf{Redacción Sugerida (Nuevo Artículo para DACG):}
+\begin{displayquote}
+\textbf{Artículo [Z]. De la Presunción de Validez de la Información.} Para efectos del otorgamiento de Certificados y el cumplimiento de obligaciones, el Sistema (SNIEr) tomará como base primaria la información de medición y liquidación proveniente del CENACE y de los Distribuidores.
+\begin{enumerate}[label=\Roman*.]
+    \item El SNIEr pondrá a disposición de los Participantes dicha información de manera pre-cargada.
+    \item Los Participantes contarán con un plazo de 10 días hábiles para validar dicha información mediante su firma electrónica.
+    \item De no existir objeción fundada dentro de dicho plazo, se tendrá por aceptada tácitamente la información (Afirmativa Ficta) y el Sistema procederá automáticamente a la emisión de los Certificados o a la determinación de la obligación correspondiente, eliminando la necesidad de carga manual de datos.
+\end{enumerate}
+\end{displayquote}
+
+\portadaseccion{3}{Discrepancias Administrativas y Bolsa No Onerosa}{}
+\section{Discrepancias Administrativas y Bolsa No Onerosa}
+
+\subsection{Diagnóstico Forense (Estado Actual): El ``Limbo'' de los CELs Confiscados}
+
+Actualmente, existe una disociación entre la Generación Física de Energía Limpia y la Emisión Administrativa de CELs. Según las reglas operativas actuales y los acuerdos anuales de asignación (ej. Acuerdo de Bolsa 2018/2019), existen volúmenes masivos de energía limpia que no se convierten en activos comercializables para el generador debido a fricciones burocráticas:
+
+\begin{description}
+    \item[La Trampa del Dictamen:] Si una Central Limpia opera perfectamente, pero su Dictamen de Verificación vence y la renovación tarda 2 meses por saturación de las Unidades de Inspección, la energía generada en ese periodo pierde el derecho a CELs en favor del generador.
+    \item[Ventana de Oportunidad (6 meses):] Si una planta nueva entra en operación (Periodo de Pruebas) pero no completa su registro en el S-CEL dentro de la ventana de 6 meses posteriores, esos CELs ``retroactivos'' se pierden para el dueño del activo.
+    \item[El Caso de Centrales Legadas (Piso de Generación):] Centrales como Laguna Verde o grandes hidroeléctricas solo reciben CELs por la energía generada por encima de su línea base histórica (piso). Cualquier excedente limpio que no cumpla criterios administrativos específicos pasa a la cuenta de la CRE.
+    \item[El Efecto Perverso (La Bolsa No Onerosa):] Estos CELs no desaparecen. La autoridad los acumula en una cuenta central y los distribuye gratuitamente (de forma no onerosa) entre los Participantes Obligados que cumplieron sus metas.
+\end{description}
+
+\textbf{Impacto:} Esto constituye un subsidio distorsionante. Se inyectan al mercado millones de CELs a costo cero, deprimiendo artificialmente el precio Spot y desincentivando la compra de CELs a nuevos generadores privados.
+
+\subsection{Visión Objetivo (Deber Ser): Principio de ``Generación Física = Activo Digital''}
+
+El nuevo modelo SNIEr debe eliminar la ``confiscación administrativa''. El objetivo es que toda energía limpia medida genere un incentivo económico para quien invirtió en la tecnología, y no un regalo para quien compra la energía.
+
+\begin{itemize}
+    \item \textbf{Eliminación de la Bolsa de Regalo:} Se propone eliminar el mecanismo de distribución no onerosa. Los CELs no reclamados o sancionados deben ser cancelados (quemados) para reducir la oferta y sostener el precio, o bien, subastados por el Estado para fondos de transición, pero nunca regalados.
+    \item \textbf{Automatización de Cumplimiento:} Eliminar la pérdida de CELs por vencimiento de dictamen mediante la interconexión con CENACE (si la planta inyecta, es porque opera bien).
+\end{itemize}
+
+\subsection{Arquitectura de Sistemas (Especificación Técnica SNIEr)}
+
+El sistema debe cerrar la brecha entre ``Energía Real'' y ``Energía Administrativa''.
+
+\subsubsection*{Cálculo de Línea Base Automatizado}
+Para Legados (Nuclear/Hidro), el algoritmo del SNIEr debe tener cargada la curva histórica (el ``piso'').
+\begin{center}
+    $CELs\_Emitidos = \max(0, Generacion\_Mes - Piso\_Historico)$
+\end{center}
+Esto elimina la discrecionalidad y el cálculo manual mensual.
+
+\subsubsection*{Recuperación de Retroactivos (Late Claim Logic)}
+Si una planta se registra tarde (mes 8), el sistema permite ``rescatar'' los CELs de los meses 1-6 pagando una tarifa administrativa (multa), en lugar de perder el activo. El activo se asigna al generador, no a la Bolsa de la CRE.
+
+\subsection{Reingeniería de Procesos (Flujo de Asignación)}
+
+\begin{tabladoradoCorto}
+  \caption{Tabla 3.1 Justicia de Mercado en Asignación}
+  \begin{tabularx}{\textwidth}{L{0.20\textwidth} L{0.40\textwidth} X}
+    \toprule
+    \rowcolor{gobmxDorado} \encabezadodorado{Variable} & \encabezadodorado{Modelo Anterior (Punitivo / Bolsa)} & \encabezadodorado{Nuevo Modelo (Justicia de Mercado)} \\
+    \midrule
+    \textbf{Vencimiento de Dictamen} & Si vence el papel, se detiene la emisión de CELs. Los CELs de ese periodo se van a la Bolsa de la CRE. & \textbf{Continuidad Operativa:} El sistema emite los CELs pero los deja en estatus ``Congelado'' (Escrow) hasta que se renueva el trámite, momento en que se liberan al Generador. No se confiscan. \\
+    \textbf{Destino de Remanentes} & Los CELs no asignados se regalan a los Suministradores cumplidos (Bolsa No Onerosa), bajando el precio del mercado. & \textbf{Quema por Deflación:} Los CELs que realmente no tengan dueño legítimo son destruidos por el sistema para reducir la oferta global y mejorar el precio de los CELs restantes. \\
+    \bottomrule
+  \end{tabularx}
+\end{tabladoradoCorto}
+
+\subsection{Blindaje Normativo (Redacción Sugerida para DACG)}
+
+Es necesario derogar el mecanismo de reparto gratuito para sanear el mercado.
+
+\textbf{Redacción Sugerida (Modificación):}
+\begin{displayquote}
+\textbf{Artículo [Y]. Del Destino de los Certificados No Asignados.}
+\begin{enumerate}[label=\Roman*.]
+    \item Los Certificados de Energías Limpias que, por causas imputables a incumplimientos administrativos, falta de pago de derechos o extemporaneidad en el registro, no puedan ser otorgados al Generador titular, serán cancelados definitivamente por el Sistema.
+    \item Se deroga la figura de Asignación No Onerosa. Ningún Certificado podrá ser transferido a título gratuito a los Participantes Obligados, garantizando que todo Certificado utilizado para cumplimiento provenga de una transacción de mercado o de la generación propia efectiva.
+\end{enumerate}
+\end{displayquote}
+
+\portadaseccion{4}{Precisión Financiera: Cálculo Continuo y Automatizado}{}
+\section{Precisión Financiera: Cálculo Continuo y Automatizado}
+
+\subsection{Diagnóstico Forense (Estado Actual): La Ineficiencia del ``Corte Mensual''}
+
+A pesar de que los Lineamientos de CEL no prohíben explícitamente la acumulación de fracciones, la implementación informática histórica del S-CEL aplicó un criterio restrictivo de ``Periodo Discreto''. Bajo esta lógica, el sistema ejecutaba un corte al cierre de cada mes, asignando los Certificados enteros y descartando los remanentes decimales (truncamiento a cero).
+
+\textbf{Impacto Operativo:} Esta configuración tecnológica obliga a los Generadores a perder el valor de las fracciones generadas o, en su defecto, a gestionar complejas ``contabilidades paralelas'' y solicitudes de ajuste manual ante la autoridad para reclamar los volúmenes acumulados, generando una carga administrativa innecesaria y fricción regulatoria.
+
+\subsection{Visión Objetivo (Deber Ser): Automatización de Saldos (Rollover)}
+
+El nuevo modelo del SNIEr operará bajo una lógica de Acumulación Continua, eliminando la necesidad de gestión por parte del usuario. Se adopta el concepto de ``Cuenta Corriente Energética'', donde el tiempo es una variable continua y no discreta.
+
+\begin{itemize}
+    \item \textbf{Mecanismo de Arrastre:} Las fracciones de MWh que no completen la unidad al cierre de un mes no se eliminan; se transfieren automáticamente como Saldo Inicial del periodo siguiente.
+    \item \textbf{Principio de Eficiencia:} El sistema garantiza que cada milésima de MWh generada contribuya eventualmente a la emisión de un activo, sin intervención humana.
+\end{itemize}
+
+\subsection{Arquitectura de Sistemas (Solución Práctica SNIEr)}
+
+La implementación técnica se simplifica mediante un ajuste en el motor de cálculo de la base de datos, sin requerir módulos adicionales complejos:
+
+\begin{itemize}
+    \item \textbf{Tipado de Datos:} Migración de campos de medición a precisión financiera \texttt{DECIMAL(18,4)}.
+    \item \textbf{Lógica del Trigger de Emisión:}
+    \begin{itemize}
+        \item \textbf{Variable Base:} \texttt{Generación\_Acumulada\_No\_Emitida}.
+        \item \textbf{Condición:} \texttt{IF (Saldo\_Acumulado >= 1.0)}.
+        \item \textbf{Acción:} Emitir enteros y actualizar el nuevo saldo remanente en el Ledger del usuario.
+    \end{itemize}
+\end{itemize}
+
+\subsection{Reingeniería de Procesos (Simplificación)}
+
+\begin{tabladoradoCorto}
+  \caption{Tabla 4.1 Simplificación del Proceso de Cálculo}
+  \begin{tabularx}{\textwidth}{L{0.20\textwidth} L{0.40\textwidth} X}
+    \toprule
+    \rowcolor{gobmxDorado} \encabezadodorado{Variable} & \encabezadodorado{Modelo Anterior (Manual/Conflicto)} & \encabezadodorado{Nuevo Modelo (Práctico/Automático)} \\
+    \midrule
+    \textbf{Tratamiento de Decimales} & Se perdían al cierre de mes (Merma) o requerían solicitud por escrito para su reconocimiento posterior. & \textbf{Memoria del Sistema:} El decimal se resguarda automáticamente. El usuario visualiza su ``Saldo Remanente'' en el Dashboard en todo momento. \\
+    \textbf{Conciliación Anual} & Discrepancias sistemáticas entre la Facturación Comercial (CENACE) y la Emisión de CELs (CRE). & \textbf{Espejo Exacto:} La suma anual de CELs emitidos coincidirá matemáticamente con la facturación anual del CENACE, eliminando disputas contables. \\
+    \bottomrule
+  \end{tabularx}
+\end{tabladoradoCorto}
+
+\subsection{Blindaje Normativo (Redacción Sugerida para DACG)}
+
+Se propone la siguiente redacción para dar certeza operativa al mecanismo de acumulación automática:
+
+\begin{displayquote}
+\textbf{Artículo [V]. Del Cálculo Continuo.}
+Para efectos de la emisión de Certificados, el Sistema contabilizará la energía generada de manera continua. Las fracciones de MWh que no alcancen a completar la unidad al cierre de un periodo de facturación se acumularán automáticamente al periodo inmediato siguiente, garantizando que la totalidad de la energía limpia generada sea reconocida para la emisión de Certificados.
+\end{displayquote}
+
+\subsection{Análisis de Impacto (KPIs y Beneficios)}
+
+\begin{itemize}
+    \item \textbf{Recuperación de Ingresos (Revenue Recovery):} Se estima una recuperación del 0.5\% al 0.8\% de la facturación anual de CELs para los Generadores, valor que anteriormente se perdía en mermas por redondeo.
+    \item \textbf{Reducción de Carga Administrativa:} Eliminación del 100\% de las solicitudes de ``Ajuste de Medición'' derivadas de diferencias decimales, liberando horas-hombre tanto del regulado como del personal de la Comisión.
+    \item \textbf{Consistencia de Datos (Data Integrity):} Alineación perfecta entre los reportes fiscales (ingresos por energía) y los activos digitales emitidos, facilitando la auditoría y cumplimiento fiscal.
+\end{itemize}
+
+\portadaseccion{5}{Integridad Operativa: Del Dictamen Estático a la Supervisión Dinámica}{}
+\section{Integridad Operativa: Del Dictamen Estático a la Supervisión Dinámica}
+
+\subsection{Diagnóstico Forense (Estado Actual): La ``Foto Estática'' y el Riesgo Moral}
+
+Bajo el marco regulatorio actual (Numeral 20 de los Lineamientos y Resolución RES/2910/2017), la acreditación de una Central como ``Limpia'' depende de un Dictamen de Verificación emitido por una Unidad de Inspección externa, con una vigencia administrativa típica de 3 años.
+
+\textbf{La Falla Estructural:} El sistema opera bajo un modelo de ``Confianza Documental''.
+
+\begin{itemize}
+    \item \textbf{Obsolescencia Inmediata:} El dictamen es una fotografía del día de la inspección. Si al día siguiente una planta de Cogeneración modifica sus procesos térmicos y deja de ser eficiente, o si una Bioeléctrica empieza a quemar más combustible fósil del permitido, el S-CEL no lo detecta hasta la siguiente renovación (años después).
+    \item \textbf{Conflicto de Interés:} La dependencia de verificadores privados pagados por el regulado genera incentivos perversos y asimetría de información que imposibilita a la autoridad garantizar que cada CEL emitido corresponda a una operación realmente limpia.
+\end{itemize}
+
+\subsection{Visión Objetivo (Deber Ser): Validación Paramétrica (Data-Driven)}
+
+El nuevo modelo SNIEr sustituye la ``fe en el papel'' por la ``evidencia de los datos''.
+
+\begin{itemize}
+    \item \textbf{Principio:} El Dictamen Inicial solo sirve como ``Ticket de Entrada'' (Onboarding) para registrar los parámetros de diseño de la planta.
+    \item \textbf{Permanencia Condicionada:} La emisión mensual de CELs ya no es un derecho automático por tener el dictamen vigente, sino una validación algorítmica contra los datos operativos reales inyectados al Mercado.
+\end{itemize}
+
+\subsection{Arquitectura de Sistemas (Especificación Técnica SNIEr)}
+
+El Módulo de Emisión implementará ``Compuertas Lógicas'' (Logic Gates) conectadas al CENACE:
+
+\begin{itemize}
+    \item \textbf{Ingesta de Variables Operativas:} Para Cogeneración/Bioenergía, el sistema consume del CENACE/Transportista el dato de \texttt{Consumo\_Combustible\_Mensual} y \texttt{Generación\_Neta}.
+    \item \textbf{Motor de Cálculo ELC (Energía Libre de Combustible) en Tiempo Real:} El SNIEr replica la fórmula de la RES/1838/2016 mes a mes.
+    \item \textbf{Lógica:} \texttt{IF (Eficiencia\_Calculada < Umbral\_Norma) THEN (Bloquear\_Emision\_CELs)}.
+    \item \textbf{Alertas de Incongruencia:} Si una planta Solar reporta generación en horas nocturnas (fraude común en generación distribuida), el sistema marca el lote como ``Investigación'' y no emite los activos.
+\end{itemize}
+
+\subsection{Reingeniería de Procesos (Flujo de Supervisión)}
+
+\begin{tabladoradoCorto}
+  \caption{Tabla 5.1 Del Papel al Monitoreo}
+  \begin{tabularx}{\textwidth}{L{0.20\textwidth} L{0.35\textwidth} X}
+    \toprule
+    \rowcolor{gobmxDorado} \encabezadodorado{Variable} & \encabezadodorado{Modelo Anterior (Dictamen PDF)} & \encabezadodorado{Nuevo Modelo (Monitoreo SNIEr)} \\
+    \midrule
+    \textbf{Validación} & Visita física periódica (cada 3 a 5 años). Alto costo en viáticos y honorarios. & \textbf{Continua:} Auditoría digital mes a mes al momento del cierre de liquidación. \\
+    \textbf{Detección de Incumplimiento} & Tardía o inexistente. Se detectaba solo si había denuncia o inspección aleatoria. & \textbf{Inmediata (Preventiva):} El algoritmo detiene la acuñación de CELs antes de que lleguen al mercado si los parámetros no cuadran. \\
+    \textbf{Suspensión} & Proceso administrativo largo (Juicio) para revocar el permiso/dictamen. & \textbf{Suspensión Cautelar Automática:} ``Sin datos válidos, no hay activos''. Se invierte la carga de la prueba hacia el generador. \\
+    \bottomrule
+  \end{tabularx}
+\end{tabladoradoCorto}
+
+\subsection{Blindaje Normativo (Redacción Sugerida para DACG)}
+
+Es vital cambiar la naturaleza jurídica del Dictamen: deja de ser un ``cheque en blanco'' por 3 años.
+
+\begin{displayquote}
+\textbf{Artículo [U]. De la Vigencia Condicionada a la Operación Real.}
+\begin{enumerate}[label=\Roman*.]
+    \item El Dictamen de Verificación de Central Limpia tendrá efectos administrativos únicamente para la inscripción inicial en el Padrón. La vigencia del derecho a recibir Certificados estará condicionada permanentemente a que la Central mantenga sus parámetros técnicos de operación dentro de los límites de eficiencia y descarbonización reportados.
+    \item La Comisión, a través del SNIEr, suspenderá automáticamente la emisión de Certificados para un periodo específico cuando, derivado del cruce de información operativa con el CENACE o los proveedores de combustible, se detecte que:
+    \begin{enumerate}[label=\alph*)]
+        \item Los índices de eficiencia térmica reales no cumplen con la metodología vigente; o
+        \item Existen discrepancias injustificadas entre la tecnología registrada y el perfil de generación inyectado.
+    \end{enumerate}
+    \item Esta suspensión operará de pleno derecho sin necesidad de declaración administrativa previa, hasta en tanto el Participante no acredite la corrección de la anomalía técnica.
+\end{enumerate}
+\end{displayquote}
+
+\subsection{Análisis de Impacto (KPIs y Beneficios)}
+
+\begin{itemize}
+    \item \textbf{Integridad del Producto (Premium):} Se garantiza al comprador que cada CEL proviene de una planta que realmente operó limpiamente ese mes, eliminando los ``CELs Zombies'' o ``Sucios'' (greenwashing de cogeneraciones ineficientes).
+    \item \textbf{Ahorro Regulatorio:} Reducción drástica de costos de supervisión en campo. La autoridad enfoca sus inspectores humanos solo en las alertas rojas que arroja el sistema digital.
+    \item \textbf{Anti-Corrupción:} Se elimina la discrecionalidad de los verificadores terceros. El dato del medidor fiscal es insobornable.
+\end{itemize}
+
+\portadaseccion{6}{Universalidad de Datos: Integración de la ``Energía Invisible''}{}
+\section{Universalidad de Datos: Integración de la ``Energía Invisible''}
+
+\subsection{Diagnóstico Forense (Estado Actual): La Ceguera Parcial del Regulador}
+
+El diseño actual del S-CEL padece de una ``Visión de Túnel'' limitada a la red de transmisión mayorista.
+
+\begin{description}
+    \item[El Punto Ciego del Abasto Aislado:] Grandes industrias generan su propia energía limpia (cogeneración o solar en sitio) para consumo interno (``detrás del medidor''). Al no inyectar excedentes a la Red Nacional de Transmisión, esta energía es invisible para el CENACE y, por ende, no se contabiliza para la emisión de CELs ni para las metas nacionales, a menos que el usuario realice un trámite voluntario y complejo.
+    \item[Silos de Información en Generación Distribuida (GD):] La información de los miles de contratos de interconexión de paneles solares residenciales y comerciales (<0.5 MW) reside en los sistemas de CFE Distribución, sin una interfaz automática hacia el S-CEL.
+\end{description}
+
+\textbf{Consecuencia:} Existe una subestimación masiva de la oferta. El mercado sufre escasez de CELs no porque falte generación limpia, sino porque los mecanismos de registro son excluyentes para los pequeños y medianos generadores.
+
+\subsection{Visión Objetivo (Deber Ser): Principio de ``Todo MWh Cuenta''}
+
+El SNIEr debe transitar de un modelo de ``Registro Rogado'' a un modelo de ``Contabilidad Universal Automática''.
+
+\begin{itemize}
+    \item \textbf{Integración Vertical:} El sistema debe succionar datos no solo del CENACE (Alta Tensión), sino también de CFE Distribución (Media/Baja Tensión) y de medidores privados certificados (Abasto Aislado).
+    \item \textbf{Democratización del CEL:} Si un panel solar residencial genera 1 MWh, debe nacer 1 CEL automáticamente en la cuenta del usuario (o de un agregador), inyectando liquidez al mercado desde la base de la pirámide.
+\end{itemize}
+
+\subsection{Arquitectura de Sistemas (Especificación Técnica SNIEr)}
+
+Se requiere una arquitectura de Big Data / Data Lake para ingestar fuentes heterogéneas:
+
+\begin{itemize}
+    \item \textbf{Conector GD (Distribución):}
+    \begin{itemize}
+        \item Interfaz API con el sistema comercial de CFE Distribución.
+        \item Input: Lectura bimestral neta de medidores bidireccionales.
+        \item Proceso: El SNIEr agrupa la generación por nodos y emite ``Lotes de CELs Distribuidos''.
+    \end{itemize}
+    \item \textbf{Hub de Telemetría IoT (Abasto Aislado):} Obligación para permisos de Abasto Aislado de instalar medidores con protocolo API REST/ICCP que reporten directamente al SNIEr la generación bruta interna, independientemente de su interacción con la red.
+    \item \textbf{Candado:} ``Sin telemetría no hay renovación de permiso''.
+\end{itemize}
+
+\subsection{Reingeniería de Procesos (Auditoría Masiva)}
+
+\begin{tabladoradoCorto}
+  \caption{Tabla 6.1 Auditoría de Balance Energético}
+  \begin{tabularx}{\textwidth}{L{0.20\textwidth} L{0.35\textwidth} X}
+    \toprule
+    \rowcolor{gobmxDorado} \encabezadodorado{Variable} & \encabezadodorado{Modelo Anterior (Caja Negra)} & \encabezadodorado{Nuevo Modelo (Transparencia Total)} \\
+    \midrule
+    \textbf{Generación Distribuida} & El usuario pequeño (ej. casa o comercio) ignoraba los CELs por la barrera burocrática. Esa energía limpia se ``tiraba'' administrativamente. & \textbf{Agregación Automática:} El sistema detecta la inyección reportada por CFE y emite los CELs. El usuario recibe una notificación: ``Tienes 5 CELs disponibles para venta''. \\
+    \textbf{Abasto Aislado} & Autodeclaración anual en PDF difícil de verificar. Riesgo de reportar generación limpia cuando en realidad usaron respaldo fósil. & \textbf{Telemetría Fiscal:} El medidor IoT reporta cada 15 minutos. Si la planta solar dice generar de noche, el sistema bloquea la emisión por fraude. \\
+    \textbf{Balance Nacional} & Estadísticas basadas en estimaciones teóricas. & \textbf{Dato Duro:} La SENER conoce la generación real del país, sumando la Gran Escala + GD + Abasto Aislado. \\
+    \bottomrule
+  \end{tabularx}
+\end{tabladoradoCorto}
+
+\subsection{Blindaje Normativo (Redacción Sugerida para DACG)}
+
+Es necesario establecer la obligación de compartir datos para los monopolios naturales (Distribuidores) y los privados aislados.
+
+\begin{displayquote}
+\textbf{Artículo [T]. De la Universalidad del Balance Energético.}
+\begin{enumerate}[label=\Roman*.]
+    \item Para efectos de la determinación de la oferta nacional de Certificados y el cumplimiento de metas de transición, la base de cálculo será la Generación Bruta Total, incluyendo aquella proveniente de Centrales Eléctricas en Abasto Aislado y Generación Limpia Distribuida.
+    \item Los Distribuidores deberán interconectar sus sistemas de medición comercial con el SNIEr para reportar, con periodicidad mínima mensual, la energía inyectada por los Generadores Exentos interconectados a sus redes.
+    \item Los titulares de permisos de Abasto Aislado deberán instalar sistemas de medición con telemetría certificada que transmitan al SNIEr los datos de generación y consumo interno en tiempo real. El incumplimiento de esta obligación suspenderá el derecho a recibir Certificados.
+\end{enumerate}
+\end{displayquote}
+
+\subsection{Análisis de Impacto (KPIs y Beneficios)}
+
+\begin{itemize}
+    \item \textbf{Explosión de Oferta:} Se estima que la incorporación automática de la Generación Distribuida y el Abasto Aislado podría incrementar la oferta de CELs en un 15-20\% inmediato, aliviando la presión de precios para los obligados.
+    \item \textbf{Justicia de Mercado (Level Playing Field):} Se elimina el subsidio implícito a las industrias que se desconectaban (Abasto Aislado) para no reportar consumo sucio o para no monetizar su generación limpia.
+    \item \textbf{Cumplimiento de Metas LTE:} Al contabilizar la ``energía invisible'', México podría reflejar un avance real mucho mayor en sus compromisos internacionales de Cambio Climático, sin necesidad de construir nuevas plantas, solo contando bien las que ya existen.
+\end{itemize}
+
+\portadaseccion{7}{Planeación de Mercado: De la Meta Estática al Balance Dinámico e Integral}{}
+\section{Planeación de Mercado: De la Meta Estática al Balance Dinámico e Integral}
+
+\subsection{Diagnóstico Forense (Estado Actual): La Rigidez y la Ceguera Parcial}
+
+Actualmente, el Requisito de Adquisición de CELs se establece con tres años de anticipación mediante Avisos de la SENER, basados en modelos teóricos (PRODESEN) que asumen una entrada perfecta de infraestructura.
+
+\textbf{Las Fallas Estructurales:}
+
+\begin{description}
+    \item[Rigidez ante la Realidad:] Si ocurren eventos de fuerza mayor (sequías severas, retrasos en cadenas de suministro o saturación de transmisión), la oferta física cae, pero la obligación regulatoria se mantiene fija, provocando escasez artificial y multas impagables.
+    \item[Silos de Información:] La planeación actual ignora la ``Oferta Invisible'' (Generación Distribuida y Abasto Aislado) al no tener interoperabilidad con los sistemas de distribución, subestimando la capacidad real del país.
+\end{description}
+
+\subsection{Visión Objetivo (Deber Ser): Mecanismo de Ajuste y Fusión de Datos}
+
+El SNIEr debe evolucionar de un registro pasivo a una Herramienta de Inteligencia de Mercado.
+
+\begin{itemize}
+    \item \textbf{Smart Targets:} Implementación de un mecanismo de revisión trimestral que monitoree el balance Oferta/Demanda.
+    \item \textbf{Inventario Total:} El cálculo de disponibilidad no se limitará a lo inscrito voluntariamente; integrará la data masiva de CFE Distribución y permisionarios aislados para reflejar el 100\% de la energía limpia nacional.
+\end{itemize}
+
+\subsection{Arquitectura de Sistemas (Especificación Técnica SNIEr)}
+
+El sistema integrará un Módulo de Analítica de Mercado (Market Analytics):
+
+\begin{itemize}
+    \item \textbf{Ingesta Multi-Fuente (Data Fusion):}
+    \begin{itemize}
+        \item Fuente A: CENACE (Generación Mayorista).
+        \item Fuente B: CFE Distribución (Sistemas Comerciales de GD).
+        \item Fuente C: Telemetría IoT (Abasto Aislado).
+    \end{itemize}
+    \item \textbf{Dashboard de Balance:}
+    \begin{itemize}
+        \item \textbf{Semáforo de Cobertura:} Indicador en tiempo real que contrasta el \texttt{Inventario\_Disponible\_Total} vs \texttt{Obligación\_Acumulada\_Año\_Curso}.
+        \item \textbf{Algoritmo de Alerta Temprana:} Detecta desviaciones mayores al 10\% en la generación hidroeléctrica/renovable para detonar medidas preventivas.
+    \end{itemize}
+\end{itemize}
+
+\subsection{Reingeniería de Procesos (Gestión de Expectativas)}
+
+\begin{tabladoradoCorto}
+  \caption{Tabla 7.1 Gestión Dinámica de Metas}
+  \begin{tabularx}{\textwidth}{L{0.20\textwidth} L{0.35\textwidth} X}
+    \toprule
+    \rowcolor{gobmxDorado} \encabezadodorado{Variable} & \encabezadodorado{Modelo Anterior (Caja Negra)} & \encabezadodorado{Nuevo Modelo (Transparencia Predictiva)} \\
+    \midrule
+    \textbf{Fijación de Requisito} & Inamovible a 3 años, ignorando coyunturas climáticas o técnicas. & \textbf{Banda de Flotación:} El requisito base se mantiene, pero se habilita un ajuste técnico si la oferta física real se desvía drásticamente. \\
+    \textbf{Fuentes de Información} & Solo lo inscrito en S-CEL (Ceguera Parcial). & \textbf{Universalidad:} Se suma la generación detrás del medidor y distribuida para diluir la escasez. \\
+    \bottomrule
+  \end{tabularx}
+\end{tabladoradoCorto}
+
+\subsection{Fundamentación Jurídica de la Interoperabilidad}
+
+La integración de fuentes externas (Sistemas de Distribución y Abasto Aislado) al Tablero de Control del SNIEr es jurídicamente obligatoria bajo el marco vigente, superando cualquier barrera de secreto comercial o administrativo:
+
+\begin{itemize}
+    \item \textbf{Principio de Exhaustividad (LTE Art. 14 y 15):} La Ley de Transición Energética mandata la creación del Inventario Nacional de Energías Limpias, exigiendo contabilizar la totalidad de la generación. Excluir la información de CFE Distribución contraviene este mandato legal.
+    \item \textbf{Facultad de Requerimiento (LIE Art. 12, Fracc. XXXI):} La autoridad cuenta con atribuciones explícitas para requerir a los Distribuidores y Participantes del Mercado la información necesaria para la vigilancia y estadística del sector.
+    \item \textbf{Interés Público:} La información sobre volúmenes de generación agregada es estadística pública necesaria para la planeación nacional y no constituye secreto industrial.
+\end{itemize}
+
+\subsection{Blindaje Normativo (Cláusula de Flexibilidad en DACG)}
+
+Se sugiere adicionar la facultad de ajuste por causas de fuerza mayor:
+
+\begin{displayquote}
+\textbf{Artículo [S]. Del Balance y Disponibilidad de Mercado.}
+\begin{enumerate}[label=\Roman*.]
+    \item La Secretaría publicará trimestralmente en el SNIEr el Reporte de Balance de Mercado, integrando la información del CENACE, Distribuidores y Permisionarios.
+    \item En caso de que el Reporte acredite una Insuficiencia Estructural de Oferta derivada de fenómenos climatológicos o retrasos sistémicos en infraestructura, la Secretaría podrá emitir un Acuerdo para ajustar temporalmente el porcentaje de Requisito o activar mecanismos alternos de cumplimiento, garantizando la estabilidad financiera del Mercado.
+\end{enumerate}
+\end{displayquote}
+
+\subsection{Análisis de Impacto (KPIs y Beneficios)}
+
+\begin{itemize}
+    \item \textbf{Estabilidad de Precios:} Se evitan picos especulativos de precio derivados de escasez artificial.
+    \item \textbf{Certeza Jurídica:} Se elimina el riesgo de litigios por ``Imposibilidad de Cumplimiento'', al asegurar que la obligación siempre sea técnicamente factible de cubrir.
+    \item \textbf{Incremento de Oferta Visible:} Al integrar la data de Distribución, se prevé un aumento inmediato del 15\% al 20\% en la disponibilidad contabilizada de energía limpia.
+\end{itemize}
+
+\portadaseccion{8}{Régimen Sancionador: De la Punición a la Inversión Social}{}
+\section{Régimen Sancionador: De la Punición a la Inversión Social}
+
+\subsection{Diagnóstico Forense (Estado Actual): El ``Pasivo Eterno'' y la Judicialización}
+
+El marco sancionador vigente (Art. 165 de la LIE y Resolución RES/248/2016) establece multas severas por incumplimiento en la adquisición de CELs. Sin embargo, este diseño presenta dos fallas críticas que incentivan el conflicto legal sobre el cumplimiento:
+
+\begin{description}
+    \item[Carácter No Extintivo:] La regulación ha sido interpretada de tal forma que el pago de la multa administrativa no necesariamente cancela la deuda de certificados. Esto genera un ``Pasivo Eterno'' acumulativo en los balances de los Suministradores, volviendo la deuda impagable y conduciendo a la quiebra técnica.
+    \item[Destino Inercial de los Recursos:] Los montos recaudados por multas ingresan a la Tesorería de la Federación sin un etiquetado específico, perdiéndose su impacto para la transición energética.
+    \item[Efecto Boomerang:] Ante multas desproporcionadas que no resuelven el problema de fondo, los Participantes optan por la judicialización masiva (Amparos), congelando tanto el pago de la multa como la adquisición de CELs, resultando en cero ingresos para el Estado y cero avance en metas verdes.
+\end{description}
+
+\subsection{Visión Objetivo (Deber Ser): Mecanismo de Pago Sustitutivo (Justicia Energética)}
+
+Se propone transitar de un modelo puramente Punitivo a un modelo Remedial y Compensatorio. Se instituye la figura del Pago Sustitutivo de Cumplimiento.
+
+\begin{itemize}
+    \item \textbf{Extinción de Obligación:} El Participante que no encuentre CELs en el mercado podrá optar por realizar un pago a una tarifa regulada (Techo de Precio). Este pago extingue legal y administrativamente la obligación del periodo, brindando certeza financiera y ``Clean Slate'' (Borrón y Cuenta Nueva) para el siguiente ciclo.
+    \item \textbf{Fondo Verde:} Los recursos captados no van a gasto corriente, sino a un Fideicomiso de Transición (ej. FOTEASE) para financiar paneles solares en comunidades marginadas o proyectos de almacenamiento, cerrando el círculo virtuoso de la ``Justicia Energética''.
+\end{itemize}
+
+\subsection{Arquitectura de Sistemas (Especificación Técnica SNIEr)}
+
+El SNIEr habilitará una Pasarela de Cumplimiento Alternativo:
+
+\begin{itemize}
+    \item \textbf{Cálculo de Brecha:} El sistema determina: $Faltante = Obligacion\_Total - CELs\_Liquidados$.
+    \item \textbf{Cotizador de Pago Sustitutivo:}
+    \begin{itemize}
+        \item Aplica la fórmula: $Monto\_A\_Pagar = Faltante * (Precio\_Mercado\_Spot * Factor\_Penalizacion\_1.2)$.
+        \item \textbf{Nota:} El precio debe ser superior al del mercado para no desincentivar la compra de CELs reales, pero inferior a la multa confiscatoria.
+    \end{itemize}
+    \item \textbf{Dispersión Inteligente:} Al confirmar el pago, el sistema:
+    \begin{itemize}
+        \item Emite el ``Certificado de Cumplimiento Sustitutivo'' (liberando al usuario).
+        \item Notifica al Fideicomiso la entrada de recursos etiquetados.
+    \end{itemize}
+\end{itemize}
+
+\subsection{Reingeniería de Procesos (Desjudicialización)}
+
+\begin{tabladoradoCorto}
+  \caption{Tabla 8.1 Modelo de Cumplimiento y Sanción}
+  \begin{tabularx}{\textwidth}{L{0.20\textwidth} L{0.35\textwidth} X}
+    \toprule
+    \rowcolor{gobmxDorado} \encabezadodorado{Variable} & \encabezadodorado{Modelo Anterior (Multa / Litigio)} & \encabezadodorado{Nuevo Modelo (Contribución / Solución)} \\
+    \midrule
+    \textbf{Resultado del Incumplimiento} & Multa millonaria + Obligación pendiente + Litigio largo. & \textbf{Resolución Inmediata:} Pago de tarifa conocida + Extinción de deuda + Cero litigios. \\
+    \textbf{Destino del Recurso} & Caja general de la Nación (sin rastro). & \textbf{Impacto Directo:} Electrificación rural y proyectos sociales de energía limpia. \\
+    \textbf{Riesgo Financiero} & Pasivo contingente incalculable para las empresas. & \textbf{Costo Acotado:} El ``Precio Techo'' del pago sustitutivo funciona como un seguro contra la volatilidad extrema. \\
+    \bottomrule
+  \end{tabularx}
+\end{tabladoradoCorto}
+
+\subsection{Blindaje Normativo (Reforma a Disposiciones)}
+
+Es necesario dar sustento legal al carácter extintivo del pago.
+
+\begin{displayquote}
+\textbf{Artículo [X]. Del Pago Sustitutivo con Fines de Justicia Energética.}
+\begin{enumerate}[label=\Roman*.]
+    \item En aquellos periodos donde se acredite insuficiencia de oferta o cuando así convenga al interés público, los Participantes Obligados podrán optar por cubrir sus cuotas mediante un Pago Sustitutivo destinado al Fondo para la Transición Energética.
+    \item Dicho pago tendrá efectos plenos de cumplimiento, extinguiendo la obligación de adquirir Certificados correspondiente al volumen cubierto bajo esta modalidad, sin perjuicio de las sanciones aplicables por dolo o mala fe.
+    \item La Secretaría determinará anualmente el monto unitario del Pago Sustitutivo, el cual deberá ser superior al precio promedio de mercado para mantener el incentivo de compra directa, pero suficiente para garantizar la viabilidad financiera de los Suministradores.
+\end{enumerate}
+\end{displayquote}
+
+\subsection{Análisis de Impacto (KPIs y Beneficios)}
+
+\begin{itemize}
+    \item \textbf{Recaudación Efectiva:} Se estima transformar el 0\% de recaudación actual (por amparos) en un flujo constante de recursos para el Estado proveniente de los Pagos Sustitutivos.
+    \item \textbf{Descongestión Judicial:} Reducción del 90\% de los litigios administrativos relacionados con multas de CELs.
+    \item \textbf{Financiamiento Social:} Creación de una bolsa anual estimada para inversión directa en generación distribuida social, alineando el mercado con la política de bienestar.
+\end{itemize}
+
+\portadaseccion{9}{Autoabasto y Aislados}{}
+\section{Autoabasto y Aislados}
+
+\subsection{Diagnóstico Forense (Estado Actual): La ``Caja Negra'' del Consumo}
+
+Bajo el marco anterior (LIE Art. 22 y Acuerdo A/037/2021), se regulaba el permiso legal para tener una planta propia, pero se descuidó la arquitectura de información.
+
+\begin{description}
+    \item[La Falla:] La CRE y el CENACE solo veían lo que pasaba en el Punto de Interconexión con la Red Nacional.
+    \item[El Escenario Ciego:]
+    \begin{itemize}
+        \item Una fábrica de acero tiene una planta de cogeneración a gas y paneles solares internos.
+        \item Consume 100 MWh totales: 40 MWh de la red (visible), 60 MWh internos (invisible).
+    \end{itemize}
+    \item[Consecuencia:] Solo pagaba CELs sobre los 40 MWh. Los otros 60 MWh, aunque fueran sucios (gas), evadían la obligación ambiental.
+    \item[Inequidad:] Esto creaba un subsidio implícito para quienes tenían dinero para desconectarse, cargando el costo de la transición energética solo a los usuarios de la red pública.
+\end{description}
+
+\subsection{Visión Objetivo (Deber Ser): Telemetría Fiscal Obligatoria}
+
+El nuevo modelo SNIEr elimina la distinción entre ``energía de la red'' y ``energía propia''. La obligación es sobre el consumo total.
+
+\begin{itemize}
+    \item \textbf{Principio Rector:} Si lo consumes, lo reportas. Si es limpio, te premio; si es sucio, pagas.
+    \item \textbf{Mecanismo:} Adopción de Telemetría Certificada (IoT). Ningún permiso de Abasto Aislado puede operar sin un ``Ojo Digital'' conectado al regulador.
+\end{itemize}
+
+\subsection{Arquitectura de Sistemas (Especificación Técnica SNIEr)}
+
+El SNIEr desplegará un módulo de \textit{IoT Energy Hub} para recibir datos de medidores privados.
+
+\subsubsection*{Estándar de Conectividad}
+\begin{itemize}
+    \item Uso de protocolo seguro (ej. ICCP o API REST con mTLS) directo desde el medidor o el SCADA de la planta hacia la nube de la CNE.
+    \item No se aceptan archivos Excel manuales; la data debe venir firmada digitalmente por el equipo de medición (Non-Repudiation).
+\end{itemize}
+
+\subsubsection*{Validación de Hardware}
+Registro en Blockchain del número de serie y certificado de calibración del medidor. Si el medidor no tiene calibración vigente, el sistema descarta los datos y presume el consumo máximo histórico (estimativa punitiva).
+
+\subsubsection*{Cálculo Neto}
+\begin{center}
+    $Obligacion = (Consumo_{Red} + Generacion_{InternaSucia}) \times \%Meta$ \\
+    $DerechoCEL = Generacion_{InternaLimpia}$
+\end{center}
+
+\subsection{Reingeniería de Procesos (Flujo de Fiscalización)}
+
+\begin{tabladoradoCorto}
+  \caption{Tabla 9.1 De la Autodeclaración a la Telemetría}
+  \begin{tabularx}{\textwidth}{L{0.20\textwidth} L{0.40\textwidth} X}
+    \toprule
+    \rowcolor{gobmxDorado} \encabezadodorado{Variable} & \encabezadodorado{Modelo Anterior (Autodeclaración)} & \encabezadodorado{Nuevo Modelo (Telemetría en Tiempo Real)} \\
+    \midrule
+    \textbf{Fuente de Datos} & Reporte anual en PDF o Excel que el usuario subía voluntariamente. & \textbf{Streaming de Datos:} El medidor envía lecturas cada 15 minutos o cada hora al SNIEr. \\
+    \textbf{Auditoría} & Casi nula. Imposible verificar si apagaron la planta solar y prendieron la de diésel. & \textbf{Patrón de Consumo:} Algoritmos detectan anomalías. Si dice que es solar pero genera a las 3:00 AM, se dispara alerta de fraude. \\
+    \textbf{Emisión de CELs} & Trámite engorroso que desincentivaba a los pequeños. & \textbf{Automática:} Si el medidor certifica generación limpia, los CELs aparecen en la billetera del usuario mes a mes. \\
+    \bottomrule
+  \end{tabularx}
+\end{tabladoradoCorto}
+
+\subsection{Blindaje Normativo (Redacción Sugerida para DACG)}
+
+Es indispensable condicionar la operación del permiso a la transparencia de los datos.
+
+\begin{displayquote}
+\textbf{Artículo [Q]. De la Medición en Abasto Aislado y Generación Local.}
+\begin{enumerate}[label=\Roman*.]
+    \item Los titulares de permisos de Abasto Aislado o Generación Local deberán instalar y mantener sistemas de medición con capacidad de telemetría en tiempo real, certificados por la CNE.
+    \item Dichos sistemas deberán transmitir al SNIEr, de manera ininterrumpida y automatizada, los datos de generación bruta y consumo de los Centros de Carga asociados, independientemente de si existe inyección o retiro de energía de la Red Nacional.
+    \item La interrupción de la transmisión de datos por un periodo mayor a 72 horas sin causa justificada facultará a la CNE para realizar una estimación presuntiva del consumo basándose en la capacidad instalada total, para efectos de determinación de obligaciones de CELs.
+\end{enumerate}
+\end{displayquote}
+
+\subsection{Análisis de Impacto (KPIs y Beneficios)}
+
+\begin{itemize}
+    \item \textbf{Recaudación Justa:} Se estima un incremento del 20\% en la base de obligaciones al incorporar el consumo industrial oculto.
+    \item \textbf{Fin del ``Greenwashing'':} Empresas que decían ser ``100\% renovables'' pero usaban respaldo fósil oculto tendrán que comprar CELs por esa parte sucia.
+    \item \textbf{Incentivo Real:} Al automatizar la emisión, se vuelve rentable instalar paneles solares para autoconsumo industrial, ya que el ingreso por venta de CELs se vuelve líquido y seguro.
+\end{itemize}
+
+\portadaseccion{10}{Obligaciones}{}
+\section{Obligaciones}
+\subsection{Diagnóstico Forense (Estado Actual): La ``Dilución'' de la Obligación}
+Bajo la regulación original (LIE Art. 3 y Manual de Registro), la definición de ``Participante Obligado'' era clara en papel, pero difusa en la práctica contractual.
+
+\begin{description}
+    \item[La Falla (El ``Loophole'' del Intermediario):] Muchos usuarios industriales en el Mercado Eléctrico Mayorista (MEM) operaban a través de Suministradores Calificados (SC). En los contratos privados, a menudo no se especificaba quién era el responsable de adquirir los CELs (Usuario vs. Suministrador), generando disputas.
+    \item[El Caso del Suministrador de Último Recurso (SUR):] Cuando un Suministrador Calificado quebraba, sus usuarios pasaban al SUR. Los CELs adeudados de los meses previos a la quiebra se convertían en ``deuda incobrable'' o tóxica, ya que nadie la asumía.
+    \item[Coberturas Financieras:] Se diseñaron derivados financieros complejos (venta de energía sin CEL o viceversa) que dificultaban a la autoridad auditar si la cobertura cumplía el requisito legal.
+\end{description}
+
+\subsection{Visión Objetivo (Deber Ser): Trazabilidad del ``Beneficiario Final''}
+El nuevo modelo SNIEr adopta el enfoque fiscal de ``Beneficiario Controlador'' para asegurar que la obligación siempre tenga un responsable solvente.
+
+\begin{itemize}
+    \item \textbf{Principio Rector:} La obligación de CELs es inherente al consumo físico (el electrón que prende la máquina), no al contrato financiero.
+    \item \textbf{Responsabilidad Solidaria:} Se vincula legalmente al Suministrador y al Usuario Final. Si el Suministrador falla o desaparece, la obligación recae en el activo físico (Centro de Carga).
+    \item \textbf{Entidades Voluntarias:} Se crea un carril exclusivo para empresas que desean comprar CELs por metas ESG (Ambientales, Sociales y de Gobernanza) sin ser obligados legales, evitando que compitan deslealmente por los certificados de cumplimiento obligatorio.
+\end{itemize}
+
+\subsection{Arquitectura de Sistemas (Especificación Técnica SNIEr)}
+El SNIEr evolucionará de una base de datos plana a una Base de Datos de Grafos (Graph Database) para mapear relaciones no lineales.
+
+\begin{itemize}
+    \item \textbf{Mapeo de Relaciones:} Se modelan Nodos (Generador, Suministrador, Usuario Final) y Aristas (Contratos) que definen qué porcentaje de la obligación asume cada parte.
+    \item \textbf{Smart Contract para Coberturas:} Al registrar un contrato, el sistema exigirá definir explícitamente: ``¿Este contrato incluye la transmisión de la obligación de CELs? SÍ/NO''. No permitirá campos vacíos.
+    \item \textbf{Módulo SUR (Rescate):} Si un Centro de Carga cae en SUR, el sistema segrega automáticamente su deuda histórica de CELs para cobro coactivo al Suministrador anterior, liberando al SUR de esa carga heredada (``Clean Slate'').
+\end{itemize}
+
+\subsection{Reingeniería de Procesos (Liquidación Contractual)}
+Se implementan mecanismos para gestionar el riesgo de contraparte:
+
+\begin{itemize}
+    \item \textbf{Quiebra de Suministrador:} Se establece una Fianza Regulatoria. El Suministrador debe depositar una garantía específica para CELs. Si quiebra, el SNIEr ejecuta la garantía para cubrir la obligación, protegiendo al usuario y al mercado.
+    \item \textbf{Coberturas Derivadas:} Registro obligatorio de todo contrato bilateral en el SNIEr para ser válido ante CENACE, eliminando la opacidad de los contratos ``Over The Counter''.
+    \item \textbf{Entidades Voluntarias:} Creación del Mercado Voluntario Oficial, un portal donde empresas (ej. Bimbo, Cemex) retiran CELs y obtienen un ``Distintivo de Consumo Limpio'' oficial de la SENER.
+\end{itemize}
+
+\subsection{Blindaje Normativo (Redacción Sugerida para DACG)}
+Es necesario actualizar las definiciones de sujetos obligados para cerrar las puertas de salida mediante el Artículo [P].
+
+\begin{displayquote}
+\textbf{Artículo [P]. De la Responsabilidad Solidaria, SUR y Voluntarios.}
+\begin{enumerate}[label=\Roman*.]
+    \item \textbf{Fracción V (Responsabilidad Solidaria):} Se instituye la responsabilidad solidaria entre el Suministrador y el Usuario Final. Los contratos deben estipular claramente la parte responsable.
+    \item \textbf{Fracción V (SUR):} El Suministrador de Último Recurso solo será responsable de las obligaciones generadas a partir de la fecha efectiva de transferencia. Los pasivos anteriores serán exigibles al Suministrador saliente mediante ejecución de Garantías.
+    \item \textbf{Fracción V (Voluntarios):} Se reconoce la figura de Entidad Voluntaria. Sus retiros se contabilizarán de manera separada a las Metas Nacionales Obligatorias.
+\end{enumerate}
+\end{displayquote}
+
+\subsection{Análisis de Impacto (KPIs y Beneficios)}
+\begin{itemize}
+    \item \textbf{Reducción de Cartera Vencida:} La implementación de la Garantía/Fianza asegura el cobro incluso si el Suministrador desaparece.
+    \item \textbf{Certeza para el SUR:} Se protege a la CFE (principal proveedor de SUR) de heredar deudas tóxicas de competidores privados fallidos.
+\item \textbf{Boom del Mercado Voluntario:} El ``Distintivo Oficial'' incentiva a grandes corporativos a comprar excedentes de CELs, ayudando a limpiar la sobreoferta del mercado.
+\end{itemize}
+
+\portadaseccion{11}{Precio de CEL}{}
+\section{Precio de CEL}
+
+\subsection{Diagnóstico (Estado Actual): La Opacidad del Mercado Bilateral}
+Bajo el esquema previo, la falta de obligatoriedad en el reporte de precios reales en las transacciones bilaterales (Over The Counter - OTC) generó una asimetría de información crítica. Al permitirse el registro de transacciones con valores simbólicos (ej. \$0.01) o campos vacíos, se impidió la formación de índices de precios confiables. Esta ``ceguera de mercado'' ha obstaculizado la bancabilidad de proyectos nuevos, ya que las instituciones financieras carecen de curvas históricas de precios auditables para evaluar el flujo de ingresos por CELs.
+
+\subsection{Visión Objetivo (Estado Objetivo): Transparencia y Referencia de Precios}
+El nuevo modelo del SNIEr implementará un mecanismo de Transparencia Obligatoria. Para que una transferencia de CELs sea procesada por el sistema, será requisito indispensable declarar el precio de liquidación real de la operación. El objetivo es construir índices de referencia públicos (ej. CEL-SPOT-MX) que orienten al mercado, protegiendo al mismo tiempo la confidencialidad de los datos individuales mediante técnicas de anonimización y agregación estadística. Se permitirán excepciones controladas para transferencias a título gratuito (precio cero) únicamente cuando estén debidamente justificadas (ej. reestructuraciones corporativas o fusiones), las cuales serán excluidas del cálculo de los índices para no distorsionar la señal de precios.
+
+\subsection{Arquitectura de Sistemas (Especificación Técnica SNIEr)}
+El módulo de mercado del SNIEr incorporará:
+
+\begin{itemize}
+    \item \textbf{Validación de Doble Entrada:} Tanto el Vendedor como el Comprador deberán ingresar el precio pactado. El sistema ejecutará la transferencia solo si ambos valores coinciden (Match), reduciendo errores y simulaciones.
+    \item \textbf{Motor de Índices:} Algoritmos automáticos calcularán diariamente el Precio Promedio Ponderado por Volumen (VWAP), descartando valores atípicos (outliers) y operaciones internas (precio cero).
+    \item \textbf{Interoperabilidad Fiscal:} Reporte automático de volúmenes y montos transaccionados al SAT para asegurar la coherencia fiscal.
+\end{itemize}
+
+\subsection{Reingeniería de Procesos (Flujo de Información)}
+\begin{itemize}
+    \item \textbf{Registro Mandatorio:} Se elimina la opcionalidad del campo ``Precio''. El sistema bloqueará transferencias sin este dato, salvo que se marque la casilla de ``Transferencia No Onerosa Justificada'' bajo protesta de decir verdad.
+    \item \textbf{Publicidad:} Publicación diaria de índices en el tablero del SNIEr, cumpliendo con el mandato de máxima publicidad de la información agregada del mercado.
+\end{itemize}
+
+\subsection{Blindaje Normativo (Adición a las DACG)}
+Se propone adicionar una disposición específica en las Disposiciones Administrativas (DACG) del Sistema, fundamentada en la facultad de la CNE para regular el mercado y asegurar su eficiencia (Art. 12 y 153 de la LSE 2025).
+
+\begin{displayquote}
+\textbf{Propuesta de Artículo para las DACG (Nuevo):}
+
+\textbf{Artículo [X]. Del Reporte de Precios y Transparencia de Mercado.}
+\begin{enumerate}[label=\Roman*.]
+    \item \textbf{Declaración de Precio.} Para la inscripción y validación de cualquier transferencia bilateral de Certificados en el Sistema, los Participantes involucrados deberán declarar, bajo protesta de decir verdad, el precio unitario de liquidación pactado en la transacción.
+    \item \textbf{Operaciones No Onerosas.} En el caso de transferencias que no impliquen una contraprestación económica directa, o que formen parte de contratos integrales sin precio desagregado, los Participantes deberán declarar dicha condición en el Sistema, justificando la naturaleza de la operación. Estas transacciones no serán consideradas para el cálculo de los índices de precios de mercado.
+    \item \textbf{Publicidad de Índices.} La Comisión publicará periódicamente, a través del SNIEr, los índices de precios referenciales calculados a partir de la información agregada y anonimizada de las transacciones reportadas.
+    \item \textbf{Sanciones.} La declaración de precios simulados o información falsa será sancionada administrativamente de conformidad con lo establecido en la Ley, sin perjuicio de las responsabilidades penales o fiscales que correspondan. La CNE podrá auditar las transacciones que presenten desviaciones atípicas respecto al mercado.
+\end{enumerate}
+\end{displayquote}
+
+\subsection{Beneficios e Impacto}
+\begin{itemize}
+    \item \textbf{Bancabilidad:} Otorga certeza a inversionistas y bancos sobre el valor real del activo, facilitando el financiamiento de proyectos limpios.
+    \item \textbf{Competencia:} Reduce la asimetría de información, evitando prácticas abusivas de intermediarios hacia pequeños generadores.
+    \item \textbf{Integridad Fiscal:} Asegura la trazabilidad de los ingresos derivados de la comercialización de activos digitales.
+\end{itemize}
+
+\begin{tabladoradoCorto}
+  \caption{Tabla 11.1 Transformación del Régimen de Precios}
+  \begin{tabularx}{\textwidth}{L{0.14\textwidth} L{0.28\textwidth} L{0.28\textwidth} X}
+    \toprule
+    \rowcolor{gobmxDorado} \encabezadodorado{Variable} & \encabezadodorado{Modelo Anterior (Opacidad / OTC)} & \encabezadodorado{Nuevo Modelo (Transparencia / Referencia)} & \encabezadodorado{Fundamento Legal (LSE 2025)} \\
+    \midrule
+    \textbf{Reporte de Precio} & Voluntario o Inexistente. Los participantes podían dejar el campo de precio en cero o vacío en transacciones bilaterales. & \textbf{Obligatorio (Mandatorio).} El sistema bloquea cualquier transferencia si no se ingresa un precio de liquidación real o se justifica la gratuidad. & Art. 12, fracc. XL (Facultad de CNE para establecer requisitos de información pública). \\
+    \textbf{Validación} & Unilateral. Solo el vendedor o el comprador registraba la operación sin cruce de datos financieros. & \textbf{Doble Ciego (Double-Blind).} Ambas partes deben ingresar el precio pactado por separado. Si no coinciden, la operación se rechaza. & Art. 153 (Regulación para la eficiencia de los Certificados). \\
+    \textbf{Referencia de Mercado} & Rumores / Brokers. No existía una fuente oficial de precios spot, lo que permitía la especulación abusiva (``coyotaje''). & \textbf{Índices Oficiales (VWAP).} Publicación diaria de precios promedio ponderados por volumen (ej. CEL-SPOT-MX) en el tablero del SNIEr. & Art. 12, fracc. XL (Máxima publicidad de la información agregada). \\
+    \textbf{Fiscalización} & Zona Gris. Dificultad para auditar los ingresos reales por venta de CELs al no estar vinculados al valor de mercado. & \textbf{Interoperabilidad SAT.} Reporte automático de volúmenes y precios transaccionados a la autoridad fiscal. & Art. 12, fracc. XLIII (Colaboración interinstitucional para vigilancia). \\
+    \bottomrule
+  \end{tabularx}
+\end{tabladoradoCorto}
+
+\portadaseccion{12}{Entidades Voluntarias}{}
+\section{Entidades Voluntarias}
+\subsection{Diagnóstico Forense (As-Is): La ``Doble Venta'' del Atributo}
+
+Bajo el marco anterior, no existía una vinculación jurídica ni tecnológica entre el sistema S-CEL (nacional) y los registros privados internacionales como I-REC (\textit{International Renewable Energy Certificate}) o bonos de carbono.
+
+\begin{description}
+    \item[La Falla:] El ``Divorcio de Registros''.
+    \item[El Fraude:] Un generador eólico producía 1 MWh. Recibía 1 CEL en la plataforma de la CRE (y se lo vendía a CFE Suministro Básico). Simultáneamente, registraba ese mismo MWh en la plataforma I-REC y vendía el certificado ``verde'' a una multinacional (ej. Google o Bimbo) para sus metas de sustentabilidad.
+    \item[Resultado:] El atributo ambiental (la ``limpieza'') se monetizaba dos veces. CFE decía ``yo consumí esa energía limpia'' y la multinacional también decía ``yo consumí esa energía limpia''. Físicamente imposible.
+    \item[Consecuencia:] Descrédito internacional y riesgo de que los CELs mexicanos sean vetados en tratados comerciales (T-MEC) o taxonomías verdes europeas.
+\end{description}
+
+\subsection{Visión Objetivo (To-Be): Integridad ``Uno a Uno''}
+
+El nuevo modelo SNIEr establece el principio de Unicidad del Atributo.
+
+\begin{itemize}
+    \item \textbf{Principio Rector:} 1 MWh Limpio = 1 Activo Digital. Ese activo puede llamarse CEL o puede canjearse por otro instrumento, pero no pueden existir ambos simultáneamente.
+    \item \textbf{Mecanismo:} ``Quema Cruzada'' (\textit{Cross-Burning}). Si quieres emitir un I-REC, tienes que ``quemar'' (cancelar) el CEL correspondiente en el SNIEr para demostrar que no se usó para cumplimiento legal.
+\end{itemize}
+
+\subsection{Arquitectura de Sistemas (Especificación Técnica SNIEr)}
+
+El SNIEr debe funcionar como la cámara de compensación central de atributos ambientales.
+
+\subsubsection*{Serialización Universal}
+El UUID del CEL incluye metadatos compatibles con el estándar EECS (\textit{European Energy Certificate System}) o I-REC Standard.
+
+\subsubsection*{API de Intercambio (Bridge)}
+\begin{itemize}
+    \item Si un Generador solicita la emisión de I-RECs a un certificador autorizado (ej. ANCE), el sistema del certificador consulta al SNIEr vía API.
+    \item \textbf{Lógica de Bloqueo:} SNIEr responde: ``Esos MWh ya tienen un CEL activo. Para emitir el I-REC, debo destruir el CEL \#12345''.
+    \item \textbf{Confirmación:} El Generador acepta, el CEL muere en México, y nace el I-REC en el registro global.
+\end{itemize}
+
+\subsubsection*{Portal Voluntario}
+Un módulo donde empresas no obligadas (Retail, Banca) pueden comprar y retirar CELs directamente para obtener un ``Certificado de Consumo Sustentable'' avalado por SENER, sin recurrir a mercados paralelos.
+
+\subsection{Reingeniería de Procesos (Gestión de Atributos)}
+
+\begin{tabladoradoCorto}
+  \caption{Tabla 12.1 Integridad del Mercado Voluntario}
+  \begin{tabularx}{\textwidth}{L{0.20\textwidth} L{0.35\textwidth} X}
+    \toprule
+    \rowcolor{gobmxDorado} \encabezadodorado{Variable} & \encabezadodorado{Modelo Anterior (Canibalismo)} & \encabezadodorado{Nuevo Modelo (Integridad)} \\
+    \midrule
+    \textbf{Emisión} & Generador pedía CELs a CRE y I-RECs a privados por separado. Nadie cruzaba los datos. & \textbf{Emisión Única:} El SNIEr es la fuente primaria. Todo nace como CEL. Si quieres otra cosa, debes convertirlo. \\
+    \textbf{Cumplimiento} & Empresas presumían ``100\% Renovable'' con I-RECs baratos, mientras CFE cargaba con el costo de los CELs. & \textbf{Transparencia:} Si usas el atributo para marketing (Voluntario), ese atributo sale del pool de cumplimiento nacional (Obligatorio). \\
+    \textbf{Certificación} & Confusa. Sellos privados sin respaldo gubernamental. & \textbf{Sello Oficial:} La CNE emite un diploma digital QR anual: ``Esta empresa retiró voluntariamente 5,000 CELs, equivalentes a evitar X toneladas de CO2''. \\
+    \bottomrule
+  \end{tabularx}
+\end{tabladoradoCorto}
+
+\subsection{Blindaje Normativo (Redacción Sugerida para DACG)}
+
+Es imperativo prohibir explícitamente el doble beneficio en las Disposiciones.
+
+\begin{displayquote}
+\textbf{Artículo [M]. De la Unicidad del Atributo Ambiental y Prohibición de Doble Conteo.}
+\begin{enumerate}[label=\Roman*.]
+    \item Cada Certificado de Energía Limpia ampara la titularidad exclusiva de los beneficios ambientales asociados a la generación de un MWh de energía libre de combustibles.
+    \item Queda estrictamente prohibida la emisión concurrente de Certificados y cualquier otro instrumento de acreditación ambiental, nacional o internacional, sobre el mismo volumen de energía generado.
+    \item Los Generadores que deseen comercializar los atributos ambientales bajo estándares internacionales distintos al CEL, deberán solicitar ante el SNIEr la cancelación administrativa de los Certificados correspondientes, obteniendo una constancia de retiro que avale la unicidad del atributo frente a terceros certificadores.
+\end{enumerate}
+\end{displayquote}
+
+\subsection{Análisis de Impacto (KPIs y Beneficios)}
+
+\begin{itemize}
+    \item \textbf{Credibilidad Internacional:} Los CELs mexicanos se vuelven ``Gold Standard'', aceptados plenamente en reportes globales como RE100 y CDP (Carbon Disclosure Project).
+    \item \textbf{Valorización del CEL:} Al obligar al mercado voluntario (que es gigante) a comprar CELs reales (y quemarlos) en lugar de I-RECs paralelos, aumenta la demanda del CEL y sube su precio, beneficiando a los generadores.
+    \item \textbf{Verdad al Consumidor:} Se protege al ciudadano de publicidad engañosa (``Greenwashing'').
+\end{itemize}
+
+\portadaseccion{13}{Cumplimiento Histórico}{}
+\section{Cumplimiento Histórico}
+\subsection{Diagnóstico Forense (As-Is): La ``Obligación Tardía''}
+
+Bajo la operación de la CRE, el sistema S-CEL no estaba sincronizado con el alta de contratos en el CENACE.
+
+\begin{description}
+    \item[La Falla:] El registro era ``rogado'' (el usuario tenía que ir a tocar la puerta).
+    \item[El Modus Operandi:]
+    \begin{itemize}
+        \item Una empresa minera empezaba a consumir en el MEM en 2019. No se inscribía en el S-CEL. Nadie le cobraba.
+        \item En 2023, decidía regularizarse. Se inscribía.
+        \item El sistema le generaba obligaciones a partir de 2023.
+    \end{itemize}
+    \item[El Quebranto:] Los años 2019, 2020, 2021 y 2022 quedaban en el olvido. Esto generaba un incentivo perverso: ``Tarda lo más que puedas en registrarte, te ahorras millones''.
+\end{description}
+
+\subsection{Visión Objetivo (To-Be): La Obligación Nace con el Electrón}
+
+El nuevo modelo SNIEr cambia el principio jurídico de la obligación.
+
+\begin{itemize}
+    \item \textbf{Principio Rector:} La obligación de adquirir CELs nace en el momento físico del consumo, no en el momento administrativo del registro.
+    \item \textbf{Mecanismo:} Cálculo Retroactivo Automático. El sistema no pregunta ``¿Cuándo te registraste?'', pregunta ``¿Cuándo prendiste la luz por primera vez?''.
+\end{itemize}
+
+\subsection{Arquitectura de Sistemas (Especificación Técnica SNIEr)}
+
+El módulo de Cumplimiento integrará un Motor de Auditoría Forense.
+
+\subsubsection*{Ingesta de Historia (CENACE History API)}
+Al dar de alta un RFC, el SNIEr consulta al CENACE: ``Dame la Fecha de Inicio de Operación Comercial y el consumo mensual histórico de este Centro de Carga''.
+
+\subsubsection*{Cálculo de Pasivos}
+El algoritmo aplica la meta vigente en cada año pasado:
+\begin{itemize}
+    \item 2019: Consumo * 5.8\%
+    \item 2020: Consumo * 7.4\%
+    \item ...
+\end{itemize}
+\textbf{Output:} Genera un ``Estado de Cuenta Histórico'' con el saldo total adeudado.
+
+\subsubsection*{Bloqueo de Operación}
+El sistema impide realizar trámites nuevos (ej. cambios de suministrador) hasta que no se reconozca el adeudo histórico.
+
+\subsection{Reingeniería de Procesos (Regularización)}
+
+\begin{tabladoradoCorto}
+  \caption{Tabla 13.1 Del Borrón y Cuenta Nueva a la Auditoría}
+  \begin{tabularx}{\textwidth}{L{0.20\textwidth} L{0.35\textwidth} X}
+    \toprule
+    \rowcolor{gobmxDorado} \encabezadodorado{Variable} & \encabezadodorado{Modelo Anterior (Borrón y Cuenta Nueva)} & \encabezadodorado{Nuevo Modelo (Cobro Retroactivo)} \\
+    \midrule
+    \textbf{Inscripción} & Usuario llenaba formato con fecha actual. & \textbf{Pre-llenado:} El sistema muestra: ``Detectamos actividad desde Mayo 2018''. \\
+    \textbf{Detección} & Manual y aleatoria (si te tocaba visita de verificación). & \textbf{Sistemática:} Barrido automático mensual de todos los RFCs que facturan en CENACE vs los que pagan CELs. \\
+    \textbf{Gestión de Deuda} & Inexistente. & \textbf{Esquema de Facilidades:} Se ofrece un plan de pagos (entregar los CELs atrasados en un plazo de 12-24 meses) a cambio de no imponer multas punitivas (``Amnistía Regulatoria''). \\
+    \bottomrule
+  \end{tabularx}
+\end{tabladoradoCorto}
+
+\subsection{Blindaje Normativo (Redacción Sugerida para DACG)}
+
+Es vital establecer que el registro es solo un acto formal, no el origen de la deuda.
+
+\begin{displayquote}
+\textbf{Artículo [N]. De la Exigibilidad y Cálculo Retroactivo.}
+\begin{enumerate}[label=\Roman*.]
+    \item La obligación de adquirir Certificados de Energías Limpias es exigible a partir del primer periodo de facturación en el que el Centro de Carga recibió suministro eléctrico, independientemente de la fecha de su inscripción en el Registro de Usuarios Calificados o en el SNIEr.
+    \item Para los participantes que se inscriban de manera extemporánea, el SNIEr calculará automáticamente el Pasivo Histórico de Certificados acumulado desde el inicio de sus operaciones.
+    \item La CNE podrá establecer Programas de Regularización que permitan a los participantes cubrir dicho Pasivo Histórico en parcialidades, condonando las sanciones económicas siempre y cuando se garantice la entrega total de los Certificados adeudados.
+\end{enumerate}
+\end{displayquote}
+
+\subsection{Análisis de Impacto (KPIs y Beneficios)}
+
+\begin{itemize}
+    \item \textbf{Recuperación de Demanda:} Se estima que existe una ``demanda oculta'' de 3 a 5 millones de CELs correspondientes a años anteriores no cobrados. Esto ayuda a limpiar la sobreoferta del mercado.
+    \item \textbf{Equidad de Mercado:} Los usuarios cumplidos dejan de sentir que son los únicos que pagan la fiesta. Se nivela el terreno de juego.
+    \item \textbf{Cultura de Cumplimiento:} El mensaje al mercado es claro: ``No puedes esconderte; el sistema tiene memoria''.
+\end{itemize}
+
+\portadaseccion{14}{Gobernanza}{}
+\section{Gobernanza}
+\subsection{Diagnóstico Forense (As-Is): El ``Divorcio'' Institucional}
+
+Bajo el marco de la Ley de los Órganos Reguladores Coordinados (LORCME), la CRE gozaba de una autonomía técnica y de gestión que, en la práctica, derivó en una fragmentación de la política pública.
+
+\begin{description}
+    \item[La Falla:] La existencia de ``Dos Rectores''.
+    \begin{itemize}
+        \item La SENER publicaba el PRODESEN (Programa de Desarrollo del Sistema Eléctrico Nacional) con metas agresivas de transición.
+        \item La CRE, apelando a su autonomía, tardaba meses o años en emitir las DACG necesarias para instrumentar esas metas, o emitía regulaciones con criterios técnicos divergentes.
+    \end{itemize}
+    \item[El Conflicto:] Esta desconexión generó la ``Lluvia de Amparos''. Los privados impugnaban actos de SENER argumentando que invadían facultades de la CRE, y viceversa.
+    \item[Consecuencia:] Incertidumbre total. Un inversionista no sabía si obedecer al Secretario de Energía o al Comisionado Presidente de la CRE.
+\end{description}
+
+\subsection{Visión Objetivo (To-Be): Unidad de Propósito}
+
+El nuevo modelo bajo la Ley de la Comisión Nacional de Energía (Ley CNE) establece una jerarquía funcional clara bajo el concepto de Rectoría del Estado.
+
+\begin{itemize}
+    \item \textbf{Roles Claros:}
+    \begin{itemize}
+        \item \textbf{SENER (El Cerebro):} Define el ``Qué'' y el ``Cuándo''. Establece la Política Energética, las metas de CELs y la Planeación Vinculante.
+        \item \textbf{CNE (El Brazo Ejecutor):} Define el ``Cómo''. Instrumenta técnicamente la política, opera el registro (SNIEr), vigila el cumplimiento y sanciona.
+    \end{itemize}
+    \item \textbf{Principio Rector:} La regulación técnica no puede obstaculizar la política pública; debe habilitarla.
+\end{itemize}
+
+\subsection{Arquitectura de Sistemas (Especificación Técnica SNIEr)}
+
+El SNIEr debe reflejar esta gobernanza mediante un sistema estricto de Control de Acceso Basado en Roles (RBAC).
+
+\subsubsection*{Nivel 1: Configuración de Política (Usuario SENER)}
+\begin{itemize}
+    \item Acceso exclusivo para modificar las Variables Maestras: \% de Obligación Anual, Factores de Emisión, Criterios de Tecnologías Limpias.
+    \item \textbf{Efecto:} Cuando SENER cambia un parámetro, el sistema actualiza las reglas para todo el mercado automáticamente.
+\end{itemize}
+
+\subsubsection*{Nivel 2: Operación y Supervisión (Usuario CNE)}
+\begin{itemize}
+    \item Acceso para ejecutar procesos: Acuñación de CELs, Auditoría de Participantes, Imposición de Sanciones.
+    \item \textbf{Candado:} La CNE no puede alterar las Variables Maestras definidas por SENER en el código del sistema.
+\end{itemize}
+
+\subsubsection*{Trazabilidad de Decisiones}
+Cada cambio regulatorio en el sistema queda firmado digitalmente por el funcionario responsable, eliminando la ``mano negra'' en la base de datos.
+
+\subsection{Reingeniería de Procesos (Ciclo de Regulación)}
+
+\begin{tabladoradoCorto}
+  \caption{Tabla 14.1 Alineación Estratégica}
+  \begin{tabularx}{\textwidth}{L{0.20\textwidth} L{0.35\textwidth} X}
+    \toprule
+    \rowcolor{gobmxDorado} \encabezadodorado{Etapa} & \encabezadodorado{Modelo Anterior (Fragmentado)} & \encabezadodorado{Nuevo Modelo (Alineado)} \\
+    \midrule
+    \textbf{Definición de Metas} & SENER publicaba un Aviso. CRE decidía si lo incorporaba o no a sus procesos de vigilancia. & \textbf{Vinculación Automática:} SENER publica la meta en el Diario Oficial $\to$ Se actualiza el parámetro en el SNIEr al día siguiente. \\
+    \textbf{Resolución de Conflictos} & Mesas de diálogo interminables entre Jurídico SENER y Jurídico CRE. & \textbf{Consejo Consultivo Conjunto:} Mecanismo formal donde CNE opina técnicamente, pero la decisión final de política es de SENER. \\
+    \textbf{Ventanilla de Trámites} & El usuario entregaba papeles en SENER y otros en CRE (duplicidad). & \textbf{Ventanilla Única Digital:} El usuario sube su expediente al SNIEr una sola vez. SENER valida política, CNE valida técnica. \\
+    \bottomrule
+  \end{tabularx}
+\end{tabladoradoCorto}
+
+\subsection{Blindaje Normativo (Redacción Sugerida para Ley CNE/Reglamento)}
+
+Es necesario plasmar jurídicamente la subordinación estratégica (no técnica, sino de política) de la CNE.
+
+\begin{displayquote}
+\textbf{Artículo [G]. De la Alineación con la Política Energética.}
+\begin{enumerate}[label=\Roman*.]
+    \item La Comisión Nacional de Energía (CNE) ejercerá sus atribuciones de regulación, supervisión y control del mercado de Certificados bajo la estricta observancia de la Política de Transición Energética dictada por la Secretaría (SENER).
+    \item Los criterios técnicos, metodologías de cálculo y reglas de operación que emita la CNE deberán ser congruentes y habilitadores de las metas establecidas en el Programa de Desarrollo del Sistema Eléctrico Nacional (PRODESEN).
+    \item En caso de discrepancia interpretativa entre una regulación técnica y la Política Energética, prevalecerá esta última en beneficio del interés público y la seguridad energética, correspondiendo a la Secretaría la interpretación final de las disposiciones administrativas.
+\end{enumerate}
+\end{displayquote}
+
+\subsection{Análisis de Impacto (KPIs y Beneficios)}
+
+\begin{itemize}
+    \item \textbf{Velocidad de Implementación:} El tiempo para que una política pública se convierta en realidad operativa se reduce de 18 meses a 3 meses.
+    \item \textbf{Reducción de Litigiosidad:} Al eliminar los choques de competencia entre autoridades, se reduce el riesgo de amparos por ``invasión de facultades''.
+    \item \textbf{Confianza del Inversionista:} Existe una sola voz del Gobierno Federal. Las reglas son coherentes de arriba a abajo.
+\end{itemize}
+
+\portadaseccion{15}{Proceso de Inscripción}{}
+\section{Proceso de Inscripción}
+\subsection{Diagnóstico Forense (As-Is): La Doble Ventanilla Burocrática}
+
+Bajo los Lineamientos CEL de 2014 (Numeral 10), el proceso de registro en el sistema S-CEL era un trámite desconectado de la realidad operativa.
+
+\begin{description}
+    \item[La Falla:] La duplicidad de requisitos.
+    \begin{itemize}
+        \item Para obtener el Permiso de Generación, la empresa ya había entregado actas constitutivas, diagramas unifilares y dictámenes a la CRE.
+        \item Para inscribirse en el Sistema CEL, la CRE le pedía exactamente los mismos documentos otra vez.
+    \end{itemize}
+    \item[El Cuello de Botella:] La revisión era manual. Un analista debía cotejar que el diagrama unifilar subido al S-CEL fuera igual al del permiso.
+    \item[Consecuencia:] Tiempos de espera de 6 a 12 meses. Durante ese tiempo, la planta generaba energía limpia, pero no recibía CELs (lucro cesante), afectando la Tasa Interna de Retorno (TIR) del proyecto.
+\end{description}
+
+\subsection{Visión Objetivo (To-Be): Principio ``Once Only'' (Solo una vez)}
+
+El nuevo modelo SNIEr adopta el estándar de Gobierno Digital de Estonia o Reino Unido.
+
+\begin{itemize}
+    \item \textbf{Principio Rector:} El Estado no debe pedirte un documento que el Estado ya tiene.
+    \item \textbf{Mecanismo:} Alta Automática por Evento. El sistema de CELs no espera una solicitud; reacciona a la entrada en operación de la planta.
+    \item \textbf{Lógica:} Si el CENACE te deja inyectar energía, es porque ya cumpliste con todo. Por tanto, tienes derecho inmediato a tus CELs.
+\end{itemize}
+
+\subsection{Arquitectura de Sistemas (Especificación Técnica SNIEr)}
+
+El SNIEr funcionará como un repositorio centralizado de identidad digital.
+
+\subsubsection*{Expediente Digital Único}
+Una base de datos NoSQL donde se almacena la ``identidad'' de la central.
+
+\subsubsection*{Trigger de Interoperabilidad}
+\begin{enumerate}
+    \item \textbf{Permisos (CNE):} Al autorizar el permiso, se crea el \texttt{ID\_Planta} en estatus Pre-Operativo.
+    \item \textbf{CENACE:} Al emitir la ``Declaratoria de Entrada en Operación Comercial'', envía un \textit{webhook} al SNIEr.
+    \item \textbf{SNIEr:} Cambia el estatus a \texttt{Activo} y habilita la billetera de CELs automáticamente.
+\end{enumerate}
+
+\subsubsection*{Single Sign-On (SSO)}
+Acceso universal mediante e.firma. No más usuarios y contraseñas olvidados.
+
+\subsection{Reingeniería de Procesos (Flujo de Onboarding)}
+
+\begin{tabladoradoCorto}
+  \caption{Tabla 15.1 Del Trámite al Servicio Proactivo}
+  \begin{tabularx}{\textwidth}{L{0.20\textwidth} L{0.35\textwidth} X}
+    \toprule
+    \rowcolor{gobmxDorado} \encabezadodorado{Etapa} & \encabezadodorado{Modelo Anterior (Manual)} & \encabezadodorado{Nuevo Modelo (Zero-Touch)} \\
+    \midrule
+    \textbf{Inicio} & Usuario escanea 500 páginas y las sube a la web de CRE. & \textbf{Inexistente:} El usuario no inicia el trámite; el sistema lo inicia por él. \\
+    \textbf{Validación} & Analista revisa documento por documento (Sujeto a error humano). & \textbf{Algorítmica:} El sistema valida: RFC en Permiso = RFC en Contrato de Interconexión. \\
+    \textbf{Tiempo de Respuesta} & 8 meses promedio (con prevenciones). & \textbf{Inmediato:} Al día siguiente de la operación comercial, el usuario recibe un correo: ``Bienvenido al Mercado de CELs''. \\
+    \textbf{Costo Administrativo} & Gestores, notarios, copias certificadas. & \textbf{Cero:} Proceso 100\% digital e interoperable. \\
+    \bottomrule
+  \end{tabularx}
+\end{tabladoradoCorto}
+
+\subsection{Blindaje Normativo (Redacción Sugerida para DACG)}
+
+Es necesario derogar el requisito de ``solicitud por escrito'' y habilitar la inscripción de oficio.
+
+\begin{displayquote}
+\textbf{Artículo [J]. De la Inscripción Simplificada y el Expediente Digital.}
+\begin{enumerate}[label=\Roman*.]
+    \item La inscripción de Centrales Eléctricas Limpias y Centros de Carga en el SNIEr se realizará de oficio y de manera automática, tomando como base la información contenida en el Título de Permiso otorgado por la CNE y el Contrato de Participante del Mercado suscrito con el CENACE.
+    \item Los Participantes no estarán obligados a presentar documentación adicional, salvo aquella estrictamente necesaria para acreditar atributos específicos no contenidos en los registros institucionales previos.
+    \item La CNE habilitará la cuenta del Participante en el Sistema de Gestión de Certificados en un plazo no mayor a 3 días hábiles posteriores a la notificación de inicio de operaciones comerciales por parte del CENACE.
+\end{enumerate}
+\end{displayquote}
+
+\subsection{Análisis de Impacto (KPIs y Beneficios)}
+
+\begin{itemize}
+    \item \textbf{Aceleración Financiera:} El generador monetiza sus CELs desde el Mes 1 de operación, mejorando el flujo de caja inicial del proyecto.
+    \item \textbf{Eliminación del Rezago:} Se vacía la fila de trámites pendientes en la oficialía de partes de la CNE.
+    \item \textbf{Integridad:} Se elimina la posibilidad de corrupción (``pagar para agilizar el trámite''), ya que el proceso es disparado por el sistema, no por un funcionario.
+\end{itemize}
+
+\portadaseccion{16}{CEL y Factor Emisiones}{}
+\section{CEL y Factor Emisiones}
+\subsection{Diagnóstico Forense (As-Is): La Neutralidad Tecnológica ``Ciega''}
+
+El CEL fue diseñado como un instrumento volumétrico (1 MWh = 1 CEL).
+
+\begin{description}
+    \item[La Falla:] El mercado trataba igual a un CEL solar (0 emisiones) que a un CEL de Cogeneración Eficiente (que sí emite CO$_2$, aunque menos que el estándar).
+    \item[Consecuencia:] Desalineación con las metas climáticas globales (Paris Agreement). Las empresas compraban lo más barato, no necesariamente lo más limpio en términos de carbono.
+\end{description}
+
+\subsection{Solución (To-Be): El Atributo Informativo de Carbono}
+
+No cambiamos la naturaleza del CEL, pero le agregamos una ``etiqueta nutricional''.
+
+\subsubsection*{Arquitectura SNIEr}
+\begin{itemize}
+    \item \textbf{Calculadora de Huella:} El sistema calcula las toneladas de CO$_2$ evitadas por cada CEL basándose en el Factor de Emisión del Sistema Eléctrico Nacional en la hora y nodo de generación.
+    \item \textbf{Reporte ESG:} Al liquidar el CEL, el usuario recibe un certificado que dice: ``Cumpliste tu obligación de energía y, además, evitaste 0.45 ton de CO$_2$''.
+\end{itemize}
+
+\subsection{Blindaje Normativo (Redacción Sugerida para DACG)}
+
+\begin{displayquote}
+\textbf{Artículo [P]. Del Valor Ambiental Informativo.}
+El SNIEr emitirá, junto con la constancia de cancelación de Certificados, una Cédula de Impacto Ambiental que cuantificará las emisiones evitadas, con fines estrictamente informativos y de reporte corporativo, sin que esto constituya un bono de carbono comercializable por separado.
+\end{displayquote}
+
+\portadaseccion{17}{Energía de No Registrados}{}
+\section{Energía de No Registrados}
+
+\subsection{Diagnóstico Forense (As-Is): Planeación con Datos Parciales}
+
+La SENER planeaba el sistema basándose solo en quien tenía permiso. Ignoraba la ``Generación Fantasma'' (techos solares residenciales, pequeñas hidroeléctricas viejas).
+
+\begin{description}
+    \item[La Falla:] Subestimación del potencial nacional. Se decía ``nos falta energía limpia'' cuando en realidad había mucha, pero no estaba contabilizada.
+\end{description}
+
+\subsection{Solución (To-Be): Estimación por Big Data}
+
+\subsubsection*{Arquitectura SNIEr}
+\begin{itemize}
+    \item \textbf{Algoritmos de Inferencia:} El sistema toma la capacidad instalada de GD (Generación Distribuida) reportada por CFE y cruza con datos satelitales de radiación solar (NASA/NOAA).
+    \item \textbf{Output:} Genera una capa de ``Oferta Virtual'' en el tablero de control. ``No sabemos exactamente quién generó, pero sabemos que en Sonora se produjeron X GWh solares hoy''.
+\end{itemize}
+
+\subsection{Beneficio}
+Planeación de red más precisa. Evita sobre-inversión en líneas de transmisión donde ya hay generación local suficiente.
+
+\portadaseccion{18}{Plazos y Sanciones}{}
+\section{Plazos y Sanciones}
+
+\subsection{Diagnóstico Forense (As-Is): La ``Muerte Civil'' del Participante}
+
+El criterio establecido en el acuerdo RES/248/2016 de la CRE fue devastador.
+
+\begin{description}
+    \item[La Falla:] ``El pago de la multa no libera de la obligación''.
+    \item[El Escenario:] Debías 100 CELs. Te multaban con \$500,000 pesos. Pagabas la multa. ¡Y seguías debiendo los 100 CELs! Al año siguiente, debías los 100 viejos + los nuevos. Se volvía una deuda impagable.
+\end{description}
+
+\subsection{Solución (To-Be): Justicia Restaurativa (Pago Sustitutivo)}
+
+\subsubsection*{Arquitectura SNIEr}
+\begin{itemize}
+    \item \textbf{Pasarela de Pago:} Si no encuentras CELs en el mercado, el sistema habilita un botón: ``Pago Sustitutivo''.
+    \item \textbf{Efecto:} Pagas un monto penalizado (ej. precio tope administrativo). El sistema toma ese dinero para un Fondo de Transición Energética y extingue la deuda de CELs.
+    \item \textbf{Reingeniería:} El pago sustitutivo cierra el expediente administrativo. No hay doble persecución.
+\end{itemize}
+
+\subsection{Blindaje Normativo (Redacción Sugerida para DACG)}
+
+\begin{displayquote}
+\textbf{Artículo [R]. Del Pago Sustitutivo y Extinción de Obligaciones.}
+En caso de incumplimiento, el Participante podrá optar por realizar un Pago Sustitutivo equivalente al valor máximo de mercado más una penalización del 20\%. Dicho pago tendrá efectos liberatorios y extinguirá la obligación de entrega de los Certificados correspondientes al periodo sancionado.
+\end{displayquote}
+
+\portadaseccion{19}{Informes Públicos y Gobierno Abierto}{}
+\section{Informes Públicos y Gobierno Abierto}
+
+\subsection{Diagnóstico Forense (As-Is): Opacidad Sistemática}
+
+La información del mercado CEL se consideraba casi ``secreto de Estado''. Los informes eran PDFs anuales con datos agregados que no servían para tomar decisiones de inversión.
+
+\subsection{Solución (To-Be): Dashboard de Datos Abiertos (Open Data)}
+
+\subsubsection*{Arquitectura SNIEr}
+\begin{itemize}
+    \item \textbf{Portal Público:} Acceso libre (sin login) a gráficas interactivas.
+    \item \textbf{Variables Publicadas:}
+    \begin{itemize}
+        \item Curva de Precio Spot (Semanal).
+        \item Inventario Total Disponible (Oferta).
+        \item Obligación Acumulada (Demanda).
+        \item \% de Cumplimiento Nacional.
+    \end{itemize}
+    \item \textbf{APIs Públicas:} Para que universidades y analistas descarguen los datasets anonimizados (CSV/JSON).
+\end{itemize}
+
+\subsection{Beneficio}
+Democratización de la información. Un estudiante de ingeniería o un banquero de Nueva York tienen la misma visibilidad sobre la salud del mercado mexicano.
+
+\newpage
+\phantomsection
+\addcontentsline{toc}{section}{I. Bibliografía y Fuentes Normativas Consultadas}
+\section*{I. Bibliografía y Fuentes Normativas Consultadas}
+Para la elaboración de la Matriz Comparativa y los Análisis de Profundidad, se contrastó el marco jurídico ``Heredado'' (2014-2024) frente al ``Nuevo Modelo Institucional'' (2025 en adelante).
+
+\subsection*{A. Marco Legal Superior (Leyes)}
+\begin{itemize}
+    \item \textbf{Ley de la Industria Eléctrica (LIE).} Publicada en el DOF el 11 de agosto de 2014. (Artículos 3, 12, 126, 159).
+    \item \textbf{Ley de Transición Energética (LTE).} Publicada en el DOF el 24 de diciembre de 2015.
+    \item \textbf{Ley de los Órganos Reguladores Coordinados en Materia Energética (LORCME).} Publicada en el DOF el 11 de agosto de 2014 (Referencia para facultades extintas de la CRE).
+    \item \textbf{Ley de la Comisión Nacional de Energía (Ley CNE).} Documento Base / Proyecto de Decreto. (Referencia para nuevas facultades de ejecución y supervisión).
+    \item \textbf{Ley de Planeación y Transición Energética (LPyTE).} Marco Normativo del Nuevo Modelo. (Referencia para la Planeación Vinculante y Rectoría de SENER).
+\end{itemize}
+
+\subsection*{B. Disposiciones Administrativas y Reglamentarias (DACG)}
+\begin{itemize}
+    \item \textbf{Reglamento de la Ley de la Industria Eléctrica.} Publicado en el DOF el 31 de octubre de 2014.
+    \item \textbf{Lineamientos que establecen los criterios para el otorgamiento de Certificados de Energías Limpias y los requisitos para su adquisición.} (DOF 31/10/2014). [Norma derogada/a sustituir en el análisis].
+    \item \textbf{Anteproyecto del Reglamento de la Ley de Planeación y Transición Energética.} (Documento de trabajo sobre el SNIEr).
+    \item \textbf{Bases del Mercado Eléctrico.} Secretaría de Energía (SENER), 2015.
+\end{itemize}
+
+\subsection*{C. Acuerdos y Resoluciones Específicas (Jurisprudencia Administrativa)}
+\begin{itemize}
+    \item \textbf{Resolución RES/248/2016.} Por la que la CRE expide las DACG en materia de cumplimiento y sanciones. (Fuente del criterio punitivo sobre multas).
+    \item \textbf{Acuerdo A/037/2021.} Por el que la CRE modifica el criterio de interpretación del concepto ``Necesidades Propias'' (Abasto Aislado).
+    \item \textbf{Aviso por el que se dan a conocer los Requisitos para la Adquisición de CELs} (Publicaciones anuales 2018-2022).
+    \item \textbf{Resolución RES/584/2016.} Modificaciones a los montos mínimos de contratos de cobertura eléctrica.
+\end{itemize}
+
+\subsection*{D. Documentos Técnicos y de Planeación}
+\begin{itemize}
+    \item \textbf{PRODESEN (Programa de Desarrollo del Sistema Eléctrico Nacional).} Ediciones consultadas para proyección de metas de energías limpias.
+    \item \textbf{Manual de Prácticas de Mercado: Registro de Participantes.} CENACE.
+\end{itemize}
+
+\newpage
+\phantomsection
+\addcontentsline{toc}{section}{II. Glosario de Términos Técnicos, Regulatorios y de Sistemas}
+\section*{II. Glosario de Términos Técnicos, Regulatorios y de Sistemas}
+Este glosario unifica el lenguaje entre los equipos Jurídico, Operativo y de TI para el desarrollo del SNIEr.
+
+\subsection*{A. Instituciones y Actores}
+\begin{description}
+    \item[SENER (Secretaría de Energía):] Dependencia encargada de dictar la Política Energética y la Planeación Vinculante. Define el ``Qué'' y el ``Cuándo''.
+    \item[CNE (Comisión Nacional de Energía):] Nuevo organismo público descentralizado encargado de la ejecución técnica, regulación operativa, supervisión y administración del SNIEr. Define el ``Cómo''.
+    \item[CENACE (Centro Nacional de Control de Energía):] Operador del sistema eléctrico y del Mercado Mayorista. Fuente primaria de los datos de medición fiscal.
+    \item[Suministrador de Servicios Básicos (SSB):] Figura (principalmente CFE) que provee energía a usuarios domésticos y pequeños comercios bajo tarifas reguladas. Principal comprador de CELs.
+    \item[Entidad Voluntaria:] Persona moral que adquiere y retira CELs sin tener una obligación legal, con fines de sustentabilidad corporativa (ESG).
+\end{description}
+
+\subsection*{B. Instrumentos y Conceptos de Mercado}
+\begin{description}
+    \item[CEL (Certificado de Energía Limpia):] Título emitido por la CNE que acredita la generación de 1 MWh de energía eléctrica a partir de fuentes limpias.
+    \item[Bolsa No Onerosa:] Acumulación histórica de CELs emitidos y no liquidados que genera un sobre-inventario y deprime el precio de mercado.
+    \item[Abasto Aislado:] Esquema donde la generación y el consumo ocurren dentro de las mismas instalaciones o redes particulares, sin usar necesariamente la Red Nacional de Transmisión.
+    \item[Periodo de Cura (Cure Period):] Ventana de tiempo extraordinaria que otorga el sistema para subsanar incumplimientos derivados de ajustes o reliquidaciones ajenas al usuario.
+    \item[Pago Sustitutivo:] Mecanismo financiero que permite extinguir una obligación de CELs mediante un pago a un fondo público cuando no existe oferta disponible en el mercado.
+\end{description}
+
+\subsection*{C. Términos de Sistemas e Informática (SNIEr)}
+\begin{description}
+    \item[SNIEr (Sistema Nacional de Información Energética):] Plataforma digital centralizada que gestionará la identidad, emisión y transacción de los CELs.
+    \item[UUID (Universally Unique Identifier):] Código alfanumérico de 128 bits (ej. 550e8400-e29b...) que identifica a un CEL de manera única e irrepetible en el sistema.
+    \item[Blockchain / Ledger Privado:] Tecnología de registro distribuido e inmutable utilizada para garantizar la trazabilidad de la propiedad de los CELs y evitar el doble gasto.
+    \item[API (Application Programming Interface):] Interfaz que permite la comunicación automática (``hablar'') entre dos sistemas distintos (ej. CENACE enviando datos al SNIEr) sin intervención humana.
+    \item[Interoperabilidad:] Capacidad del SNIEr para intercambiar datos con el SAT, CENACE y CFE Distribución de forma estandarizada.
+\end{description}
+
+\subsection*{D. Conceptos Operativos}
+\begin{description}
+    \item[FIFO (First-In, First-Out / PEPS):] Regla de inventario que obliga a liquidar primero los Certificados más antiguos para evitar su acumulación y depreciación.
+    \item[Tracto Sucesivo:] Cadena ininterrumpida de transmisiones de propiedad de un activo. Historial completo de dueños de un CEL.
+    \item[Beneficiario Final:] La persona física o moral que realmente consume la energía asociada a la obligación, independientemente de los intermediarios contractuales.
+    \item[Quema / Retiro:] Acción irreversible mediante la cual un CEL es sacado de circulación para acreditar el cumplimiento de una obligación o meta voluntaria.
+\end{description}
+
+
+\portadaseccion{Anexo A}{Matriz de Hallazgos y Soluciones}{}
+\anexos
+\begin{tablaespecial}
+  \seccionHorizontal{Matriz de Hallazgos y Soluciones (Resumen Ejecutivo)}
+  
+  \begin{tabladoradoLargo}
+    \tiny
+    \setlength{\tabcolsep}{3pt} % Reducir padding horizontal para ganar espacio
+    % Ancho total ajustado para equilibrar columnas y dar aire a la Solución (X)
+    \begin{xltabular}{\linewidth}{|p{1.0cm}|p{1.8cm}|p{1.8cm}|p{1.8cm}|p{1.4cm}|p{0.8cm}|p{0.8cm}|X|p{1.9cm}|p{1.9cm}|p{1.4cm}|p{1.2cm}|}
+      \toprule
+      \encabezadodorado{Tema} & \encabezadodorado{Marco Anterior} & \encabezadodorado{Problema} & \encabezadodorado{Impacto} & \encabezadodorado{LPyTE} & \encabezadodorado{Aut. Ant.} & \encabezadodorado{Aut. Ahora} & \encabezadodorado{Solución Propuesta} & \encabezadodorado{Evidencia} & \encabezadodorado{Beneficio} & \encabezadodorado{Fuente/Ref.} & \encabezadodorado{Obs.} \\
+      \midrule
+      \endhead
+      
+      A) Trazabilidad & Folio ``semántico'' ligado a atributos admon. & Pérdida de rastro en cesiones o fusiones. & Mercado secundario desconfiado; auditoría imposible. & Activo digital único en SNIEr. & CRE & CNE & UUID inmutable + Blockchain privado. & Log de eventos inalterable. & Integridad total del activo. & Lineamientos CEL Num. 12 & Num. 12 violaba trazabilidad. \\ \hline
+      B) Declaracel & Portal aislado, carga manual. & UX deficiente, errores de captura. & Altos costos admon. y multas por error. & Digitalización y centralización. & CRE & CNE / CENACE & Migración a SNIEr con APIs M2M. & Acuse digital automático. & Cero carga administrativa. & LIE Art. 12 & Carecía de base para APIs. \\ \hline
+      C) Bolsa & Acumulación histórica permitida. & Acumulación masiva sin liquidar = Precio \$0. & Desincentivo a la inversión nueva. & Planeación Vinculante. & CRE & SENER / CNE & Reglas FIFO y Caducidad Dinámica. & Reporte de antigüedad. & Señal de precio correcta. & LIE Art. 125 & LIE 126 creó el problema. \\ \hline
+      D) Fracciones & Emisión por MWh entero (1=1). & Pérdida de decimales (mermas). & Pérdidas financieras acumuladas. & Precisión contable. & CRE & CNE & Fraccionamiento a 4 decimales. & Conciliación Energía vs CEL. & Cero Mermas. & Lineamientos Num. 8 & Num. 8 era explícito. \\ \hline
+      E) Dictamen & Dictamen técnico anual estático. & Periodos ``ciegos'' post-visita. & Riesgo de acreditar plantas paradas. & Supervisión continua. & CRE & CNE & Validación tiempo real vs CENACE. & Alerta automática de cambios. & Certeza de origen limpio. & Lineamientos Num. 20 & Verificación manual ineficaz. \\ \hline
+      F) Base Cálculo & Reporte basado en liquidación parcial. & Energía local/aislado no contabilizada. & Sub-reporte de obligaciones. & Universalidad de Info. & CRE & CNE / CENACE & Conciliación CENACE + CFE Dist + Local. & Cruce MDM (Meter Data). & Cobertura 100\% del mercado. & LIE Art. 124 & LIE 124 obligaba a informar pero no cómo. \\ \hline
+      G) Oferta & Metas fijas por Ley (5.8\%). & Rigidez ante cambios de demanda. & Escasez artificial o sobreoferta. & Planeación Flexible. & SENER & SENER & Ajuste de metas con 3 años de anticipación. & Tablero de suficiencia. & Certeza para inversionistas. & LTE Transitorio 3 & Metas fijas resultaron rígidas. \\ \hline
+      H) Plazos & Calendario rígido anual. & Desfase Liquidación MEM vs CEL. & Multas injustas por ajustes ex-post. & Coordinación institucional. & CRE & CNE & Fecha límite dinámica; Periodo de Cura. & Trazabilidad de ajustes. & Justicia administrativa. & Aviso Requisitos & Desalineación histórica. \\ \hline
+      I) Autoabasto & Reporte heterogéneo o nulo. & Cajas negras de generación. & Fuga de obligaciones (Free riders). & Registro obligatorio. & CRE & CNE & Telemetría certificada obligatoria. & Certificado de calibración. & Piso parejo (Level playing field). & Acuerdo A/037/2021 & Regulaba lo técnico, no fiscal. \\ \hline
+      J) Figuras & Regulación Suministro Básico. & Evasión mediante ingenierías. & Erosión de demanda. & Cantidad en Sujeto Obligado. & CRE & CNE & Obligación basada en consumo físico real. & Trazabilidad hasta usuario final. & Cierre de lagunas. & LIE Art. 3 & Definición de Part. Obligado. \\ \hline
+      K) Precios & Reporte voluntario bilateral. & Opacidad total de precios OTC. & Falta de señales de inversión. & Transparencia de Mercado. & CRE & SENER & Registro obligatorio de precio. & Indices de mercado anonimizados. & Mercado eficiente. & LIE Art. 129 & Permitía pactar libremente sin reporte. \\ \hline
+      L) Voluntario & Coexistencia con I-RECs no regulada. & Riesgo de doble venta. & Fraude al consumidor (Greenwashing). & Integridad del Sistema. & N/A & CNE/SENER & Prohibición expresa de doble emisión. & Serialización compatible intl. & Credibilidad del CEL. & Vacío Normativo & No existía prohibición clara. \\ \hline
+      M) Histórico & Registro tardío de obligados. & Deudas olvidadas. & Impunidad para los que entran tarde. & Auditoría y Regularización. & CRE & CNE & Amnistía condicionada; Cálculo retroactivo. & Estado de cuenta histórico. & Recuperación de pasivos. & DACG Cumplimiento & Falta de impl. operativa. \\ \hline
+      N) Gobernanza & Fragmentación CRE vs SENER. & Choque de criterios, amparos. & Incertidumbre jurídica. & Rectoría del Estado. & CRE & SENER & SENER dicta política; CNE ejecuta. & Actas del Consejo. & Coherencia regulatoria. & LORCME Art. 22 & Fragmentaba la visión. \\ \hline
+      O) Inscripción & Trámite burocrático (Papel). & Tiempos de 6-12 meses. & Barrera de entrada. & Simplificación administrativa. & CRE & CNE & Alta automática al obtener PO. & Trazabilidad del trámite. & Eficiencia y reducción costos. & Lineamientos Num. 10 & Exigía solicitud escrita. \\ \hline
+      P) Carbono & 1 CEL = 1 MWh (Neutro). & No distingue eólica vs biomasa. & Desalineación con metas CO2. & Enfoque de Descarbonización. & SENER & SENER & Factor de equivalencia informativo. & Reporte de sustentabilidad. & Vinculación a mercados carbono. & LIE Art. 3 & Evolución conceptual. \\ \hline
+      Q) No Reg. & Estimación opaca. & Planeación ciega. & Inversiones mal ubicadas. & Inteligencia de Datos. & SENER & SENER & Algoritmos de estimación satelital. & Mapa de calor. & Visibilidad completa. & LIE Art. 14 & Carencia tecnológica. \\ \hline
+      R) Sanciones & Multa fija que no extingue. & Pasivo eterno impagable. & Inviabilidad financiera. & Justicia Energética. & CRE & CNE / SENER & Pago sustitutivo extingue deuda. & Certificado de cumplimiento. & Viabilidad de cobro. & LIE Art. 165 & Confirmó criterio punitivo. \\ \hline
+      S) Informes & Datos ocultos por Secreto. & Asimetría de información. & Especulación y mercado ineficiente. & Gobierno Abierto. & CRE & CNE & Open Data Dashboard público. & Descarga de Datasets. & Competencia perfecta. & LIE Art. 159 & Era proteccionista. \\ \hline
+      \bottomrule
+    \end{xltabular}
+  \end{tabladoradoLargo}
+  \fuenteHorizontal{Fuente: Elaboración propia con base en diagnósticos internos.}
+\end{tablaespecial}
+
+\portadaseccion{8}{Preguntas Frecuentes y Clarificaciones Operativas}{}
+\section{Preguntas Frecuentes y Clarificaciones Operativas}
+
+\subsection{1. ¿El S-CEL calcula los CEL de toda la energía limpia del país o solo de los inscritos?}
+
+El sistema S-CEL solo emite y calcula CELs para los participantes inscritos. No existe un mecanismo automático que genere Certificados por la energía limpia de plantas que no estén registradas.
+
+\textbf{El ``Deber Ser'' Legal:} Para que la energía limpia se convierta en un activo financiero (CEL), debe cumplir con el principio de estricta legalidad y trazabilidad. La Resolución RES/174/2016 (Disposiciones S-CEL) establece que la inscripción es un requisito indispensable.
+
+\textbf{La Diferencia Clave (Oferta vs. Demanda):}
+
+\begin{itemize}
+    \item \textbf{Para el Requisito (Demanda):} La SENER y la CRE calculan la obligación base utilizando el Consumo Nacional Total (reportado por CENACE), estén o no inscritos los consumidores. Es decir, la ``meta'' sí ve todo el panorama nacional.
+    \item \textbf{Para la Emisión (Oferta):} El sistema S-CEL solo ``ve'' y emite certificados para aquellos generadores que han completado su inscripción y presentado su Dictamen Técnico. Si generas energía limpia pero no te inscribes, esa energía fluye a la red, pero el ``atributo limpio'' (el CEL) no nace jurídicamente y se pierde.
+\end{itemize}
+
+\subsection{2. ¿Qué pasa si no hay Dictamen Técnico?}
+
+Sin Dictamen Técnico, no hay CELs.
+
+El Dictamen Técnico (emitido por una Unidad Acreditada) es el documento llave que certifica que tu central es realmente limpia y, si usa combustibles, cuantifica exactamente qué porcentaje es libre de combustible.
+
+Sin este documento, el sistema S-CEL no tiene los datos validados para aplicar la fórmula de cálculo. Por tanto, esa energía se considera como ``energía convencional'' o ``gris'' para efectos administrativos, aunque físicamente sea limpia.
+
+\subsection{3. ¿Esos CELs ``perdidos'' se van a la Bolsa No Onerosa?}
+
+No directamente. Es un error común pensar que la energía no reclamada se va automáticamente a la bolsa de la CRE.
+
+\textbf{Lo que dice la norma:} La ``Bolsa No Onerosa'' se nutre de CELs que ya están en la cuenta de la Comisión (generalmente de plantas legadas de CFE o CELs no asignados en su momento por cuestiones administrativas), no de la generación privada que olvidó registrarse.
+
+\textbf{El destino de los No Inscritos:} El Acuerdo de la Bolsa No Onerosa 2019 aclara explícitamente que si un Participante Obligado no se inscribe, se configura un incumplimiento. No solo no reciben CELs, sino que pierden el derecho a recibir la asignación gratuita (no onerosa) que la CRE reparte periódicamente.
+
+\textbf{Remanentes:} Si sobran CELs en la cuenta de la Comisión porque muchos participantes no se inscribieron para recibirlos (y por tanto no se les pudo repartir), esos CELs se quedan guardados en la cuenta de la Comisión para el siguiente año, \textbf{no se reparten entre los no inscritos}.
+
+\textbf{Resumen:} Si tienes generación limpia pero no estás inscrito ni tienes dictamen:
+\begin{enumerate}
+    \item No se generan CELs a tu nombre.
+    \item Esos CELs potenciales desaparecen (no se van a la bolsa de la CRE automáticamente).
+    \item No puedes reclamar beneficios de la Bolsa No Onerosa.
+\end{enumerate}
+
+\subsection{4. Cálculo de Energía Libre de Combustible (ELC)}
+
+El documento principal que establece esta metodología es la Resolución \textbf{RES/1838/2016}, complementada por la \textbf{NOM-017-CRE-2019} para la medición de variables.
+
+La metodología define 5 casos específicos para calcular el porcentaje de ELC dependiendo de la tecnología y el uso de combustibles:
+
+\begin{description}
+    \item[Caso I (Cogeneración Eficiente):] Se calcula considerando la energía eléctrica neta ($E$), la energía de los combustibles ($F$) y la energía térmica o calor útil ($H$). Si cumple con los criterios de eficiencia, se determina qué porcentaje de la energía generada se considera libre de combustible.
+    \item[Caso II (Centrales Limpias con uso de Combustibles Fósiles):] Aplica a centrales que usan una mezcla, como biocombustibles con fósiles o termosolares con respaldo fósil. El cálculo considera la energía de combustibles fósiles ($F$) vs. no fósiles ($F_{EL}$) y la eficiencia de referencia.
+    \item[Caso III (Bajas Emisiones y Captura de Carbono):] Aplica a tecnologías que capturan $CO_2$. Si la tasa de emisiones es menor o igual a 100 kg/MWh (o la referencia establecida), la ELC puede ser igual a la energía neta generada ($ELC = E$).
+    \item[Caso IV (Aprovechamiento de Hidrógeno):] Se calcula basándose en la energía eléctrica generada por la combustión o uso de hidrógeno y la energía de los combustibles fósiles usados para producir dicho hidrógeno.
+    \item[Caso V (Hidroeléctricas):] Se utiliza una metodología de Densidad de Potencia (relación entre capacidad de generación y superficie del embalse) para determinar si se considera energía limpia.
+\end{description}
+
+\subsection{5. Precio de los CEL (Precio Implícito y de Mercado)}
+
+El precio de los CEL no es fijo, sino que se determina principalmente por el mercado (oferta y demanda). Sin embargo, existe un cálculo regulado para un ``Precio Implícito'' que sirve como tope para activar mecanismos de protección (flexibilidad) para los participantes obligados.
+
+\begin{itemize}
+    \item \textbf{Precio de Mercado:} Los precios resultan de las Subastas de Largo Plazo, el Mercado Eléctrico Mayorista y transacciones bilaterales. La CRE publica reportes con el costo total y unitario por tecnología.
+    \item \textbf{Cálculo del Precio Implícito:} Se detalla en el \textbf{Acuerdo A/013/2019} (Mecanismo de Flexibilidad). Este cálculo se utiliza para verificar si el costo de los CEL es excesivo. Si el Precio Implícito supera las \textbf{60 Unidades de Inversión (UDIs)}, los participantes obligados pueden diferir hasta el 50\% de sus obligaciones.
+\end{itemize}
+
+La metodología para calcular este precio toma como base la fórmula del ``precio específico nocional'' establecida en el Manual de Subastas de Largo Plazo.
+
+\begin{calloutTip}[Fuentes Clave]
+\begin{itemize}
+    \item Para ver las fórmulas matemáticas exactas de la ELC: Revisa el Anexo Único de la \textbf{RES/1838/2016}.
+    \item Para ver el cálculo del Precio Implícito de los CEL: Revisa el \textbf{Acuerdo A/013/2019} (Mecanismo de Flexibilidad).
+\end{itemize}
+\end{calloutTip}
+
+\end{document}

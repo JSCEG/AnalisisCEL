@@ -1,0 +1,22 @@
+# LaTeX build files
+*.aux
+*.bbl
+*.bbl-SAVE-ERROR
+*.bcf
+*.blg
+*.log
+*.pdf
+*.run.xml
+*.toc
+*.synctex.gz
+*.out
+*.fdb_latexmk
+*.fls
+*.dvi
+*.lof
+*.lot
+
+# Windows/Editor files
+Thumbs.db
+.DS_Store
+*.swp
