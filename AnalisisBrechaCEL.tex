@@ -1057,82 +1057,64 @@ Se propone fortalecer el mecanismo de coordinación mediante una adición a la L
 
 \portadaseccion{15}{Proceso de Inscripción}{}
 \section{Proceso de Inscripción}
-\subsection{Diagnóstico Forense (As-Is): La Doble Ventanilla Burocrática}
 
-Bajo los Lineamientos CEL de 2014 (Numeral 10), el proceso de registro en el sistema S-CEL era un trámite desconectado de la realidad operativa.
+\subsection{Diagnóstico (Situación Actual): Duplicidad de Requisitos de Inscripción}
+El procedimiento vigente de registro en el Sistema de Gestión de Certificados (S-CEL) opera bajo un esquema de solicitud rogada que funciona de manera desconectada del otorgamiento de Permisos de Generación. Esto obliga a los Participantes a presentar nuevamente documentación legal y técnica (como Actas Constitutivas y Diagramas Unifilares) que ya fue validada previamente por la Comisión durante la etapa de permisos.
 
-\begin{description}
-    \item[La Falla:] La duplicidad de requisitos.
-    \begin{itemize}
-        \item Para obtener el Permiso de Generación, la empresa ya había entregado actas constitutivas, diagramas unifilares y dictámenes a la CRE.
-        \item Para inscribirse en el Sistema CEL, la CRE le pedía exactamente los mismos documentos otra vez.
-    \end{itemize}
-    \item[El Cuello de Botella:] La revisión era manual. Un analista debía cotejar que el diagrama unifilar subido al S-CEL fuera igual al del permiso.
-    \item[Consecuencia:] Tiempos de espera de 6 a 12 meses. Durante ese tiempo, la planta generaba energía limpia, pero no recibía CELs (lucro cesante), afectando la Tasa Interna de Retorno (TIR) del proyecto.
-\end{description}
+Esta duplicidad administrativa contraviene los principios de simplificación y mejora regulatoria, generando tiempos de espera (latencia administrativa) que impiden la emisión de Certificados durante los primeros meses de operación de la Central, afectando el flujo de ingresos del proyecto.
 
-\subsection{Visión Objetivo (To-Be): Principio ``Once Only'' (Solo una vez)}
-
-El nuevo modelo SNIEr adopta el estándar de Gobierno Digital de Estonia o Reino Unido.
+\subsection{Visión Objetivo (Situación Objetivo): Inscripción de Oficio e Interoperabilidad}
+Se implementa el principio de Captura Única, transformando el registro en un trámite de oficio (``Zero-Touch Enrollment'').
 
 \begin{itemize}
-    \item \textbf{Principio Rector:} El Estado no debe pedirte un documento que el Estado ya tiene.
-    \item \textbf{Mecanismo:} Alta Automática por Evento. El sistema de CELs no espera una solicitud; reacciona a la entrada en operación de la planta.
-    \item \textbf{Lógica:} Si el CENACE te deja inyectar energía, es porque ya cumpliste con todo. Por tanto, tienes derecho inmediato a tus CELs.
+    \item \textbf{Trigger Operativo:} La declaratoria de entrada en operación comercial emitida por el CENACE detona automáticamente el alta del Participante en el SNIEr.
+    \item \textbf{Expediente Digital Único:} El sistema hereda la identidad legal y técnica de la Central directamente de la base de datos de Permisos de la CNE, eliminando la necesidad de volver a cargar documentos.
+    \item \textbf{Validación:} El Participante solo ingresa al sistema para validar sus datos precargados y firmar los términos de uso mediante su firma electrónica (e.firma).
 \end{itemize}
 
-\subsection{Arquitectura de Sistemas (Especificación Técnica SNIEr)}
+\subsection{Arquitectura de Sistemas (Flujo de Datos)}
+El SNIEr funcionará como un repositorio centralizado de identidad digital interoperable:
 
-El SNIEr funcionará como un repositorio centralizado de identidad digital.
+\begin{itemize}
+    \item \textbf{Sincronización:} Conexión vía API con el Registro Público de la Comisión (Permisos) para extraer la ``Identidad Estática'' (Dueño, Tecnología, Ubicación).
+    \item \textbf{Activación:} Webhook desde el CENACE que notifica el cambio de estatus a ``Operativo'' e inyecta la ``Identidad Dinámica'' (Clave de Mercado, Nodo de Precio).
+    \item \textbf{Notificación:} El sistema envía automáticamente las credenciales de acceso al correo registrado del Representante Legal.
+\end{itemize}
 
-\subsubsection*{Expediente Digital Único}
-Una base de datos NoSQL donde se almacena la ``identidad'' de la central.
-
-\subsubsection*{Trigger de Interoperabilidad}
-\begin{enumerate}
-    \item \textbf{Permisos (CNE):} Al autorizar el permiso, se crea el \texttt{ID\_Planta} en estatus Pre-Operativo.
-    \item \textbf{CENACE:} Al emitir la ``Declaratoria de Entrada en Operación Comercial'', envía un \textit{webhook} al SNIEr.
-    \item \textbf{SNIEr:} Cambia el estatus a \texttt{Activo} y habilita la billetera de CELs automáticamente.
-\end{enumerate}
-
-\subsubsection*{Single Sign-On (SSO)}
-Acceso universal mediante e.firma. No más usuarios y contraseñas olvidados.
-
-\subsection{Reingeniería de Procesos (Flujo de Onboarding)}
+\subsection{Reingeniería de Procesos (Simplificación)}
 
 \begin{tabladoradoCorto}
-  \caption{Tabla 15.1 Del Trámite al Servicio Proactivo}
+  \caption{Tabla 15.1 Del Trámite Manual al Proceso Automatizado}
   \begin{tabularx}{\textwidth}{L{0.20\textwidth} L{0.35\textwidth} X}
     \toprule
-    \rowcolor{gobmxDorado} \encabezadodorado{Etapa} & \encabezadodorado{Modelo Anterior (Manual)} & \encabezadodorado{Nuevo Modelo (Zero-Touch)} \\
+    \rowcolor{gobmxDorado} \encabezadodorado{Etapa} & \encabezadodorado{Modelo Anterior (Manual)} & \encabezadodorado{Nuevo Modelo (Automatizado)} \\
     \midrule
-    \textbf{Inicio} & Usuario escanea 500 páginas y las sube a la web de CRE. & \textbf{Inexistente:} El usuario no inicia el trámite; el sistema lo inicia por él. \\
-    \textbf{Validación} & Analista revisa documento por documento (Sujeto a error humano). & \textbf{Algorítmica:} El sistema valida: RFC en Permiso = RFC en Contrato de Interconexión. \\
-    \textbf{Tiempo de Respuesta} & 8 meses promedio (con prevenciones). & \textbf{Inmediato:} Al día siguiente de la operación comercial, el usuario recibe un correo: ``Bienvenido al Mercado de CELs''. \\
-    \textbf{Costo Administrativo} & Gestores, notarios, copias certificadas. & \textbf{Cero:} Proceso 100\% digital e interoperable. \\
+    \textbf{Inicio} & El usuario integraba un expediente digital y lo cargaba manualmente en la OPE (Oficialía de Partes Electrónica). & \textbf{Proactivo:} El sistema inicia el proceso al detectar la actividad comercial en el mercado mayorista. \\
+    \textbf{Validación} & Revisión humana secuencial de documentos legales y técnicos. & \textbf{Algorítmica:} Validación automática de consistencia de datos (RFC Permiso = RFC Contrato Interconexión). \\
+    \textbf{Tiempo de Respuesta} & Promedio de meses (sujeto a carga de trabajo y prevenciones). & \textbf{Inmediato:} Habilitación de la cuenta en un plazo máximo de 5 días hábiles tras el inicio de operaciones. \\
     \bottomrule
   \end{tabularx}
 \end{tabladoradoCorto}
 
-\subsection{Blindaje Normativo (Redacción Sugerida para DACG)}
-
-Es necesario derogar el requisito de ``solicitud por escrito'' y habilitar la inscripción de oficio.
+\subsection{Blindaje Normativo (Reforma a las DACG)}
+Se propone la modificación del Numeral 8 de las Disposiciones Administrativas (RES/174/2016) para eliminar el requisito de solicitud por escrito.
 
 \begin{displayquote}
-\textbf{Artículo [J]. De la Inscripción Simplificada y el Expediente Digital.}
+\textbf{Modificación al Numeral 8 de las Disposiciones (RES/174/2016):}
+
+\textbf{Numeral 8. De la Inscripción Simplificada y de Oficio.}
 \begin{enumerate}[label=\Roman*.]
-    \item La inscripción de Centrales Eléctricas Limpias y Centros de Carga en el SNIEr se realizará de oficio y de manera automática, tomando como base la información contenida en el Título de Permiso otorgado por la CNE y el Contrato de Participante del Mercado suscrito con el CENACE.
-    \item Los Participantes no estarán obligados a presentar documentación adicional, salvo aquella estrictamente necesaria para acreditar atributos específicos no contenidos en los registros institucionales previos.
-    \item La CNE habilitará la cuenta del Participante en el Sistema de Gestión de Certificados en un plazo no mayor a 3 días hábiles posteriores a la notificación de inicio de operaciones comerciales por parte del CENACE.
+    \item La inscripción de Centrales Eléctricas Limpias y Centros de Carga en el Sistema se realizará de oficio por parte de la Comisión, tomando como base la información contenida en el Título de Permiso y la notificación de inicio de operaciones comerciales emitida por el CENACE.
+    \item Los Participantes del Mercado no estarán obligados a presentar documentación adicional para su registro, salvo aquella estrictamente necesaria para acreditar atributos específicos no contenidos en los registros institucionales previos.
+    \item La Comisión notificará al Participante la habilitación de su cuenta en el Sistema en un plazo no mayor a 5 días hábiles posteriores a la recepción de la notificación del CENACE. El Participante deberá ingresar al Sistema para validar la información precargada y suscribir los términos y condiciones de uso mediante su firma electrónica avanzada.
 \end{enumerate}
 \end{displayquote}
 
-\subsection{Análisis de Impacto (KPIs y Beneficios)}
-
+\subsection{Beneficios e Impacto}
 \begin{itemize}
-    \item \textbf{Aceleración Financiera:} El generador monetiza sus CELs desde el Mes 1 de operación, mejorando el flujo de caja inicial del proyecto.
-    \item \textbf{Eliminación del Rezago:} Se vacía la fila de trámites pendientes en la oficialía de partes de la CNE.
-    \item \textbf{Integridad:} Se elimina la posibilidad de corrupción (``pagar para agilizar el trámite''), ya que el proceso es disparado por el sistema, no por un funcionario.
+    \item \textbf{Eficiencia Económica:} Permite la monetización de los CELs desde el primer mes de operación, eliminando el lucro cesante por trámites burocráticos.
+    \item \textbf{Integridad de Datos:} Reduce el error humano en la captura de información al utilizar los datos maestros del Permiso y del Contrato de Interconexión.
+    \item \textbf{Transparencia:} Elimina la discrecionalidad en los tiempos de respuesta y cierra espacios a prácticas irregulares para la agilización de trámites.
 \end{itemize}
 
 \portadaseccion{16}{CEL y Factor Emisiones}{}
