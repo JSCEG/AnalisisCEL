@@ -955,68 +955,61 @@ Bajo la operación de la CRE, el sistema S-CEL no estaba sincronizado con el alt
     \item[El Quebranto:] Los años 2019, 2020, 2021 y 2022 quedaban en el olvido. Esto generaba un incentivo perverso: ``Tarda lo más que puedas en registrarte, te ahorras millones''.
 \end{description}
 
-\subsection{Visión Objetivo (To-Be): La Obligación Nace con el Electrón}
+\portadaseccion{13}{Cumplimiento Histórico}{}
+\section{Cumplimiento Histórico}
 
-El nuevo modelo SNIEr cambia el principio jurídico de la obligación.
+\subsection{Diagnóstico (Situación Actual): Exigibilidad y Brecha de Registro}
+Históricamente, la falta de sincronización automática entre el inicio de operaciones comerciales (registrado por CENACE) y la inscripción administrativa en el S-CEL generó una distorsión en el cumplimiento. El sistema calculaba las obligaciones a partir de la fecha de registro voluntario, ignorando los periodos previos de consumo efectivo.
 
-\begin{itemize}
-    \item \textbf{Principio Rector:} La obligación de adquirir CELs nace en el momento físico del consumo, no en el momento administrativo del registro.
-    \item \textbf{Mecanismo:} Cálculo Retroactivo Automático. El sistema no pregunta ``¿Cuándo te registraste?'', pregunta ``¿Cuándo prendiste la luz por primera vez?''.
-\end{itemize}
+Esta desconexión creó un incentivo perverso para diferir la inscripción, permitiendo la omisión de cumplimiento durante los primeros años de operación de los Centros de Carga, lo que resultó en una inequidad de mercado frente a los participantes que cumplieron puntualmente.
+
+\subsection{Visión Objetivo (Situación Objetivo): Exigibilidad basada en el Inicio de Operaciones}
+Se establece el principio de que la obligación de adquirir Certificados es exigible \textit{ex lege} a partir del primer periodo de facturación o suministro eléctrico, independientemente de la fecha en que se perfeccione el trámite administrativo de inscripción.
+
+El SNIEr implementará determinaciones de oficio para identificar periodos omitidos, basándose en la trazabilidad histórica de consumo reportada por el CENACE (``Cálculo Retroactivo''), condicionando la gestión de nuevos trámites a la regularización de dichos adeudos.
 
 \subsection{Arquitectura de Sistemas (Especificación Técnica SNIEr)}
+El módulo de Cumplimiento integrará herramientas de auditoría automatizada:
 
-El módulo de Cumplimiento integrará un Motor de Auditoría Forense.
-
-\subsubsection*{Ingesta de Historia (CENACE History API)}
-Al dar de alta un RFC, el SNIEr consulta al CENACE: ``Dame la Fecha de Inicio de Operación Comercial y el consumo mensual histórico de este Centro de Carga''.
-
-\subsubsection*{Cálculo de Pasivos}
-El algoritmo aplica la meta vigente en cada año pasado:
 \begin{itemize}
-    \item 2019: Consumo * 5.8\%
-    \item 2020: Consumo * 7.4\%
-    \item ...
+    \item \textbf{Ingesta de Historial (CENACE History API):} Al registrar un Centro de Carga, el SNIEr consultará vía API la ``Fecha de Inicio de Operación Comercial'' y el consumo histórico asociado al RFC.
+    \item \textbf{Motor de Cálculo de Pasivos:} El algoritmo aplicará el Requisito de CEL vigente en cada año fiscal omitido (ej. 5.8\% para 2019, 7.4\% para 2020) sobre el consumo real validado.
+    \item \textbf{Bloqueo Preventivo:} El sistema restringirá cambios administrativos (ej. cambio de suministrador) en tanto existan periodos con estatus ``Pendiente de Regularización''.
 \end{itemize}
-\textbf{Output:} Genera un ``Estado de Cuenta Histórico'' con el saldo total adeudado.
 
-\subsubsection*{Bloqueo de Operación}
-El sistema impide realizar trámites nuevos (ej. cambios de suministrador) hasta que no se reconozca el adeudo histórico.
-
-\subsection{Reingeniería de Procesos (Regularización)}
+\subsection{Reingeniería de Procesos (Programa de Regularización)}
 
 \begin{tabladoradoCorto}
-  \caption{Tabla 13.1 Del Borrón y Cuenta Nueva a la Auditoría}
-  \begin{tabularx}{\textwidth}{L{0.20\textwidth} L{0.35\textwidth} X}
+  \caption{Tabla 13.1 Del Borrón y Cuenta Nueva a la Auditoría Sistemática}
+  \begin{tabularx}{\textwidth}{L{0.15\textwidth} L{0.40\textwidth} X}
     \toprule
-    \rowcolor{gobmxDorado} \encabezadodorado{Variable} & \encabezadodorado{Modelo Anterior (Borrón y Cuenta Nueva)} & \encabezadodorado{Nuevo Modelo (Cobro Retroactivo)} \\
+    \rowcolor{gobmxDorado} \encabezadodorado{Etapa} & \encabezadodorado{Modelo Anterior (Discrecional)} & \encabezadodorado{Nuevo Modelo (Sistemático)} \\
     \midrule
-    \textbf{Inscripción} & Usuario llenaba formato con fecha actual. & \textbf{Pre-llenado:} El sistema muestra: ``Detectamos actividad desde Mayo 2018''. \\
-    \textbf{Detección} & Manual y aleatoria (si te tocaba visita de verificación). & \textbf{Sistemática:} Barrido automático mensual de todos los RFCs que facturan en CENACE vs los que pagan CELs. \\
-    \textbf{Gestión de Deuda} & Inexistente. & \textbf{Esquema de Facilidades:} Se ofrece un plan de pagos (entregar los CELs atrasados en un plazo de 12-24 meses) a cambio de no imponer multas punitivas (``Amnistía Regulatoria''). \\
+    \textbf{Detección} & Manual y aleatoria (dependiente de visitas de verificación física). & \textbf{Sistemática:} Barrido automático mensual (``Cruces de Datos'') de todos los RFCs con facturación en el Mercado Eléctrico Mayorista vs. padrón de cumplimiento de CELs. \\
+    \textbf{Gestión de Adeudos} & Inexistente o mediante litigio. & \textbf{Esquema de Facilidades:} Implementación de ``Programas de Autocorrección'' que permiten cubrir los Certificados omitidos en parcialidades, condonando multas accesorias a cambio del cumplimiento espontáneo de la obligación principal. \\
     \bottomrule
   \end{tabularx}
 \end{tabladoradoCorto}
 
-\subsection{Blindaje Normativo (Redacción Sugerida para DACG)}
-
-Es vital establecer que el registro es solo un acto formal, no el origen de la deuda.
+\subsection{Blindaje Normativo (Adición a las DACG)}
+Se propone la adición de un numeral en el Capítulo de Vigilancia de las Disposiciones Administrativas (RES/174/2016) y un artículo transitorio para el programa de regularización.
 
 \begin{displayquote}
-\textbf{Artículo [N]. De la Exigibilidad y Cálculo Retroactivo.}
+\textbf{Adición al Capítulo VI de las Disposiciones (RES/174/2016):}
+
+\textbf{Numeral 36 Bis. De la Exigibilidad y Periodos Omitidos.}
 \begin{enumerate}[label=\Roman*.]
-    \item La obligación de adquirir Certificados de Energías Limpias es exigible a partir del primer periodo de facturación en el que el Centro de Carga recibió suministro eléctrico, independientemente de la fecha de su inscripción en el Registro de Usuarios Calificados o en el SNIEr.
-    \item Para los participantes que se inscriban de manera extemporánea, el SNIEr calculará automáticamente el Pasivo Histórico de Certificados acumulado desde el inicio de sus operaciones.
-    \item La CNE podrá establecer Programas de Regularización que permitan a los participantes cubrir dicho Pasivo Histórico en parcialidades, condonando las sanciones económicas siempre y cuando se garantice la entrega total de los Certificados adeudados.
+    \item La obligación de adquirir Certificados de Energías Limpias es exigible a partir del inicio de operaciones del Centro de Carga o del primer periodo de suministro eléctrico, con independencia de la fecha de inscripción del Participante Obligado en el Sistema.
+    \item El Sistema determinará de oficio las obligaciones correspondientes a periodos previos no registrados, tomando como base la información oficial de consumo y liquidación proporcionada por el CENACE y los Distribuidores.
+    \item La Comisión podrá establecer Programas de Autocorrección que permitan a los Participantes Obligados subsanar omisiones de periodos anteriores, otorgando facilidades administrativas y la dispensa de sanciones económicas, siempre que se garantice la liquidación total de los Certificados adeudados antes del inicio de facultades de comprobación.
 \end{enumerate}
 \end{displayquote}
 
-\subsection{Análisis de Impacto (KPIs y Beneficios)}
-
+\subsection{Análisis de Impacto (Beneficios)}
 \begin{itemize}
-    \item \textbf{Recuperación de Demanda:} Se estima que existe una ``demanda oculta'' de 3 a 5 millones de CELs correspondientes a años anteriores no cobrados. Esto ayuda a limpiar la sobreoferta del mercado.
-    \item \textbf{Equidad de Mercado:} Los usuarios cumplidos dejan de sentir que son los únicos que pagan la fiesta. Se nivela el terreno de juego.
-    \item \textbf{Cultura de Cumplimiento:} El mensaje al mercado es claro: ``No puedes esconderte; el sistema tiene memoria''.
+    \item \textbf{Recuperación de Activos:} Se estima la regularización de una demanda pendiente (``demanda oculta'') de entre 3 a 5 millones de CELs de años anteriores, lo que contribuirá a absorber la sobreoferta actual del mercado.
+    \item \textbf{Equidad de Mercado (Level Playing Field):} Elimina la ventaja competitiva desleal de aquellos usuarios que evadieron costos regulatorios mediante el retraso administrativo.
+    \item \textbf{Cultura de Cumplimiento:} Envía una señal de certeza regulatoria al mercado: las obligaciones ambientales son acumulativas y el sistema cuenta con la memoria histórica para hacerlas valer.
 \end{itemize}
 
 \portadaseccion{14}{Gobernanza}{}
