@@ -1119,31 +1119,68 @@ Se propone la modificación del Numeral 8 de las Disposiciones Administrativas (
 
 \portadaseccion{16}{CEL y Factor Emisiones}{}
 \section{CEL y Factor Emisiones}
-\subsection{Diagnóstico Forense (As-Is): La Neutralidad Tecnológica ``Ciega''}
 
-El CEL fue diseñado como un instrumento volumétrico (1 MWh = 1 CEL).
+\subsection{Diagnóstico (Situación Actual): Desvinculación del Valor Ambiental}
+En su concepción original, el Certificado de Energías Limpias (CEL) fue diseñado estrictamente como un instrumento para acreditar la producción de energía eléctrica libre de combustibles fósiles (1 CEL = 1 MWh). Sin embargo, el instrumento carece actualmente de un atributo de datos que vincule esta generación con su impacto climático real, es decir, con las toneladas de CO$_2$ equivalente (tCO$_2$e) desplazadas.
 
-\begin{description}
-    \item[La Falla:] El mercado trataba igual a un CEL solar (0 emisiones) que a un CEL de Cogeneración Eficiente (que sí emite CO$_2$, aunque menos que el estándar).
-    \item[Consecuencia:] Desalineación con las metas climáticas globales (Paris Agreement). Las empresas compraban lo más barato, no necesariamente lo más limpio en términos de carbono.
-\end{description}
+Esta ``ceguera de carbono'' obliga a los usuarios finales y empresas a realizar cálculos externos y heterogéneos para sus reportes de sustentabilidad (ESG) y para el cumplimiento de obligaciones climáticas (Sistema de Comercio de Emisiones), restando competitividad y utilidad práctica al CEL frente a certificados internacionales (como I-REC) que ya integran esta métrica.
 
-\subsection{Solución (To-Be): El Atributo Informativo de Carbono}
+\subsection{Visión Objetivo (Situación Objetivo): Trazabilidad de Carbono e Integración ESG}
+Se implementa el enriquecimiento del estándar de datos del CEL para incluir el Atributo de Carbono Referenciado.
 
-No cambiamos la naturaleza del CEL, pero le agregamos una ``etiqueta nutricional''.
+Bajo este esquema, el SNIEr inyectará automáticamente en la metadata de cada certificado el Factor de Emisión del Sistema Eléctrico Nacional correspondiente al año y zona de gerencia de la generación. Esto convierte al CEL en un instrumento de ``Doble Propósito'':
 
-\subsubsection*{Arquitectura SNIEr}
 \begin{itemize}
-    \item \textbf{Calculadora de Huella:} El sistema calcula las toneladas de CO$_2$ evitadas por cada CEL basándose en el Factor de Emisión del Sistema Eléctrico Nacional en la hora y nodo de generación.
-    \item \textbf{Reporte ESG:} Al liquidar el CEL, el usuario recibe un certificado que dice: ``Cumpliste tu obligación de energía y, además, evitaste 0.45 ton de CO$_2$''.
+    \item \textbf{Regulatorio:} Acredita el cumplimiento de la obligación de consumo de energía limpia ante la CRE.
+    \item \textbf{Climático:} Proporciona un dato oficial y auditado sobre las emisiones evitadas, facilitando el cálculo de Inventarios de Emisiones Alcance 2 (electricidad) para empresas con metas de descarbonización.
 \end{itemize}
 
-\subsection{Blindaje Normativo (Redacción Sugerida para DACG)}
+\subsection{Arquitectura de Sistemas (Metadata Extendida)}
+El registro digital del CEL se expande para incluir campos informativos no transaccionales:
+
+\begin{itemize}
+    \item \textbf{Campo ``Factor de Red'':} Valor numérico (ej. 0.435 tCO$_2$e/MWh) tomado del Acuerdo anual publicado por la SEMARNAT/CRE.
+    \item \textbf{Campo ``Emisiones Evitadas'':} Cálculo automático resultante (1 MWh $\times$ Factor).
+    \item \textbf{Interoperabilidad ETS:} La estructura de datos se alinea con los requisitos del Registro Nacional de Emisiones (RENE) para facilitar futuras compensaciones cruzadas, si la regulación lo permite.
+\end{itemize}
+
+\subsection{Reingeniería de Procesos (Cálculo Automático)}
+
+\begin{tabladoradoCorto}
+  \caption{Tabla 16.1 Del Cálculo Manual al Reporte Integrado}
+  \begin{tabularx}{\textwidth}{L{0.15\textwidth} L{0.40\textwidth} X}
+    \toprule
+    \rowcolor{gobmxDorado} \encabezadodorado{Etapa} & \encabezadodorado{Modelo Anterior (Manual)} & \encabezadodorado{Nuevo Modelo (Integrado)} \\
+    \midrule
+    \textbf{Emisión} & El Generador recibe un CEL que dice ``1 MWh Solar''. & \textbf{Emisión Enriquecida:} El CEL nace con la etiqueta: ``1 MWh Solar = 0.435 tCO$_2$e evitadas''. \\
+    \textbf{Reporte Corporativo} & La empresa compra CELs y luego contrata consultores para calcular su huella de carbono usando factores genéricos. & \textbf{Reporte Directo:} El SNIEr emite un ``Informe de Retiro de CELs'' que ya totaliza las toneladas de CO$_2$ evitadas con base oficial, listo para auditoría ESG. \\
+    \bottomrule
+  \end{tabularx}
+\end{tabladoradoCorto}
+
+\subsection{Blindaje Normativo (Reforma a las DACG)}
+Se propone la modificación del Numeral 12 de las Disposiciones Administrativas de Carácter General (RES/174/2016) para ampliar el contenido del título.
 
 \begin{displayquote}
-\textbf{Artículo [P]. Del Valor Ambiental Informativo.}
-El SNIEr emitirá, junto con la constancia de cancelación de Certificados, una Cédula de Impacto Ambiental que cuantificará las emisiones evitadas, con fines estrictamente informativos y de reporte corporativo, sin que esto constituya un bono de carbono comercializable por separado.
+\textbf{Modificación al Numeral 12 de las Disposiciones (RES/174/2016):}
+
+\textbf{Numeral 12. De las Características y Contenido de los Certificados.}
+
+\textbf{IV.} Cada Certificado que emita el Sistema deberá contener, inmutados digitalmente, al menos los siguientes datos informativos:
+
+...
+
+\textbf{f)} El Factor de Emisión Eléctrico del Sistema Eléctrico Nacional vigente al momento de la generación, expresado en toneladas de dióxido de carbono equivalente por megawatt-hora (tCO$_2$e/MWh), conforme a la publicación oficial de la autoridad competente.
+
+\textbf{g)} La cuantificación referencial de emisiones evitadas asociada a dicho Certificado.
 \end{displayquote}
+
+\subsection{Beneficios e Impacto}
+\begin{itemize}
+    \item \textbf{Valorización del Activo:} Al hacer explícito el beneficio climático, el CEL se vuelve más atractivo para compradores voluntarios internacionales que buscan mitigar su huella de carbono.
+    \item \textbf{Estandarización Nacional:} Elimina la dispersión de criterios en el cálculo de emisiones evitadas, estableciendo una ``Verdad Única'' basada en datos oficiales del gobierno mexicano.
+    \item \textbf{Preparación para Mercados de Carbono:} Sienta las bases técnicas para una futura vinculación (coupling) entre el mercado de CELs y el Sistema de Comercio de Emisiones (SCE).
+\end{itemize}
 
 \portadaseccion{17}{Energía de No Registrados}{}
 \section{Energía de No Registrados}
