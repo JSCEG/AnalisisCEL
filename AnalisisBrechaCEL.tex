@@ -1182,27 +1182,73 @@ Se propone la modificación del Numeral 12 de las Disposiciones Administrativas 
     \item \textbf{Preparación para Mercados de Carbono:} Sienta las bases técnicas para una futura vinculación (coupling) entre el mercado de CELs y el Sistema de Comercio de Emisiones (SCE).
 \end{itemize}
 
-\portadaseccion{17}{Energía de No Registrados}{}
-\section{Energía de No Registrados}
+\portadaseccion{17}{Mercado Secundario y Bancabilidad}{}
+\section{Mercado Secundario y Bancabilidad}
 
-\subsection{Diagnóstico Forense (As-Is): Planeación con Datos Parciales}
+\subsection{Diagnóstico (Situación Actual): Asimetría de Información y Falta de Referencias}
+La estructura actual del mercado de CELs se caracteriza por una alta opacidad en la formación de precios. Al realizarse la mayoría de las transacciones mediante contratos bilaterales privados (Over-The-Counter) sin obligaciones de reporte económico al regulador, no existe una curva de precios pública ni índices de referencia confiables (Price Discovery).
 
-La SENER planeaba el sistema basándose solo en quien tenía permiso. Ignoraba la ``Generación Fantasma'' (techos solares residenciales, pequeñas hidroeléctricas viejas).
+Esta asimetría de información genera dos efectos nocivos:
 
-\begin{description}
-    \item[La Falla:] Subestimación del potencial nacional. Se decía ``nos falta energía limpia'' cuando en realidad había mucha, pero no estaba contabilizada.
-\end{description}
-
-\subsection{Solución (To-Be): Estimación por Big Data}
-
-\subsubsection*{Arquitectura SNIEr}
 \begin{itemize}
-    \item \textbf{Algoritmos de Inferencia:} El sistema toma la capacidad instalada de GD (Generación Distribuida) reportada por CFE y cruza con datos satelitales de radiación solar (NASA/NOAA).
-    \item \textbf{Output:} Genera una capa de ``Oferta Virtual'' en el tablero de control. ``No sabemos exactamente quién generó, pero sabemos que en Sonora se produjeron X GWh solares hoy''.
+    \item \textbf{Barrera Financiera:} Las instituciones bancarias no pueden valorar con certeza los flujos futuros de ingresos por venta de CELs, por lo que excluyen estos activos de las garantías de financiamiento (falta de bancabilidad).
+    \item \textbf{Ineficiencia:} Los pequeños generadores y consumidores negocian en desventaja frente a grandes jugadores al desconocer el valor real de mercado del activo.
 \end{itemize}
 
-\subsection{Beneficio}
-Planeación de red más precisa. Evita sobre-inversión en líneas de transmisión donde ya hay generación local suficiente.
+\subsection{Visión Objetivo (Situación Objetivo): Certeza Financiera y Transparencia}
+Se implementa un mecanismo de Transparencia Agregada que obliga al registro de los términos económicos de las transacciones sin vulnerar el secreto comercial.
+
+\begin{itemize}
+    \item \textbf{Registro Transaccional:} El SNIEr condicionará la transferencia de titularidad de los CELs a la captura del precio unitario pactado en la operación.
+    \item \textbf{Índices de Referencia:} Con la información recabada, la autoridad publicará reportes mensuales de precios promedio, máximos y mínimos, segregados por tecnología y plazo (Spot vs. Contrato).
+    \item \textbf{Bancabilidad:} La existencia de un índice oficial auditable permitirá a los desarrolladores presentar el flujo de CELs como una fuente de pago reconocida (``Bankable Revenue Stream'') en sus modelos financieros ante la banca de desarrollo y comercial.
+\end{itemize}
+
+\subsection{Arquitectura de Sistemas (Módulo de Mercado)}
+El SNIEr integrará funciones de inteligencia de mercado:
+
+\begin{itemize}
+    \item \textbf{Input Obligatorio:} Al ejecutar una transferencia tipo ``Traspaso Bilateral'', el sistema desplegará un campo obligatorio: ``Monto de la Contraprestación (\$MXN/CEL)''.
+    \item \textbf{Validación de Rango:} Algoritmos para detectar ``Outliers'' (ej. precios de \$0.01 o excesivos) que detonen alertas de auditoría para prevenir prácticas de simulación o lavado.
+    \item \textbf{Tablero Público:} Un dashboard de acceso abierto que muestre la evolución histórica del precio del CEL (Index), similar a los tableros de precios del Mercado Eléctrico Mayorista.
+\end{itemize}
+
+\subsection{Reingeniería de Procesos (Formación de Precios)}
+
+\begin{tabladoradoCorto}
+  \caption{Tabla 17.1 De la Opacidad a la Transparencia de Mercado}
+  \begin{tabularx}{\textwidth}{L{0.15\textwidth} L{0.40\textwidth} X}
+    \toprule
+    \rowcolor{gobmxDorado} \encabezadodorado{Etapa} & \encabezadodorado{Modelo Anterior (Opaco)} & \encabezadodorado{Nuevo Modelo (Transparente)} \\
+    \midrule
+    \textbf{Negociación} & El comprador impone precio; el vendedor no tiene referencias para defender su oferta. & \textbf{Informado:} Ambas partes consultan el ``Precio Promedio Ponderado'' del mes anterior en el SNIEr antes de negociar. \\
+    \textbf{Transferencia} & Se movían los CELs en sistema ``a ciegas'' (solo cantidad). & \textbf{Registro:} Se captura el valor económico de la transacción, creando una base de datos de inteligencia de mercado. \\
+    \textbf{Financiamiento} & El banco valúa el CEL a \$0 por riesgo regulatorio. & \textbf{Valoración:} El banco utiliza el Índice Histórico SNIEr para proyectar ingresos y otorgar crédito. \\
+    \bottomrule
+  \end{tabularx}
+\end{tabladoradoCorto}
+
+\subsection{Blindaje Normativo (Reforma a las DACG)}
+Se propone modificar el Numeral 20 de las Disposiciones Administrativas de Carácter General (RES/174/2016) para vincular el registro operativo con el reporte económico.
+
+\begin{displayquote}
+\textbf{Modificación al Numeral 20 de las Disposiciones (RES/174/2016):}
+
+\textbf{Numeral 20. De la Transferencia y Registro de Precios.}
+
+\textbf{I.} Los Participantes podrán transferir libremente la titularidad de sus Certificados a través del Sistema. Para que dicha transferencia surta plenos efectos, el Participante cedente deberá ingresar la cantidad de Certificados objeto de la operación y el precio unitario pactado por cada uno de ellos.
+
+\textbf{II.} La información de precios recabada tendrá el carácter de confidencial y será tratada bajo estrictos protocolos de seguridad. La Comisión utilizará dicha información exclusivamente para fines de vigilancia de mercado y para la elaboración de estadísticas agregadas.
+
+\textbf{III.} La Comisión publicará mensualmente en el portal del Sistema un Índice de Precios de Certificados, que refleje el promedio ponderado de las transacciones registradas, con el fin de brindar certeza y transparencia a los Participantes del Mercado.
+\end{displayquote}
+
+\subsection{Beneficios e Impacto}
+\begin{itemize}
+    \item \textbf{Liquidez:} Facilita el encuentro entre oferta y demanda al reducir los costos de transacción por búsqueda de información.
+    \item \textbf{Acceso a Capital:} Potencializa el apalancamiento de proyectos renovables al convertir al CEL en una garantía financiera real.
+    \item \textbf{Señal de Inversión:} Un precio transparente envía la señal económica correcta sobre la escasez o abundancia de energía limpia, incentivando la inversión donde más se necesita.
+\end{itemize}
 
 \portadaseccion{18}{Plazos y Sanciones}{}
 \section{Plazos y Sanciones}
