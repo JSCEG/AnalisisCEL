@@ -999,53 +999,31 @@ Se propone la adición de un numeral en el Capítulo de Vigilancia de las Dispos
 
 \portadaseccion{14}{Gobernanza}{}
 \section{Gobernanza}
-\subsection{Diagnóstico Forense (As-Is): El ``Divorcio'' Institucional}
 
-Bajo el marco de la Ley de los Órganos Reguladores Coordinados (LORCME), la CRE gozaba de una autonomía técnica y de gestión que, en la práctica, derivó en una fragmentación de la política pública.
+\subsection{Diagnóstico (Situación Actual): Desalineación Institucional}
+Bajo el marco institucional vigente, se ha observado una fragmentación operativa derivada de la interpretación divergente de atribuciones entre la autoridad encargada de la Política Pública (SENER) y el órgano regulador (CRE).
 
-\begin{description}
-    \item[La Falla:] La existencia de ``Dos Rectores''.
-    \begin{itemize}
-        \item La SENER publicaba el PRODESEN (Programa de Desarrollo del Sistema Eléctrico Nacional) con metas agresivas de transición.
-        \item La CRE, apelando a su autonomía, tardaba meses o años en emitir las DACG necesarias para instrumentar esas metas, o emitía regulaciones con criterios técnicos divergentes.
-    \end{itemize}
-    \item[El Conflicto:] Esta desconexión generó la ``Lluvia de Amparos''. Los privados impugnaban actos de SENER argumentando que invadían facultades de la CRE, y viceversa.
-    \item[Consecuencia:] Incertidumbre total. Un inversionista no sabía si obedecer al Secretario de Energía o al Comisionado Presidente de la CRE.
-\end{description}
+Esta falta de sincronización ha ocasionado que la emisión de regulaciones técnicas necesarias para la transición energética se retrase o disocie de las metas establecidas en el Programa de Desarrollo del Sistema Eléctrico Nacional (PRODESEN), generando vacíos normativos y una excesiva judicialización del sector debido a la incertidumbre regulatoria.
 
-\subsection{Visión Objetivo (To-Be): Unidad de Propósito}
-
-El nuevo modelo bajo la Ley de la Comisión Nacional de Energía (Ley CNE) establece una jerarquía funcional clara bajo el concepto de Rectoría del Estado.
+\subsection{Visión Objetivo (Situación Objetivo): Alineación Estratégica y Rectoría}
+Se implementa un modelo de gobernanza basado en la Unidad de Propósito, reafirmando la Rectoría del Estado en materia energética.
 
 \begin{itemize}
-    \item \textbf{Roles Claros:}
-    \begin{itemize}
-        \item \textbf{SENER (El Cerebro):} Define el ``Qué'' y el ``Cuándo''. Establece la Política Energética, las metas de CELs y la Planeación Vinculante.
-        \item \textbf{CNE (El Brazo Ejecutor):} Define el ``Cómo''. Instrumenta técnicamente la política, opera el registro (SNIEr), vigila el cumplimiento y sanciona.
-    \end{itemize}
-    \item \textbf{Principio Rector:} La regulación técnica no puede obstaculizar la política pública; debe habilitarla.
+    \item \textbf{SENER (Definición Estratégica):} Establece la Política Energética, las metas de participación de energías limpias y la Planeación Vinculante (El ``Qué'' y el ``Cuándo'').
+    \item \textbf{CNE/CRE (Instrumentación Técnica):} Diseña y opera los mecanismos regulatorios, sistemas de información (SNIEr) y esquemas de vigilancia necesarios para materializar dichas metas con eficiencia operativa (El ``Cómo'').
 \end{itemize}
 
-\subsection{Arquitectura de Sistemas (Especificación Técnica SNIEr)}
+La regulación técnica deja de ser un fin en sí mismo para convertirse en el instrumento habilitador de la política pública.
 
-El SNIEr debe reflejar esta gobernanza mediante un sistema estricto de Control de Acceso Basado en Roles (RBAC).
+\subsection{Arquitectura de Sistemas (Control de Gestión)}
+El SNIEr reflejará esta gobernanza mediante un esquema de Control de Acceso Basado en Roles (RBAC):
 
-\subsubsection*{Nivel 1: Configuración de Política (Usuario SENER)}
 \begin{itemize}
-    \item Acceso exclusivo para modificar las Variables Maestras: \% de Obligación Anual, Factores de Emisión, Criterios de Tecnologías Limpias.
-    \item \textbf{Efecto:} Cuando SENER cambia un parámetro, el sistema actualiza las reglas para todo el mercado automáticamente.
+    \item \textbf{Nivel de Política (SENER):} Acceso exclusivo para la configuración de ``Variables Maestras'' del sistema (Metas Anuales de CELs, Factores de Emisión, Criterios de Tecnología Limpia).
+    \item \textbf{Nivel Operativo (CNE/CRE):} Acceso para la ejecución de procesos (Emisión, Validación, Sanción) sin privilegios para alterar las definiciones de política preestablecidas en el código, garantizando la integridad de las metas nacionales.
 \end{itemize}
 
-\subsubsection*{Nivel 2: Operación y Supervisión (Usuario CNE)}
-\begin{itemize}
-    \item Acceso para ejecutar procesos: Acuñación de CELs, Auditoría de Participantes, Imposición de Sanciones.
-    \item \textbf{Candado:} La CNE no puede alterar las Variables Maestras definidas por SENER en el código del sistema.
-\end{itemize}
-
-\subsubsection*{Trazabilidad de Decisiones}
-Cada cambio regulatorio en el sistema queda firmado digitalmente por el funcionario responsable, eliminando la ``mano negra'' en la base de datos.
-
-\subsection{Reingeniería de Procesos (Ciclo de Regulación)}
+\subsection{Reingeniería de Procesos (Ciclo Regulatorio)}
 
 \begin{tabladoradoCorto}
   \caption{Tabla 14.1 Alineación Estratégica}
@@ -1053,32 +1031,28 @@ Cada cambio regulatorio en el sistema queda firmado digitalmente por el funciona
     \toprule
     \rowcolor{gobmxDorado} \encabezadodorado{Etapa} & \encabezadodorado{Modelo Anterior (Fragmentado)} & \encabezadodorado{Nuevo Modelo (Alineado)} \\
     \midrule
-    \textbf{Definición de Metas} & SENER publicaba un Aviso. CRE decidía si lo incorporaba o no a sus procesos de vigilancia. & \textbf{Vinculación Automática:} SENER publica la meta en el Diario Oficial $\to$ Se actualiza el parámetro en el SNIEr al día siguiente. \\
-    \textbf{Resolución de Conflictos} & Mesas de diálogo interminables entre Jurídico SENER y Jurídico CRE. & \textbf{Consejo Consultivo Conjunto:} Mecanismo formal donde CNE opina técnicamente, pero la decisión final de política es de SENER. \\
-    \textbf{Ventanilla de Trámites} & El usuario entregaba papeles en SENER y otros en CRE (duplicidad). & \textbf{Ventanilla Única Digital:} El usuario sube su expediente al SNIEr una sola vez. SENER valida política, CNE valida técnica. \\
+    \textbf{Definición de Metas} & SENER publicaba avisos que requerían una adopción discrecional o diferida por parte del Regulador. & \textbf{Vinculación Automática:} La publicación de metas en el PRODESEN actualiza automáticamente los parámetros de cumplimiento en el SNIEr, detonando las obligaciones de mercado. \\
+    \textbf{Resolución de Conflictos} & Mesas de negociación interinstitucional prolongadas o controversias constitucionales. & \textbf{Criterio Unificado:} Se establece la preeminencia de la Política Pública en la definición de objetivos de mercado, reservando la autonomía técnica para la metodología de implementación. \\
     \bottomrule
   \end{tabularx}
 \end{tabladoradoCorto}
 
-\subsection{Blindaje Normativo (Redacción Sugerida para Ley CNE/Reglamento)}
-
-Es necesario plasmar jurídicamente la subordinación estratégica (no técnica, sino de política) de la CNE.
+\subsection{Blindaje Normativo (Reforma Legal Sugerida)}
+Se propone fortalecer el mecanismo de coordinación mediante una adición a la Ley de los Órganos Reguladores Coordinados en Materia Energética (LORCME).
 
 \begin{displayquote}
-\textbf{Artículo [G]. De la Alineación con la Política Energética.}
-\begin{enumerate}[label=\Roman*.]
-    \item La Comisión Nacional de Energía (CNE) ejercerá sus atribuciones de regulación, supervisión y control del mercado de Certificados bajo la estricta observancia de la Política de Transición Energética dictada por la Secretaría (SENER).
-    \item Los criterios técnicos, metodologías de cálculo y reglas de operación que emita la CNE deberán ser congruentes y habilitadores de las metas establecidas en el Programa de Desarrollo del Sistema Eléctrico Nacional (PRODESEN).
-    \item En caso de discrepancia interpretativa entre una regulación técnica y la Política Energética, prevalecerá esta última en beneficio del interés público y la seguridad energética, correspondiendo a la Secretaría la interpretación final de las disposiciones administrativas.
-\end{enumerate}
+\textbf{Adición del Artículo 22 Bis a la LORCME:}
+
+\textbf{Artículo 22 Bis.} Los Órganos Reguladores Coordinados, en el ámbito de su competencia, deberán asegurar que la emisión de regulación, metodologías y actos administrativos fomente y habilite el cumplimiento de los objetivos establecidos en la Política Energética y en el Programa de Desarrollo del Sistema Eléctrico Nacional.
+
+\textbf{II.} Las normas y disposiciones técnicas que se expidan no podrán contravenir, obstaculizar o hacer nugatorias las metas de transición energética y seguridad nacional definidas por la Secretaría, debiendo prevalecer el principio de coordinación y unidad de propósito del Estado.
 \end{displayquote}
 
-\subsection{Análisis de Impacto (KPIs y Beneficios)}
-
+\subsection{Beneficios e Impacto}
 \begin{itemize}
-    \item \textbf{Velocidad de Implementación:} El tiempo para que una política pública se convierta en realidad operativa se reduce de 18 meses a 3 meses.
-    \item \textbf{Reducción de Litigiosidad:} Al eliminar los choques de competencia entre autoridades, se reduce el riesgo de amparos por ``invasión de facultades''.
-    \item \textbf{Confianza del Inversionista:} Existe una sola voz del Gobierno Federal. Las reglas son coherentes de arriba a abajo.
+    \item \textbf{Certeza Jurídica:} Elimina la ``doble señal'' al mercado; los inversionistas reciben directrices coherentes alineadas desde la política hasta la regulación operativa.
+    \item \textbf{Agilidad de Implementación:} Reduce drásticamente el tiempo de adopción de nuevas políticas de transición (Time-to-Market regulatorio).
+    \item \textbf{Reducción de Litigios:} Al clarificar la jerarquía funcional, se minimizan los espacios para impugnaciones basadas en conflictos competenciales entre autoridades.
 \end{itemize}
 
 \portadaseccion{15}{Proceso de Inscripción}{}
