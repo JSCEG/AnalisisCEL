@@ -881,77 +881,61 @@ Se propone adicionar una disposición específica en las Disposiciones Administr
 
 \portadaseccion{12}{Entidades Voluntarias}{}
 \section{Entidades Voluntarias}
-\subsection{Diagnóstico Forense (As-Is): La ``Doble Venta'' del Atributo}
 
-Bajo el marco anterior, no existía una vinculación jurídica ni tecnológica entre el sistema S-CEL (nacional) y los registros privados internacionales como I-REC (\textit{International Renewable Energy Certificate}) o bonos de carbono.
+\subsection{Diagnóstico (Situación Actual): Duplicidad de Atributos Ambientales}
+Bajo el marco normativo y operativo anterior, existía una desvinculación entre el sistema nacional (S-CEL) y los registros privados internacionales (como I-REC). Esta falta de interoperabilidad permitía un vacío funcional: un generador podía recibir un CEL por 1 MWh y, simultáneamente, registrar ese mismo MWh en una plataforma privada para emitir otro instrumento ambiental.
 
-\begin{description}
-    \item[La Falla:] El ``Divorcio de Registros''.
-    \item[El Fraude:] Un generador eólico producía 1 MWh. Recibía 1 CEL en la plataforma de la CRE (y se lo vendía a CFE Suministro Básico). Simultáneamente, registraba ese mismo MWh en la plataforma I-REC y vendía el certificado ``verde'' a una multinacional (ej. Google o Bimbo) para sus metas de sustentabilidad.
-    \item[Resultado:] El atributo ambiental (la ``limpieza'') se monetizaba dos veces. CFE decía ``yo consumí esa energía limpia'' y la multinacional también decía ``yo consumí esa energía limpia''. Físicamente imposible.
-    \item[Consecuencia:] Descrédito internacional y riesgo de que los CELs mexicanos sean vetados en tratados comerciales (T-MEC) o taxonomías verdes europeas.
-\end{description}
+Esto vulneraba el principio de unicidad del atributo, permitiendo que la misma generación limpia fuera contabilizada dos veces: una para el cumplimiento legal en México y otra para metas corporativas voluntarias, diluyendo la integridad del reporte de descarbonización nacional.
 
-\subsection{Visión Objetivo (To-Be): Integridad ``Uno a Uno''}
+\subsection{Visión Objetivo (Situación Objetivo): Unicidad del Atributo y Cancelación por Equivalencia}
+El nuevo modelo del SNIEr establece el principio de Unicidad del Atributo Ambiental. Se determina que 1 MWh de generación limpia solo puede amparar la emisión de un único activo digital, independientemente de su denominación (CEL o certificado privado).
 
-El nuevo modelo SNIEr establece el principio de Unicidad del Atributo.
-
-\begin{itemize}
-    \item \textbf{Principio Rector:} 1 MWh Limpio = 1 Activo Digital. Ese activo puede llamarse CEL o puede canjearse por otro instrumento, pero no pueden existir ambos simultáneamente.
-    \item \textbf{Mecanismo:} ``Quema Cruzada'' (\textit{Cross-Burning}). Si quieres emitir un I-REC, tienes que ``quemar'' (cancelar) el CEL correspondiente en el SNIEr para demostrar que no se usó para cumplimiento legal.
-\end{itemize}
+Para operativizar esto, se implementa el mecanismo de Cancelación por Equivalencia: si un Participante desea emitir instrumentos bajo estándares internacionales (I-REC, TIGRS) sobre un volumen ya registrado en el SNIEr, deberá proceder obligatoriamente a la cancelación administrativa o retiro de los CELs correspondientes en el sistema nacional, garantizando una relación ``uno a uno''.
 
 \subsection{Arquitectura de Sistemas (Especificación Técnica SNIEr)}
+El SNIEr funcionará como la cámara de compensación central para la trazabilidad de atributos ambientales.
 
-El SNIEr debe funcionar como la cámara de compensación central de atributos ambientales.
-
-\subsubsection*{Serialización Universal}
-El UUID del CEL incluye metadatos compatibles con el estándar EECS (\textit{European Energy Certificate System}) o I-REC Standard.
-
-\subsubsection*{API de Intercambio (Bridge)}
 \begin{itemize}
-    \item Si un Generador solicita la emisión de I-RECs a un certificador autorizado (ej. ANCE), el sistema del certificador consulta al SNIEr vía API.
-    \item \textbf{Lógica de Bloqueo:} SNIEr responde: ``Esos MWh ya tienen un CEL activo. Para emitir el I-REC, debo destruir el CEL \#12345''.
-    \item \textbf{Confirmación:} El Generador acepta, el CEL muere en México, y nace el I-REC en el registro global.
+    \item \textbf{Serialización Universal:} El UUID del CEL incluirá metadatos compatibles con estándares globales (como EECS), permitiendo su rastreo.
+    \item \textbf{API de Intercambio (Bridge):} Se habilitarán interfaces de programación (API) para la validación cruzada. Si un certificador autorizado solicita validar un volumen de energía, el SNIEr verificará el estado de los CELs asociados.
+    \item \textbf{Lógica de Cancelación:} El sistema condicionará la liberación de derechos a terceros a la previa ``cancelación voluntaria'' del CEL en el registro nacional.
+    \item \textbf{Portal Voluntario:} Se habilitará un módulo donde empresas no obligadas (Entidades Voluntarias) puedan adquirir y retirar CELs directamente para obtener un ``Certificado de Consumo Sustentable'' con aval institucional.
 \end{itemize}
-
-\subsubsection*{Portal Voluntario}
-Un módulo donde empresas no obligadas (Retail, Banca) pueden comprar y retirar CELs directamente para obtener un ``Certificado de Consumo Sustentable'' avalado por SENER, sin recurrir a mercados paralelos.
 
 \subsection{Reingeniería de Procesos (Gestión de Atributos)}
 
 \begin{tabladoradoCorto}
   \caption{Tabla 12.1 Integridad del Mercado Voluntario}
-  \begin{tabularx}{\textwidth}{L{0.20\textwidth} L{0.35\textwidth} X}
+  \begin{tabularx}{\textwidth}{L{0.15\textwidth} L{0.40\textwidth} X}
     \toprule
-    \rowcolor{gobmxDorado} \encabezadodorado{Variable} & \encabezadodorado{Modelo Anterior (Canibalismo)} & \encabezadodorado{Nuevo Modelo (Integridad)} \\
+    \rowcolor{gobmxDorado} \encabezadodorado{Etapa} & \encabezadodorado{Modelo Anterior (Fragmentado)} & \encabezadodorado{Nuevo Modelo (Integridad)} \\
     \midrule
-    \textbf{Emisión} & Generador pedía CELs a CRE y I-RECs a privados por separado. Nadie cruzaba los datos. & \textbf{Emisión Única:} El SNIEr es la fuente primaria. Todo nace como CEL. Si quieres otra cosa, debes convertirlo. \\
-    \textbf{Cumplimiento} & Empresas presumían ``100\% Renovable'' con I-RECs baratos, mientras CFE cargaba con el costo de los CELs. & \textbf{Transparencia:} Si usas el atributo para marketing (Voluntario), ese atributo sale del pool de cumplimiento nacional (Obligatorio). \\
-    \textbf{Certificación} & Confusa. Sellos privados sin respaldo gubernamental. & \textbf{Sello Oficial:} La CNE emite un diploma digital QR anual: ``Esta empresa retiró voluntariamente 5,000 CELs, equivalentes a evitar X toneladas de CO2''. \\
+    \textbf{Emisión} & Emisión paralela en S-CEL y plataformas privadas sin cruce de información. & \textbf{Emisión Única:} El SNIEr es la fuente primaria. Todo atributo nace como CEL. Su conversión a otros estándares requiere la cancelación del original. \\
+    \textbf{Cumplimiento} & Empresas reportaban ``100\% Renovable'' con certificados baratos (I-RECs) sin impactar el mercado nacional de cumplimiento. & \textbf{Transparencia:} Si el atributo se utiliza para metas voluntarias, este debe salir del inventario disponible para obligaciones legales, evitando el doble conteo. \\
+    \textbf{Certificación} & Sellos privados sin respaldo gubernamental unificado. & \textbf{Sello Oficial:} La CNE emite una constancia digital de retiro voluntario que valida oficialmente la reducción de emisiones reportada. \\
     \bottomrule
   \end{tabularx}
 \end{tabladoradoCorto}
 
-\subsection{Blindaje Normativo (Redacción Sugerida para DACG)}
-
-Es imperativo prohibir explícitamente el doble beneficio en las Disposiciones.
+\subsection{Blindaje Normativo (Adición a las DACG)}
+Se propone la adición de un numeral específico en las Disposiciones Administrativas de Carácter General (RES/174/2016) para regular la unicidad del activo.
 
 \begin{displayquote}
-\textbf{Artículo [M]. De la Unicidad del Atributo Ambiental y Prohibición de Doble Conteo.}
+\textbf{Adición al Capítulo IV de las Disposiciones:}
+
+\textbf{Numeral 29 Bis. De la Unicidad del Atributo Ambiental.}
 \begin{enumerate}[label=\Roman*.]
-    \item Cada Certificado de Energía Limpia ampara la titularidad exclusiva de los beneficios ambientales asociados a la generación de un MWh de energía libre de combustibles.
-    \item Queda estrictamente prohibida la emisión concurrente de Certificados y cualquier otro instrumento de acreditación ambiental, nacional o internacional, sobre el mismo volumen de energía generado.
-    \item Los Generadores que deseen comercializar los atributos ambientales bajo estándares internacionales distintos al CEL, deberán solicitar ante el SNIEr la cancelación administrativa de los Certificados correspondientes, obteniendo una constancia de retiro que avale la unicidad del atributo frente a terceros certificadores.
+    \item Los Certificados de Energías Limpias amparan la titularidad exclusiva de los beneficios ambientales asociados a la generación de un MWh de energía eléctrica libre de combustibles.
+    \item Queda prohibida la doble contabilidad de los atributos ambientales. Los Participantes que opten por acreditar, comercializar o reclamar dichos atributos mediante instrumentos distintos a los Certificados, o bajo estándares internacionales privados, deberán proceder a la cancelación voluntaria de los Certificados correspondientes en el Sistema, en una proporción de uno a uno respecto al volumen de energía involucrada.
+    \item El Sistema emitirá una ``Constancia de Retiro por Equivalencia'' que certifique la cancelación y garantice la unicidad del atributo frente a terceros certificadores o auditores.
 \end{enumerate}
 \end{displayquote}
 
-\subsection{Análisis de Impacto (KPIs y Beneficios)}
-
+\subsection{Beneficios e Impacto}
 \begin{itemize}
-    \item \textbf{Credibilidad Internacional:} Los CELs mexicanos se vuelven ``Gold Standard'', aceptados plenamente en reportes globales como RE100 y CDP (Carbon Disclosure Project).
-    \item \textbf{Valorización del CEL:} Al obligar al mercado voluntario (que es gigante) a comprar CELs reales (y quemarlos) en lugar de I-RECs paralelos, aumenta la demanda del CEL y sube su precio, beneficiando a los generadores.
-    \item \textbf{Verdad al Consumidor:} Se protege al ciudadano de publicidad engañosa (``Greenwashing'').
+    \item \textbf{Certeza en Reportes Corporativos:} Garantiza que los compromisos de sustentabilidad (ESG) de las empresas tengan respaldo en activos únicos y auditables.
+    \item \textbf{Robustez del Mercado:} Al vincular la demanda voluntaria con el mercado obligatorio (exigiendo la cancelación de CELs reales en lugar de papeles paralelos), se fortalece la demanda y la señal de precios del CEL.
+    \item \textbf{Transparencia al Consumidor:} Protege al usuario final y a los inversionistas al asegurar que cada declaración de ``energía verde'' corresponda a una reducción de emisiones efectivamente contabilizada y no duplicada.
 \end{itemize}
 
 \portadaseccion{13}{Cumplimiento Histórico}{}
