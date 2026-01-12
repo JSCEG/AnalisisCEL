@@ -1,0 +1,105 @@
+\documentclass{cel}
+
+% Metadatos del documento
+\title{Guía de Elementos Visuales Modernos}
+\subtitle{Nuevos comandos de resaltado y acento}
+\author{SENER}
+\date{\today}
+\setDocumentoCorto{Guía Visual}
+
+\begin{document}
+
+\section{Resaltados Modernos}
+
+\subsection{Resaltados de Texto}
+
+\textbf{Tradicional:} Este es un \highlight{resaltado tradicional} con fondo sólido.
+
+\textbf{Sutil:} Este es un \highlightSoft{resaltado sutil} con fondo suave y texto vibrante.
+
+\textbf{Subrayado:} Este es un \underlineAccent{texto subrayado} con acento dorado.
+
+\textbf{Con énfasis:} \enfasis{Punto importante} marcado con estrella.
+
+\subsection{Cajas de Acento}
+
+Texto normal con \accentBox{caja de acento guinda} inline.
+
+Texto normal con \accentBox[accentVerde]{caja de acento verde} inline.
+
+Texto normal con \accentBox[accentDorado]{caja de acento dorado} inline.
+
+\section{Badges y Etiquetas}
+
+\subsection{Badges Tradicionales}
+
+\badge{NUEVO} \badge[accentVerde]{APROBADO} \badge[accentDorado]{DESTACADO}
+
+\subsection{Badges Outline}
+
+\badgeOutline{BORRADOR} \badgeOutline[accentVerde]{EN REVISIÓN} \badgeOutline[accentDorado]{PREMIUM}
+
+\subsection{Tags Modernos}
+
+\tag{Energía Limpia} \tag[accentGuinda]{CEL} \tag[accentVerde]{Sustentable}
+
+\subsection{Labels con Iconos}
+
+\labelIcon[\faCheck]{accentVerde}{Verificado} 
+\labelIcon[\faExclamation]{accentDorado}{Importante}
+\labelIcon[\faStar]{accentGuinda}{Destacado}
+
+\section{Barras de Progreso}
+
+\subsection{Barra Estándar}
+
+Progreso del proyecto: \progressbar{75}{75\%}
+
+Avance de implementación: \progressbar[accentDorado]{60}{60\%}
+
+\subsection{Barra Compacta (Inline)}
+
+Completado: \progressInline{85}{85} \quad 
+En proceso: \progressInline[accentGuinda]{45}{45}
+
+\section{Callouts Modernizados}
+
+\begin{calloutTip}[Consejo Profesional]
+Los nuevos colores vibrantes mejoran la legibilidad y el contraste visual sin perder la identidad institucional.
+\end{calloutTip}
+
+\begin{calloutWarning}[Nota Importante]
+Todos los elementos mantienen los colores institucionales base, solo se han agregado variantes más vibrantes para acentos.
+\end{calloutWarning}
+
+\section{Comparativa de Colores}
+
+\subsection{Colores Base vs Acentos}
+
+\begin{itemize}
+    \item \textcolor{gobmxGuinda}{Guinda base} vs \textcolor{accentGuinda}{Guinda vibrante}
+    \item \textcolor{gobmxVerde}{Verde base} vs \textcolor{accentVerde}{Verde vibrante}
+    \item \textcolor{gobmxDorado}{Dorado base} vs \textcolor{accentDorado}{Dorado vibrante}
+\end{itemize}
+
+\subsection{Fondos Sutiles}
+
+\colorbox{softGuinda}{\strut\ \ Fondo guinda suave\ \ } \quad
+\colorbox{softVerde}{\strut\ \ Fondo verde suave\ \ } \quad
+\colorbox{softDorado}{\strut\ \ Fondo dorado suave\ \ }
+
+\section{Combinaciones Recomendadas}
+
+\subsection{Para Títulos y Encabezados}
+Use \textbf{accentGuinda} o \textbf{accentDorado} para mayor impacto visual.
+
+\subsection{Para Resaltados en Texto}
+Use \texttt{\\highlightSoft} con fondos sutiles para no distraer del contenido.
+
+\subsection{Para Elementos Interactivos}
+Use \texttt{\\badge} y \texttt{\\tag} con colores vibrantes para llamar la atención.
+
+\subsection{Para Notas y Advertencias}
+Use \texttt{calloutTip} y \texttt{calloutWarning} con los colores modernizados.
+
+\end{document}

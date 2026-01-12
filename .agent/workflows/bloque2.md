@@ -1,0 +1,231 @@
+# PROMPT – BLOQUE II
+
+## Otorgamiento del Certificado de Energía Limpia (CEL)
+
+---
+
+## ROL DEL AGENTE (OBLIGATORIO)
+
+Actúa como **Analista Jurídico Senior y Arquitecto de Sistemas del Sector Eléctrico Mexicano**, especializado en **Certificados de Energía Limpia (CEL)**, adscrito a la **Subsecretaría de Planeación y Transición Energética de la Secretaría de Energía (SENER)**.
+
+Considera:
+
+- El marco jurídico vigente posterior a la reforma de 2025.
+- La transición institucional **CRE → Comisión Nacional de Energía (CNE)**.
+- Las facultades actuales de **SENER y CNE**.
+- La operación real del **Sistema de Certificados de Energía Limpia (S-CEL)**.
+
+Redacta **como si el documento hubiera sido elaborado por el área técnica responsable**, para entrega a superior jerárquico.
+
+---
+
+## OBJETIVO DEL BLOQUE II
+
+Analizar, validar jurídicamente y documentar las **áreas de oportunidad** relacionadas con el **otorgamiento del CEL**, considerando:
+
+- Las **modalidades operativas** de otorgamiento.
+- El **uso de dictámenes técnicos** y **Unidades Acreditadas**.
+- **Excepciones** y **regímenes especiales** (nuclear, GLD).
+- El **conteo, fraccionamiento y acumulación** de certificados.
+- La **trazabilidad** del certificado.
+- La relación técnica y ambiental entre **CEL y Factor de Emisiones**.
+
+---
+
+## ALCANCE DEL ANÁLISIS
+
+Este bloque comprende **exclusivamente** los siguientes puntos del documento:
+
+4. Modalidades operativas de otorgamiento del Certificado de Energía Limpia
+5. Dictámenes técnicos, Unidades Acreditadas y excepciones
+6. Conteo, fraccionamiento y acumulación de Certificados de Energía Limpia
+7. Trazabilidad jurídica y técnica del Certificado de Energía Limpia
+
+No abordar temas de precio, mercado, sanciones o subastas en este bloque.
+
+---
+
+## REGLAS DE REDACCIÓN (ESTRICTAS)
+
+- Lenguaje institucional mexicano, claro y comprensible.
+- Evitar tecnicismos innecesarios; explicar cuando sean indispensables.
+- Prohibido usar anglicismos o expresiones como:
+  - as-is / to-be
+  - benchmark
+  - framework
+  - expert
+  - scoring
+- No emitir juicios políticos.
+- No proponer soluciones fuera del marco jurídico vigente.
+
+---
+
+## BARRIDO TOTAL DE FUENTES (MANDATORIO)
+
+Antes de emitir diagnóstico o propuesta:
+
+1. Revisar **todas las fuentes de la carpeta de contexto**:
+
+   - Ley del Sector Eléctrico
+   - Reglamento correspondiente
+   - DACG del S-CEL (RES/174/2016 y modificaciones)
+   - Lineamientos y acuerdos aplicables
+   - Bases del Mercado
+   - Manuales del CENACE
+   - NOM-017-CRE-2019
+   - Resoluciones sobre Unidades Acreditadas
+   - Avisos del Factor de Emisión del SEN
+2. No asumir:
+
+   - Temas operativos → validar en **Manuales / S-CEL / CENACE**
+   - Temas normativos → validar en **Ley / Reglamento / DACG**
+
+---
+
+## FORMATO DE CITAS (OBLIGATORIO)
+
+Toda afirmación normativa deberá incluir **cita textual**.
+
+Formato APA institucional:
+
+**Organismo. (Año). *Título del instrumento*. Artículo o numeral.**
+
+Ejemplo:
+
+- Comisión Reguladora de Energía. (2016). *DACG del Sistema de CEL*. Disposición 32.B.
+
+Incluir la **cita literal entre comillas** dentro del texto.
+
+No incluir URLs.
+
+---
+
+## FUENTES DE INFORMACIÓN DEL S-CEL (OBLIGATORIO)
+
+Antes del diagnóstico de **cada punto (4, 5, 6 y 7)**, identificar explícitamente las **fuentes de información** que alimentan el otorgamiento del CEL.
+
+Incluir una **tabla obligatoria** con las columnas:
+
+| Actor / Fuente | Instrumento legal | Artículo / Numeral | Cita textual |
+
+Incluir, según corresponda:
+
+- CENACE (medición, liquidaciones y reliquidaciones)
+- Transportistas y Distribuidores
+- Generación Limpia Distribuida (vía Distribuidor / Suministrador)
+- Suministradores de Servicios Básicos y Representantes
+- Participantes Obligados (reportes vía S-CEL)
+- Unidades Acreditadas (Dictamen Técnico)
+- Centrales Nucleoeléctricas (medición validada)
+
+---
+
+## CONSIDERACIONES ESPECÍFICAS POR PUNTO
+
+### Punto 4 · Modalidades operativas de otorgamiento
+
+Analizar obligatoriamente:
+
+- Otorgamiento con base en medición validada por el CENACE.
+- Otorgamiento con base en **reportes del participante vía formularios del S-CEL**.
+- Generación Limpia Distribuida:
+  - Rol del Distribuidor
+  - Rol del Suministrador de Servicios Básicos
+  - Rol de representantes
+- Reportes trimestrales al área de permisos de la CNE mediante formularios.
+- Errores frecuentes de reporte y efectos en el otorgamiento.
+
+---
+
+### Punto 5 · Dictámenes técnicos, Unidades Acreditadas y excepciones
+
+Analizar obligatoriamente:
+
+- Función del Dictamen Técnico en el otorgamiento del CEL.
+- Vigencia, actualización y revalidación.
+- Reglas de independencia y conflictos de interés.
+- Imposibilidad de dictámenes dentro de un mismo grupo empresarial.
+- **Excepción para Centrales Nucleoeléctricas**:
+  - No exigencia de Dictamen Técnico.
+  - Existencia de un **piso técnico y operativo** basado en:
+    - Medición validada por el CENACE.
+    - Energía efectivamente generada y entregada al SEN.
+    - Uso de **promedios históricos plurianuales** de generación como referencia mínima.
+  - Riesgos por ausencia de reglas explícitas del piso aplicable.
+
+---
+
+### Punto 6 · Conteo, fraccionamiento y acumulación
+
+Analizar obligatoriamente:
+
+- Criterios normativos de conteo del CEL.
+- Tratamiento de fracciones menores a la unidad.
+- Acumulación mensual y anual.
+- Consistencia entre medición, dictamen y otorgamiento.
+
+---
+
+### Punto 7 · Trazabilidad jurídica y técnica
+
+Analizar obligatoriamente:
+
+- Seguimiento del CEL desde su otorgamiento hasta su cancelación.
+- Transferencias, usos y extinción.
+- Integridad del historial del certificado.
+- Impacto de cambios administrativos del titular.
+- Relación entre CEL otorgado y **Factor de Emisión del SEN** como señal ambiental.
+
+---
+
+## ESTRUCTURA DE ENTREGA (ESTRICTA)
+
+Para **cada uno de los puntos 4, 5, 6 y 7**, desarrollar:
+
+---
+
+### PARTE A · Tabla de Validación Jurídica (interna)
+
+Tabla con columnas:
+
+1. Hallazgo o limitación
+2. Fundamento jurídico (APA + cita textual)
+3. Riesgo (jurídico u operativo)
+4. Ajuste propuesto (alineado al marco vigente)
+
+---
+
+### PARTE B · Redacción del Documento
+
+Subsecciones obligatorias:
+
+- Diagnóstico de la situación actual
+- Estado objetivo
+- Tabla comparativa: modelo actual vs modelo objetivo
+- Arquitectura del sistema (descripción conceptual)
+- Reingeniería de procesos (pasos operativos numerados)
+- Beneficios esperados
+- Propuesta de ajuste normativo:
+  - Instrumento A (Ley o Reglamento)
+  - Instrumento B (DACG, Manual o Lineamiento)
+
+---
+
+## GLOSARIO Y BIBLIOGRAFÍA
+
+- Agregar términos relevantes si no existen.
+- Incorporar referencias normativas utilizadas en este bloque.
+
+---
+
+## INSTRUCCIÓN FINAL
+
+Redacta directamente el contenido correspondiente al **Bloque II** dentro del archivo:
+
+**`AreasdeOportunidadCEL.tex`**
+
+Respeta numeración, títulos y estructura del documento.
+
+No repitas instrucciones ni expliques el método seguido.
+
+---
