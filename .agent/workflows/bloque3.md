@@ -200,3 +200,80 @@ Respeta numeración, títulos y estructura del documento.
 No repitas instrucciones ni expliques el método seguido.
 
 ---
+
+---
+## GENERACIÓN DE RESPALDO EN CARPETA /propuestas (OBLIGATORIO)
+
+Además de redactar el contenido correspondiente dentro del archivo principal:
+
+**`AreasdeOportunidadCEL.tex`**
+
+deberás generar un **archivo adicional en formato Markdown (.md)** como respaldo técnico-jurídico del bloque analizado.
+
+### Reglas para el archivo de respaldo
+
+1. El archivo `.md` deberá guardarse en la carpeta:
+
+**/propuestas**
+
+2. El nombre del archivo deberá seguir la siguiente convención:
+
+- Para bloques completos:  
+  **`Bloque_<NumeroRomano>_<NombreBloque>.md`**
+
+  Ejemplos:  
+  - `Bloque_I_Entrada_Sistema_CEL.md`  
+  - `Bloque_II_Otorgamiento_CEL.md`  
+  - `Bloque_V_Precio_CEL_Factor_Emisiones.md`
+
+3. El contenido del archivo `.md` deberá incluir:
+
+### A. Encabezado del documento
+- Nombre del bloque
+- Fecha de elaboración
+- Alcance del bloque
+- Instrumentos jurídicos revisados
+
+### B. Matriz de validación jurídica
+- Reproducción íntegra de la **Tabla de Validación Jurídica (Parte A)**.
+- Con citas APA completas y citas textuales.
+
+### C. Desarrollo analítico
+- Diagnóstico de la situación actual.
+- Estado objetivo.
+- Tabla comparativa (modelo actual vs modelo objetivo).
+- Reingeniería de procesos (resumen narrativo).
+
+### D. Propuestas de ajuste normativo
+- Redacción propuesta por instrumento.
+- Identificación clara del tipo de instrumento:
+  - Ley
+  - Reglamento
+  - DACG
+  - Lineamiento
+  - Manual
+
+### E. Observaciones técnicas relevantes
+- Riesgos identificados.
+- Supuestos operativos.
+- Dependencias con otros bloques del documento.
+
+4. El archivo `.md` deberá:
+- Usar lenguaje institucional mexicano.
+- No incluir URLs.
+- No incluir opiniones personales.
+- No explicar el método seguido.
+
+5. El archivo `.md` funcionará como:
+- Respaldo técnico del contenido integrado al LaTeX.
+- Insumo para iteraciones posteriores.
+- Evidencia de trazabilidad del análisis realizado.
+---
+## INSTRUCCIÓN FINAL DE CIERRE
+
+Confirma explícitamente que:
+
+- El contenido fue integrado en `AreasdeOportunidadCEL.tex`, y
+- El archivo `.md` fue generado en la carpeta `/propuestas` conforme a las reglas anteriores.
+
+No repitas instrucciones ni agregues explicaciones adicionales.

@@ -1,0 +1,116 @@
+% =====================================================================
+% Archivo: PortadaPrincipalCEL.tex
+% Propósito: Portada principal para "Áreas de Oportunidad del Sistema CEL"
+% Estilo: Español institucional (México) con clase cel.cls
+% Uso: Como sección independiente del documento principal
+% =====================================================================
+
+\documentclass{cel}
+
+% --- Metadatos del Documento ---
+\title{Áreas de Oportunidad del Sistema de Certificados de Energía Limpia}
+\subtitle{Análisis Integral y Propuestas de Modernización}
+\author{SENER}
+\date{\today}
+\institucion{Secretaría de Energía (SENER)}
+\unidad{Unidad de Planeación Energética}
+\setDocumentoCorto{Áreas CEL}
+\palabrasclave{CEL, Modernización, Transición Energética}
+\version{1.0}
+
+\begin{document}
+
+% =====================================================================
+% PORTADA PRINCIPAL DEL DOCUMENTO
+% =====================================================================
+
+% Portada de sección principal - Sin número de bloque
+\portadaseccion{}{Áreas de Oportunidad del Sistema de Certificados de Energía Limpia}{Análisis Integral y Propuestas de Modernización para la Transición Energética de México}
+
+% =====================================================================
+% CONTENIDO DESPUÉS DE LA PORTADA
+% =====================================================================
+
+\section*{Presentación}
+
+El presente documento constituye un análisis exhaustivo de las áreas de oportunidad identificadas en el Sistema de Certificados de Energía Limpia (S-CEL) de México, desarrollado por la Secretaría de Energía en el marco de la Nueva Ley del Sector Eléctrico (2025).
+
+\subsection*{Contexto Institucional}
+
+La reconfiguración del sector energético mexicano, con la creación de la Comisión Nacional de Energía (CNE) y la modernización del marco regulatorio, presenta una oportunidad única para transformar el S-CEL en un instrumento de vanguardia para la transición energética nacional.
+
+\subsection*{Metodología del Análisis}
+
+El análisis se estructura en **siete bloques temáticos** que abordan de manera integral todos los aspectos operativos, normativos y tecnológicos del sistema:
+
+\begin{enumerate}
+    \item \textbf{Entrada al Sistema y Base Operativa}
+    \item \textbf{Otorgamiento del Certificado}
+    \item \textbf{Oferta, Disponibilidad y Flexibilidad}
+    \item \textbf{Mecanismos de Transacción}
+    \item \textbf{Precio y Señales Ambientales}
+    \item \textbf{Instrumentos de Mediano y Largo Plazo}
+    \item \textbf{Cumplimiento, Sanción y Transparencia}
+\end{enumerate}
+
+\subsection*{Enfoque de Modernización}
+
+Cada bloque temático incluye:
+
+\begin{itemize}
+    \item \textbf{Diagnóstico de la situación actual}
+    \item \textbf{Identificación de brechas y oportunidades}
+    \item \textbf{Propuestas de mejora normativa y operativa}
+    \item \textbf{Arquitectura de sistemas modernizados}
+    \item \textbf{Beneficios esperados de la implementación}
+\end{itemize}
+
+\subsection*{Visión Estratégica}
+
+Las propuestas contenidas en este documento buscan posicionar a México como líder regional en certificación de energías limpias, fortaleciendo la soberanía energética nacional y acelerando la transición hacia un modelo energético más limpio y sustentable.
+
+\newpage
+
+% =====================================================================
+% EJEMPLO DE INTEGRACIÓN EN DOCUMENTO PRINCIPAL
+% =====================================================================
+
+\section*{Cómo Integrar esta Portada en AreasdeOportunidadCEL.tex}
+
+Para integrar esta portada en tu documento principal, simplemente reemplaza la línea:
+
+\begin{verbatim}
+% Portada institucional con fondo personalizado
+\portadafondo[img/portada.png]
+\end{verbatim}
+
+Por:
+
+\begin{verbatim}
+% Portada de sección principal
+\portadaseccion{}{Áreas de Oportunidad del Sistema de 
+Certificados de Energía Limpia}{Análisis Integral y 
+Propuestas de Modernización para la Transición 
+Energética de México}
+\end{verbatim}
+
+\subsection*{Ventajas de usar \texttt{\\portadaseccion}}
+
+\begin{enumerate}
+    \item \textbf{Consistencia Visual}: Mantiene el mismo estilo que las portadas de los bloques temáticos
+    \item \textbf{Identidad Institucional}: Incluye automáticamente los elementos de marca SENER
+    \item \textbf{Flexibilidad}: Permite personalizar el título y subtítulo fácilmente
+    \item \textbf{Integración}: Se integra perfectamente con el resto del documento
+\end{enumerate}
+
+\subsection*{Personalización}
+
+Puedes personalizar la portada modificando los parámetros:
+
+\begin{itemize}
+    \item \textbf{Primer parámetro}: Número o identificador del bloque (vacío para portada principal)
+    \item \textbf{Segundo parámetro}: Título principal
+    \item \textbf{Tercer parámetro}: Subtítulo o descripción
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,227 @@
+% =====================================================================
+% Archivo: Matriz_Ejecutiva_CEL.tex
+% Propósito: Matriz ejecutiva de áreas de oportunidad del Sistema CEL
+% Destinatario: Nivel directivo SENER
+% Estilo: Español institucional (México) con clase cel.cls
+% =====================================================================
+
+\documentclass{cel}
+
+% --- Metadatos del Documento ---
+\title{Matriz de Áreas de Oportunidad del Sistema CEL}
+\subtitle{Resumen Ejecutivo para Nivel Directivo}
+\author{SENER}
+\date{\today}
+\institucion{Secretaría de Energía (SENER)}
+\unidad{Subsecretaría de Planeación y Transición Energética}
+\setDocumentoCorto{Matriz CEL}
+\palabrasclave{CEL, Oportunidades, Sistema, Modernización}
+\version{1.0}
+
+% --- Metadatos PDF/UA ---
+\hypersetup{
+  pdftitle={Matriz de Áreas de Oportunidad del Sistema CEL},
+  pdfauthor={SENER},
+  pdfsubject={Sistema CEL - Áreas de Oportunidad},
+  pdfkeywords={CEL, Oportunidades, Sistema, Modernización},
+  pdfversion={1}
+}
+
+\begin{document}
+
+% Portada de sección estilo CEL
+\portadaseccion{MATRIZ}{Áreas de Oportunidad del Sistema CEL}{Enero 2026}
+
+% =====================================================================
+% CONTENIDO PRINCIPAL
+% =====================================================================
+
+\section*{Matriz de Áreas de Oportunidad del Sistema CEL}
+\addcontentsline{toc}{section}{Matriz de Áreas de Oportunidad}
+
+\subsection*{Contexto}
+
+La Subsecretaría de Planeación y Transición Energética se encuentra desarrollando un análisis integral y detallado de las áreas de oportunidad del Sistema de Certificados de Energía Limpia (S-CEL). El presente documento presenta una matriz ejecutiva de los principales hallazgos identificados para consideración del nivel directivo.
+
+\subsection*{Matriz Principal de Hallazgos}
+
+\begin{tabladoradoLargo}
+    \tiny
+    \begin{xltabular}{\textwidth}{|p{2cm}|p{3cm}|p{4cm}|p{3.5cm}|p{1.5cm}|}
+    \caption{Matriz de Áreas de Oportunidad del Sistema CEL} \label{tab:matriz_oportunidades} \\
+    \toprule
+    \rowcolor{gobmxDorado} 
+    \encabezadodorado{Bloque} & 
+    \encabezadodorado{Tema} & 
+    \encabezadodorado{Problemática} & 
+    \encabezadodorado{Propuesta de Mejora} & 
+    \encabezadodorado{Prioridad} \\
+    \midrule
+    \endhead
+    
+    \textbf{I. Entrada al Sistema} & 
+    Proceso de inscripción & 
+    Complejidad documental excesiva y plazos indefinidos & 
+    Digitalizar proceso con plazos máximos de 30 días hábiles & 
+    \textbf{CRÍTICA} \\
+    \hline
+    
+    \textbf{I. Entrada al Sistema} & 
+    Registro y administración & 
+    Gestión manual propensa a errores y falta de interoperabilidad & 
+    Automatizar gestión de cuentas con APIs de integración & 
+    \textbf{ALTA} \\
+    \hline
+    
+    \textbf{I. Entrada al Sistema} & 
+    Medición y datos & 
+    Cobertura parcial de generación distribuida y dependencia de reportes manuales & 
+    Implementar sistema universal de medición con validación automática & 
+    \textbf{ALTA} \\
+    \hline
+    
+    \textbf{II. Otorgamiento} & 
+    Modalidades operativas & 
+    Dependencia excesiva de reportes manuales y criterios diferenciados & 
+    Automatizar captura de datos y homologar criterios por modalidad & 
+    \textbf{CRÍTICA} \\
+    \hline
+    
+    \textbf{II. Otorgamiento} & 
+    Dictámenes técnicos & 
+    Vigencia limitada sin renovación automática y conflictos de interés & 
+    Establecer renovación automática condicionada y reglas de independencia & 
+    \textbf{MEDIA} \\
+    \hline
+    
+    \textbf{II. Otorgamiento} & 
+    Conteo y fraccionamiento & 
+    Ausencia de criterios específicos para redondeo y centrales híbridas & 
+    Establecer redondeo a 4 decimales y acumulación separada por tecnología & 
+    \textbf{ALTA} \\
+    \hline
+    
+    \textbf{II. Otorgamiento} & 
+    Trazabilidad & 
+    Desconexión entre CEL y Factor de Emisión SEN & 
+    Vincular CEL con impacto ambiental real e implementar verificación criptográfica & 
+    \textbf{MEDIA} \\
+    \hline
+    
+    \textbf{III. Disponibilidad} & 
+    Balance oferta-demanda & 
+    Ausencia de monitoreo en tiempo real y falta de proyecciones sistemáticas & 
+    Implementar sistema de monitoreo continuo con alertas tempranas & 
+    \textbf{CRÍTICA} \\
+    \hline
+    
+    \textbf{III. Disponibilidad} & 
+    Mecanismos de flexibilidad & 
+    Criterios limitados de aplicación y falta de transparencia & 
+    Ampliar criterios de flexibilidad y mejorar transparencia en aplicación & 
+    \textbf{MEDIA} \\
+    \hline
+    
+    \textbf{III. Disponibilidad} & 
+    Entidades voluntarias & 
+    Definición limitada y proceso sin verificación de adicionalidad & 
+    Ampliar definición con objetivos ambientales y verificar adicionalidad & 
+    \textbf{MEDIA} \\
+    \hline
+    
+    \textbf{IV. Transacciones} & 
+    Mercado de CEL & 
+    Dependencia excesiva del mercado centralizado y limitaciones del Boletín & 
+    Diversificar mecanismos con plataformas complementarias y matching automático & 
+    \textbf{ALTA} \\
+    \hline
+    
+    \textbf{IV. Transacciones} & 
+    Transacciones bilaterales & 
+    Proceso manual con alta fricción y ausencia de mecanismos de garantía & 
+    Automatizar con smart contracts e implementar sistema de clearing & 
+    \textbf{ALTA} \\
+    \hline
+    
+    \textbf{IV. Transacciones} & 
+    Bolsa No Onerosa & 
+    Distorsión del mercado por asignación gratuita y criterios subjetivos & 
+    Eliminar asignación gratuita y establecer criterios taxativos & 
+    \textbf{CRÍTICA} \\
+    \hline
+    
+    \textbf{V. Precios} & 
+    Formación de precios & 
+    Ausencia de metodología para precios bilaterales y desconexión ambiental & 
+    Establecer metodología de reporte y desarrollar precio de referencia ambiental & 
+    \textbf{CRÍTICA} \\
+    \hline
+    
+    \textbf{V. Precios} & 
+    Factor de emisiones & 
+    Limitaciones del Boletín como descubridor de precios & 
+    Mejorar funcionalidades del Boletín e implementar mecanismos de estabilización & 
+    \textbf{MEDIA} \\
+    \hline
+    
+    \textbf{VI. Instrumentos} & 
+    Contratos de cobertura & 
+    Transferencias automáticas sin consideración de condiciones actuales & 
+    Actualizar mecanismo de transferencia con validación de condiciones & 
+    \textbf{MEDIA} \\
+    \hline
+    
+    \textbf{VI. Instrumentos} & 
+    Subastas de CEL & 
+    Suspensión indefinida sin criterios de reactivación & 
+    Establecer criterios específicos y cronograma para evaluación de reactivación & 
+    \textbf{MEDIA} \\
+    \hline
+    
+    \textbf{VII. Cumplimiento} & 
+    DECLARACEL & 
+    Sistema con limitaciones de eficiencia y transparencia & 
+    Modernizar sistema para mayor eficiencia y reducción de errores & 
+    \textbf{ALTA} \\
+    \hline
+    
+    \textbf{VII. Cumplimiento} & 
+    Régimen de sanciones & 
+    Rango sancionador excesivamente amplio sin criterios de graduación & 
+    Establecer metodología específica de graduación con criterios objetivos & 
+    \textbf{ALTA} \\
+    \hline
+    
+    \textbf{VII. Cumplimiento} & 
+    Transparencia & 
+    Información limitada y falta de acceso público a datos relevantes & 
+    Implementar sistema integral de transparencia con dashboard público & 
+    \textbf{ALTA} \\
+    \bottomrule
+    \end{xltabular}
+\end{tabladoradoLargo}
+
+\newpage
+
+\section*{Consideraciones Técnicas}
+
+\begin{glowBox}[gobmxDorado]{Nota Importante: Integración con SNIER}
+\textbf{Integración Técnica con el Sistema Nacional de Información Energética y de Recursos (SNIER)}
+
+El Sistema CEL debe integrarse completamente con el SNIER para garantizar coherencia en la información energética nacional y facilitar la toma de decisiones basada en datos integrados.
+
+\textbf{Propuesta de Control Secundario SENER:}
+La Subsecretaría de Planeación y Transición Energética debe implementar un sistema de monitoreo a través de una API que replique el ciclo de vida completo de los CEL como control secundario y check del sistema principal de la CNE, permitiendo monitorear en tiempo real:
+
+\begin{itemize}
+    \item Otorgamiento de certificados por tecnología y región
+    \item Cumplimiento de obligaciones por participante
+    \item Aplicación de sanciones y medidas correctivas
+    \item Impacto en metas nacionales de energías limpias
+    \item Señales de política energética y ajustes necesarios
+\end{itemize}
+
+Esta arquitectura de control dual garantizará la supervisión efectiva del instrumento de política energética más importante para la transición energética nacional.
+\end{glowBox}
+
+\end{document}
