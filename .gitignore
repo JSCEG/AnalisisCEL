@@ -1,22 +1,42 @@
-# LaTeX build files
+# LaTeX auxiliary files
 *.aux
 *.bbl
-*.bbl-SAVE-ERROR
 *.bcf
 *.blg
-*.log
-*.pdf
-*.run.xml
-*.toc
-*.synctex.gz
-*.out
 *.fdb_latexmk
 *.fls
-*.dvi
+*.log
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
 *.lof
 *.lot
+*.nav
+*.snm
+*.vrb
+*.xdv
 
-# Windows/Editor files
-Thumbs.db
+# LaTeX build directories
+build/
+dist/
+
+# OS generated files
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Editor files
 *.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Temporary files
+*.tmp
+*.temp

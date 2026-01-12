@@ -61,6 +61,7 @@
 \RequirePackage{eso-pic}     % Imágenes de fondo
 \RequirePackage{tikz}        % Dibujos y elementos gráficos
 \usetikzlibrary{calc}        % Habilitar cálculos de coordenadas ($(A)+(B)$)
+\usetikzlibrary{shadows, shadows.blur, fadings, shapes.geometric, backgrounds}     % Sombras para elementos modernos
 \RequirePackage{multicol}    % Varias columnas
 \RequirePackage{lettrine}    % Letras capitales
 \RequirePackage{qrcode}      % Códigos QR
@@ -74,15 +75,29 @@
 % 2. COLORES INSTITUCIONALES (Identidad Corporativa)
 % ============================================================================
 
+% Colores base institucionales
 \definecolor{gobmxGuinda}{RGB}{156,35,72}       % Guinda estándar (Pantone 7420 C)
 \definecolor{senerRojoClaro}{RGB}{156,35,72}    % Alias para coherencia
 \definecolor{senerGuindaOscuro}{RGB}{98,19,51}  % Guinda oscuro (Pantone 7421 C)
 \definecolor{gobmxVerde}{RGB}{30,91,79}         % Verde institucional
 \definecolor{gobmxDorado}{RGB}{166,128,45}      % Dorado institucional (Pantone 1255 C)
 \definecolor{gobmxGris}{RGB}{152,152,154}       % Gris para textos secundarios
-\definecolor{gobmxGrisClaro}{HTML}{F5F5F5}       % Fondo para recuadros
+\definecolor{gobmxGrisClaro}{HTML}{F5F5F5}      % Fondo para recuadros
 \definecolor{gobmxAmbarClaro}{RGB}{231,210,149} % Ámbar para acentos
 \definecolor{highlightOrange}{RGB}{166,128,45}  % Para resaltados (usando el dorado)
+
+% Variantes modernas para acentos y resaltados
+\definecolor{accentGuinda}{RGB}{180,45,85}      % Guinda vibrante (+15% saturación)
+\definecolor{accentVerde}{RGB}{40,110,95}       % Verde vibrante (+20% brillo)
+\definecolor{accentDorado}{RGB}{190,145,55}     % Dorado vibrante (+15% brillo)
+\definecolor{accentAmbar}{RGB}{245,220,160}     % Ámbar brillante
+
+% Variantes semi-transparentes para fondos modernos (simuladas con mezclas)
+\definecolor{softGuinda}{RGB}{245,235,240}      % Guinda 5% (para fondos sutiles)
+\definecolor{softVerde}{RGB}{235,245,242}       % Verde 5%
+\definecolor{softDorado}{RGB}{250,248,240}      % Dorado 5%
+\definecolor{softGris}{RGB}{248,248,248}        % Gris 3%
+
 
 % ============================================================================
 % 3. TIPOGRAFÍAS INSTITUCIONALES (Patria y Noto Sans)
@@ -217,14 +232,18 @@
 \sener@verticalfooterraise=-1.5mm
 
 % Estilo de página estandarizado (fancy)
+\newcommand{\senerhrulefill}{\leavevmode\leaders\hrule height 3.7pt depth -2.7pt \hfill\kern0pt}
+
 \fancypagestyle{fancy}{
   \fancyhf{}
   \fancyhead[L]{}
+  \fancyhead[C]{\includegraphics[height=2.0cm]{img/logo_gob.png}}
   \fancyhead[R]{}
   
   % Pie de página alternado (Par a la izquierda, Impar a la derecha)
-  \fancyfoot[LE]{\raisebox{\sener@verticalfooterraise}{\makebox[\textwidth][l]{\scriptsize\bfseries\thepage\quad\textcolor{gobmxGuinda}{\DocumentoCorto}\ \textcolor{gobmxDorado}{\hrulefill}}}}
-  \fancyfoot[RO]{\raisebox{\sener@verticalfooterraise}{\makebox[\textwidth][r]{\scriptsize\textcolor{gobmxDorado}{\hrulefill}\ \textcolor{gobmxGuinda}{\DocumentoCorto}\quad\bfseries\thepage}}}
+  % Pie de página alternado (Par a la izquierda, Impar a la derecha)
+  \fancyfoot[LE]{\raisebox{\sener@verticalfooterraise}{\makebox[\textwidth][l]{\scriptsize\bfseries\thepage\quad\textcolor{senerGuindaOscuro}{\footnotesize\patriafont\DocumentoCorto}\ \textcolor{gobmxDorado}{\senerhrulefill}}}}
+  \fancyfoot[RO]{\raisebox{\sener@verticalfooterraise}{\makebox[\textwidth][r]{\scriptsize\textcolor{gobmxDorado}{\senerhrulefill}\ \textcolor{senerGuindaOscuro}{\footnotesize\patriafont\DocumentoCorto}\quad\bfseries\thepage}}}
   
   \renewcommand{\headrulewidth}{1pt}
   \renewcommand{\headrule}{\vspace{10pt}{\color{gobmxDorado}\hrule width\headwidth height\headrulewidth}}
@@ -237,8 +256,8 @@
   \fancyhf{}
   \fancyhead[L]{}
   \fancyhead[R]{}
-  \fancyfoot[LE]{\raisebox{\sener@verticalfooterraise}{\makebox[\headwidth][l]{\scriptsize\bfseries\thepage\quad\textcolor{gobmxGuinda}{\DocumentoCorto}\ \textcolor{gobmxDorado}{\hrulefill}}}}
-  \fancyfoot[RO]{\raisebox{\sener@verticalfooterraise}{\makebox[\headwidth][r]{\scriptsize\textcolor{gobmxDorado}{\hrulefill}\ \textcolor{gobmxGuinda}{\DocumentoCorto}\quad\bfseries\thepage}}}
+  \fancyfoot[LE]{\raisebox{\sener@verticalfooterraise}{\makebox[\headwidth][l]{\scriptsize\bfseries\thepage\quad\textcolor{senerGuindaOscuro}{\footnotesize\patriafont\DocumentoCorto}\ \textcolor{gobmxDorado}{\senerhrulefill}}}}
+  \fancyfoot[RO]{\raisebox{\sener@verticalfooterraise}{\makebox[\headwidth][r]{\scriptsize\textcolor{gobmxDorado}{\senerhrulefill}\ \textcolor{senerGuindaOscuro}{\footnotesize\patriafont\DocumentoCorto}\quad\bfseries\thepage}}}
   \renewcommand{\headrulewidth}{1pt}
   \renewcommand{\headrule}{\vspace{-35pt}{\color{gobmxDorado}\hrule width\headwidth height\headrulewidth}}
   \renewcommand{\footrulewidth}{0pt}
@@ -289,13 +308,7 @@
     \sener@RenderHorizontalBackground
   \else
     \ifsener@standardbg
-      \IfFileExists{img/foja_blanca.jpg}{%
-        \AtPageLowerLeft{%
-          \BeginAccSupp{method=escape,Alt={Membrete institucional de fondo}}%
-          \sener@FullPageGraphic{img/foja_blanca.jpg}%
-          \EndAccSupp{}%
-        }%
-      }{}%
+      % Fondo vertical desactivado
     \fi
   \fi
 }
@@ -314,13 +327,13 @@
           % Ajuste vertical: 1.1cm desde el borde inferior para bajarlo un poco más (antes 1.2cm)
           \node[anchor=south east, inner sep=0pt, text width=\miAncho pt] 
             at ($(current page.south east) + (-2.5cm, \dimexpr1.1cm+\sener@verticalfooterraise\relax)$) {
-              \makebox[\linewidth][r]{\scriptsize\textcolor{gobmxDorado}{\hrulefill}\ \textcolor{gobmxGuinda}{\DocumentoCorto}\quad\bfseries\thepage}
+              \makebox[\linewidth][r]{\scriptsize\textcolor{gobmxDorado}{\senerhrulefill}\ \textcolor{senerGuindaOscuro}{\footnotesize\patriafont\DocumentoCorto}\quad\bfseries\thepage}
             };
         \else
           % PAR: Alineado a la izquierda
           \node[anchor=south west, inner sep=0pt, text width=\miAncho pt] 
             at ($(current page.south west) + (2.5cm, \dimexpr1.1cm+\sener@verticalfooterraise\relax)$) {
-              \makebox[\linewidth][l]{\scriptsize\bfseries\thepage\quad\textcolor{gobmxGuinda}{\DocumentoCorto}\ \textcolor{gobmxDorado}{\hrulefill}}
+              \makebox[\linewidth][l]{\scriptsize\bfseries\thepage\quad\textcolor{senerGuindaOscuro}{\footnotesize\patriafont\DocumentoCorto}\ \textcolor{gobmxDorado}{\senerhrulefill}}
             };
         \fi
       \end{tikzpicture}
@@ -378,8 +391,8 @@
 \RequirePackage{subcaption}
 
 % Estilos de fuente para captions
-\DeclareCaptionFont{senerTableFont}{\patriafont\bfseries\fontsize{12pt}{14pt}\selectfont}
-\DeclareCaptionFont{senerDescFont}{\patriafont\bfseries\fontsize{16pt}{19pt}\selectfont\color{gobmxGuinda}}
+\DeclareCaptionFont{senerTableFont}{\patriafont\bfseries\fontsize{13pt}{16pt}\selectfont}
+\DeclareCaptionFont{senerDescFont}{\patriafont\bfseries\fontsize{17pt}{20pt}\selectfont\color{gobmxGuinda}}
 
 % Formato de lista vacío para suprimir números en LOF y LOT
 \DeclareCaptionListFormat{senerEmpty}{}
@@ -597,7 +610,7 @@
     \begin{center}%
     \parbox{\anchoHorizontal}{%
       \raggedright%
-      {\patriafont\fontsize{10pt}{11pt}\selectfont\color{gobmxGuinda}#1}%
+      {\patriafont\fontsize{14pt}{17pt}\selectfont\color{gobmxGuinda}#1}%
     }%
     \end{center}%
     \vspace{0.05cm}% espacio ultra pequeño después del caption
@@ -655,13 +668,7 @@
   % ============================================================================
   
   \renewcommand{\sener@RenderHorizontalBackground}{%
-    \IfFileExists{img/hojahorizontal.jpg}{%
-       \AtPageCenter{%
-         \makebox(0,0){%
-           \includegraphics[width=\paperheight,height=\paperwidth,angle=90]{img/hojahorizontal.jpg}%
-         }%
-       }%
-    }{}%
+    % Fondo horizontal desactivado
   }
 
   \renewcommand{\sener@RenderHorizontalForeground}{%
@@ -671,6 +678,10 @@
         \ifsener@hfirstpage
           \draw[gobmxDorado, line width=1pt] 
             ($(current page.south west) + (2.5cm, 2cm)$) -- ($(current page.north west) + (2.5cm, -2.5cm)$);
+          \node[anchor=center, rotate=90, inner sep=0pt] 
+            at ($(current page.west) + (1.25cm, 0)$) {
+              \includegraphics[height=2.0cm]{img/logo_gob.png}
+            };
          % \global\sener@hfirstpagefalse % Apagar para las siguientes páginas
         \fi
   
@@ -682,11 +693,11 @@
             at ($(current page.north east) + (-1.3cm, -2.5cm)$) {\thepage};
              
           % Nombre Corto del Documento (A la izquierda del número)
-          \node[anchor=east, rotate=90, font=\scriptsize\sffamily, color=gobmxGuinda, inner sep=0pt] (tituloH)
+          \node[anchor=east, rotate=90, font=\footnotesize\patriafont, color=senerGuindaOscuro, inner sep=0pt] (tituloH)
             at ($(current page.north east) + (-1.3cm, -3.2cm)$) {\DocumentoCorto};
   
           % Línea de Pie de Página (Hacia la izquierda)
-          \draw[gobmxDorado, line width=0.4pt] 
+          \draw[gobmxDorado, line width=1pt] 
             ($(tituloH.west) + (0, -0.2cm)$) -- ($(current page.south east) + (-1.3cm, 2cm)$);
             
         \else
@@ -696,12 +707,12 @@
             at ($(current page.south east) + (-1.3cm, 2.5cm)$) {\thepage};
             
           % Nombre Corto del Documento (A la derecha del número visualmente)
-          \node[anchor=west, rotate=90, font=\scriptsize\sffamily, color=gobmxGuinda, inner sep=0pt] (tituloH)
+          \node[anchor=west, rotate=90, font=\footnotesize\patriafont, color=senerGuindaOscuro, inner sep=0pt] (tituloH)
             at ($(current page.south east) + (-1.3cm, 3.2cm)$) {\DocumentoCorto};
             
           % Línea de Pie de Página (Hacia la derecha)
           % Desde el final del título (Visual Right end -> east anchor rotated) hasta margen derecho visual
-          \draw[gobmxDorado, line width=0.4pt] 
+          \draw[gobmxDorado, line width=1pt] 
             ($(tituloH.east) + (0, 0.2cm)$) -- ($(current page.north east) + (-1.3cm, -2.5cm)$);
         \fi
 
@@ -890,60 +901,162 @@
 % 11. ELEMENTOS VISUALES MODERNOS Y AVANZADOS
 % ============================================================================
 
-% Resaltado de texto (Caja naranja)
+% --- Resaltados Modernos ---
+
+% Resaltado tradicional (mantener compatibilidad)
 \newcommand{\highlight}[1]{\colorbox{highlightOrange}{\strut\textbf{\textcolor{white}{#1}}}}
 
-% Cita destacada (Pull Quote) con diseño TikZ
+% Resaltado sutil moderno (fondo suave + texto vibrante)
+\newcommand{\highlightSoft}[1]{\colorbox{softDorado}{\strut\textcolor{accentDorado}{\textbf{#1}}}}
+
+% Subrayado con acento de color
+\RequirePackage{soul}
+\setulcolor{accentDorado}
+\newcommand{\underlineAccent}[1]{{\color{senerGuindaOscuro}\ul{#1}}}
+
+% Resaltado inline con borde lateral (moderno)
+\newcommand{\accentBox}[2][accentGuinda]{%
+  \tikz[baseline=(text.base)]{
+    \node[
+      inner sep=3pt,
+      outer sep=0pt,
+      fill=#1!10,
+      draw=#1,
+      line width=2pt,
+      rounded corners=2pt
+    ] (text) {\strut\textcolor{#1}{\textbf{#2}}};
+  }%
+}
+
+% Texto con icono de énfasis (★)
+\newcommand{\enfasis}[1]{{\color{accentDorado}★}~\textbf{\textcolor{accentGuinda}{#1}}}
+
+% --- Citas y Destacados ---
+
+% Cita destacada (Pull Quote) con diseño TikZ mejorado
 \newenvironment{destacado}[1][]{
   \begin{center}\begin{tikzpicture}
-    \node[text width=0.85\textwidth, align=center, font=\Large\itshape\color{gobmxGuinda}, inner sep=20pt] (quote) {``#1''};
-    \node[opacity=0.2, scale=4, color=gobmxDorado] at (quote.north west) {``};
-    \node[opacity=0.2, scale=4, color=gobmxDorado] at (quote.south east) {''};
+    \node[text width=0.85\textwidth, align=center, font=\Large\itshape\color{accentGuinda}, inner sep=20pt] (quote) {``#1''};
+    \node[opacity=0.15, scale=4, color=accentDorado] at (quote.north west) {``};
+    \node[opacity=0.15, scale=4, color=accentDorado] at (quote.south east) {''};
   \end{tikzpicture}\end{center}
 }{}
 
-% Letra Capital (Lettrine)
+% Letra Capital (Lettrine) con color vibrante
 \newcommand{\letraCapital}[2]{%
-  \lettrine[lines=3, lhang=0.33, nindent=0em, findent=3pt, realheight=true]{\color{gobmxGuinda}#1}{#2}%
+  \lettrine[lines=3, lhang=0.33, nindent=0em, findent=3pt, realheight=true]{\color{accentGuinda}#1}{#2}%
 }
 
 % Código QR
 \newcommand{\qrlink}[1]{\qrcode[height=2.5cm]{#1}}
 
-% Notas al margen con icono
+% Notas al margen con icono y color vibrante
 \newcommand{\notaMargen}[1]{%
-  \marginnote{\footnotesize\color{gobmxGuinda}\sffamily\raggedright%
+  \marginnote{\footnotesize\color{accentGuinda}\sffamily\raggedright%
     \BeginAccSupp{method=escape,ActualText={Icono de información}}\faInfoCircle\EndAccSupp{}\ #1}%
 }
 
-% Etiquetas tipo "Badge/Pill"
-\newcommand{\badge}[2][gobmxGuinda]{%
-  \tikz[baseline=(badge.base)]{\node[inner sep=3pt, rounded corners=3pt, fill=#1, text=white, font=\tiny\sffamily\bfseries, minimum height=1.2em] (badge) {#2};}%
+% --- Badges y Etiquetas Modernas ---
+
+% Badge tradicional mejorado (más redondeado)
+\newcommand{\badge}[2][accentGuinda]{%
+  \tikz[baseline=(badge.base)]{
+    \node[
+      inner sep=4pt,
+      outer sep=0pt,
+      rounded corners=8pt,
+      fill=#1,
+      text=white,
+      font=\tiny\sffamily\bfseries,
+      minimum height=1.3em
+    ] (badge) {#2};
+  }%
 }
 
-% Barra de progreso
-\newcommand{\progressbar}[3][gobmxVerde]{%
+% Badge outline (solo borde, sin relleno)
+\newcommand{\badgeOutline}[2][accentGuinda]{%
+  \tikz[baseline=(badge.base)]{
+    \node[
+      inner sep=4pt,
+      outer sep=0pt,
+      rounded corners=8pt,
+      draw=#1,
+      line width=1.5pt,
+      text=#1,
+      font=\tiny\sffamily\bfseries,
+      minimum height=1.3em
+    ] (badge) {#2};
+  }%
+}
+
+% Tag moderno (estilo chip con sombra sutil)
+\newcommand{\tag}[2][accentDorado]{%
+  \tikz[baseline=(tag.base)]{
+    \node[
+      inner sep=5pt,
+      outer sep=0pt,
+      rounded corners=12pt,
+      fill=#1!15,
+      text=#1,
+      font=\small\sffamily\bfseries,
+      minimum height=1.5em,
+      drop shadow={opacity=0.1, shadow xshift=0pt, shadow yshift=-1pt}
+    ] (tag) {#2};
+  }%
+}
+
+% Label con icono (versátil)
+\newcommand{\labelIcon}[3][\faTag]{%
+  \tikz[baseline=(label.base)]{
+    \node[
+      inner sep=4pt,
+      outer sep=0pt,
+      rounded corners=6pt,
+      fill=#2!10,
+      draw=#2,
+      line width=1pt,
+      text=#2,
+      font=\footnotesize\sffamily
+    ] (label) {\BeginAccSupp{method=escape,ActualText={Icono}}#1\EndAccSupp{}~#3};
+  }%
+}
+
+% --- Barras de Progreso Modernas ---
+
+% Barra de progreso mejorada con gradiente
+\newcommand{\progressbar}[3][accentVerde]{%
   \begin{tikzpicture}[baseline=-0.5ex]
-    \fill[gobmxGrisClaro] (0,0) rectangle (4,0.3);
-    \fill[#1] (0,0) rectangle ({4*#2/100},0.3);
-    \draw[gobmxGris,line width=0.5pt] (0,0) rectangle (4,0.3);
-    \node[right,font=\small\sffamily] at (4.1,0.15) {#3};
+    \fill[softGris] (0,0) rectangle (4,0.35);
+    \fill[#1] (0,0) rectangle ({4*#2/100},0.35);
+    \draw[#1,line width=0.8pt] (0,0) rectangle (4,0.35);
+    \node[right,font=\small\sffamily\bfseries,color=#1] at (4.15,0.175) {#3};
   \end{tikzpicture}%
 }
 
-% Callouts estilo GitHub
+% Barra de progreso compacta (inline)
+\newcommand{\progressInline}[2][accentDorado]{%
+  \tikz[baseline=-0.3ex]{
+    \fill[softGris] (0,0) rectangle (2,0.25);
+    \fill[#1] (0,0) rectangle ({2*#2/100},0.25);
+    \draw[#1,line width=0.6pt] (0,0) rectangle (2,0.25);
+  }%
+}
+
+% --- Callouts Modernizados ---
+
+% Callouts estilo GitHub con colores vibrantes
 \newtcolorbox{calloutTip}[1][Consejo]{
-  colback=gobmxVerde!5, colframe=gobmxVerde, boxrule=0pt, leftrule=4pt, arc=0mm,
+  colback=softVerde, colframe=accentVerde, boxrule=0pt, leftrule=4pt, arc=0mm,
   left=8pt, right=8pt, top=8pt, bottom=8pt,
   title={\BeginAccSupp{method=escape,ActualText={Icono de bombilla}}\faLightbulb\EndAccSupp{}\ \ \textbf{#1}},
-  fonttitle=\bfseries\color{gobmxVerde}, colbacktitle=gobmxVerde!5, breakable
+  fonttitle=\bfseries\color{accentVerde}, colbacktitle=softVerde, breakable
 }
 
 \newtcolorbox{calloutWarning}[1][Advertencia]{
-  colback=gobmxAmbarClaro, colframe=gobmxDorado, boxrule=0pt, leftrule=4pt, arc=0mm,
+  colback=softDorado, colframe=accentDorado, boxrule=0pt, leftrule=4pt, arc=0mm,
   left=8pt, right=8pt, top=8pt, bottom=8pt,
   title={\BeginAccSupp{method=escape,ActualText={Icono de advertencia}}\faExclamationTriangle\EndAccSupp{}\ \ \textbf{#1}},
-  fonttitle=\bfseries\color{gobmxDorado}, colbacktitle=gobmxDorado!5, breakable
+  fonttitle=\bfseries\color{accentDorado}, colbacktitle=softDorado, breakable
 }
 
 % Timeline (Línea de tiempo)
@@ -1123,9 +1236,76 @@
 \newcommand{\entradaSigla}[2]{\par\noindent{\notosanssmall\textbf{#1} -- #2}\par}
 
 % --- Listas personalizadas (Compactas) ---
-\setlist{noitemsep, topsep=0.15em, parsep=0pt, partopsep=0pt, leftmargin=*}
-\setlist[itemize,1]{label=\textbullet, leftmargin=*}
-\setlist[itemize,2]{label=--, leftmargin=2em}
+% --- Listas personalizadas (Compactas) ---
+\setlist{noitemsep, topsep=0.15em, parsep=0pt, partopsep=0pt}
+\setlist[itemize,1]{label=\textbullet, leftmargin=2.5em, labelsep=0.5em}
+\setlist[itemize,2]{label=--, leftmargin=2em, labelsep=0.5em}
 
 % Final de la clase
+
+% ============================================================================
+% 16. EFECTOS VISUALES MODERNOS (GLASSMORPHISM Y LUCES)
+% ============================================================================
+
+% Configuración de sombras para efecto 'Glow' (Luces)
+\tcbset{
+  senerGlow/.style={
+    enhanced,
+    boxrule=0pt,
+    arc=4mm,
+    frame hidden,
+    fuzzy halo={1mm with #1}, % Halo difuso (luz)
+    colback=white,
+    left=15pt, right=15pt, top=15pt, bottom=15pt
+  }
+}
+
+% 1. Caja de Cristal (Glassmorphism simulación)
+\newtcolorbox{glassBox}[1][]{
+  enhanced,
+  frame hidden,
+  colback=white,
+  colbacktitle=white,
+  coltitle=gobmxGuinda,
+  opacityback=0.85, % Transparencia lechosa
+  opacityframe=0.3,
+  boxrule=1pt,
+  colframe=white,
+  arc=5mm,
+  shadow={3mm}{-3mm}{0mm}{black!10}, % Sombra suave lejana
+  blur shadow={shadow blur steps=5},
+  fonttitle=\bfseries\patriafont\large,
+  left=20pt, right=20pt, top=20pt, bottom=20pt,
+  #1,
+  overlay={
+    % Borde de "brillo" superior izquierdo
+    \draw[white, line width=1.5pt, draw opacity=0.9, rounded corners=5mm]
+      (frame.south west) -- (frame.north west) -- (frame.north east);
+    % Borde más oscuro inferior derecho para profundidad
+    \draw[gobmxGris!20, line width=1pt, draw opacity=0.5, rounded corners=5mm]
+      (frame.north east) -- (frame.south east) -- (frame.south west);
+  }
+}
+
+% 2. Caja con Luz Institucional (Neon/Glow)
+% Uso: \begin{glowBox}[gobmxDorado]{Título} ... \end{glowBox}
+\newtcolorbox{glowBox}[2][gobmxGuinda]{
+  senerGlow=#1,
+  title={#2},
+  coltitle=#1,
+  fonttitle=\bfseries\patriafont,
+  borderline={0.5pt}{0pt}{#1!50} % Línea fina del color
+}
+
+% 3. Tarjeta Flotante (Minimalista con sombra profunda)
+\newtcolorbox{floatCard}[1][]{
+  enhanced,
+  colback=white,
+  boxrule=0pt,
+  frame hidden,
+  arc=3mm,
+  drop fuzzy shadow, % Sombra difusa estándar
+  left=15pt, right=15pt, top=15pt, bottom=15pt,
+  #1
+}
 \endinput

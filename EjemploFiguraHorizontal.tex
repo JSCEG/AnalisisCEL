@@ -1,0 +1,129 @@
+% =====================================================================
+% Archivo: EjemploFiguraHorizontal.tex
+% Propósito: Demostración de figura horizontal con clase cel.cls
+% Integración: Guía horizontal SENER
+% =====================================================================
+
+\documentclass{cel}
+
+% --- Metadatos del Documento ---
+\title{Ejemplo de Figura Horizontal}
+\subtitle{Demostración de Modo Landscape}
+\author{SENER}
+\date{\today}
+\institucion{Secretaría de Energía (SENER)}
+\unidad{Unidad de Planeación Energética}
+\setDocumentoCorto{Ejemplo Horizontal}
+\palabrasclave{Figura, Horizontal, Landscape}
+\version{1.0}
+
+\begin{document}
+
+\maketitle
+
+\section{Introducción}
+
+Este documento demuestra el uso de figuras en modo horizontal utilizando la clase \texttt{cel.cls} y siguiendo las mejores prácticas de la Guía de Modo Horizontal SENER.
+
+\section{Ejemplo de Figura Vertical Normal}
+
+Primero mostramos una figura en modo vertical normal:
+
+\begin{figure}[H]
+    \caption{Ejemplo de figura vertical normal}
+    \centering
+    \rule{10cm}{6cm} % Rectángulo de ejemplo
+    \label{fig:vertical}
+\end{figure}
+
+\fuente{Elaboración propia con datos de ejemplo}
+
+\section{Transición a Modo Horizontal}
+
+A continuación se presenta una figura en modo horizontal que aprovecha todo el espacio disponible de la página.
+
+% Ejemplo de figura horizontal
+\begin{figuraespecial}
+    \seccionHorizontal{Balance Energético Nacional}
+    
+    \captionHorizontal{Distribución de la Generación de Energía Eléctrica por Tecnología en México (2024)}
+    
+    % Crear una figura de ejemplo más grande para modo horizontal
+    \imagenHorizontal{img/ejemplo-horizontal.png}{fig:balance-horizontal}
+    
+    \fuenteHorizontal{Elaboración SENER con datos del Sistema de Información Energética (SIE) y CENACE\footnotemark}
+    \footnotetext{Los datos incluyen generación de centrales públicas y privadas conectadas al Sistema Eléctrico Nacional}
+\end{figuraespecial}
+
+\section{Continuación en Modo Vertical}
+
+Después de la figura horizontal, el documento continúa en modo vertical normal. La transición es automática y mantiene la consistencia del formato.
+
+\subsection{Beneficios del Modo Horizontal}
+
+\begin{itemize}
+    \item \textbf{Mayor espacio disponible}: Aprovecha el ancho completo de la página
+    \item \textbf{Mejor visualización}: Ideal para gráficos complejos y tablas extensas
+    \item \textbf{Identidad institucional}: Mantiene los elementos de marca SENER
+    \item \textbf{Transición fluida}: Cambio automático entre modos vertical y horizontal
+\end{itemize}
+
+\subsection{Elementos Incluidos en Modo Horizontal}
+
+El modo horizontal incluye automáticamente:
+
+\begin{enumerate}
+    \item Línea dorada institucional en la parte superior
+    \item Logo del Gobierno de México rotado
+    \item Numeración de página en posición correcta
+    \item Nombre corto del documento
+    \item Línea de pie de página
+    \item Soporte para notas al pie
+\end{enumerate}
+
+\section{Ejemplo de Tabla Horizontal}
+
+También es posible crear tablas en modo horizontal:
+
+\begin{tablaespecial}
+    \tituloHorizontal{Matriz de Comparación de Tecnologías}
+    
+    \begin{tabladoradoLargo}
+        \tiny
+        \begin{xltabular}{\anchoHorizontal}{|p{3cm}|p{2.5cm}|p{2.5cm}|p{2.5cm}|p{2.5cm}|p{2.5cm}|p{2.5cm}|}
+        \caption{Comparación de Tecnologías de Generación Eléctrica} \\
+        \toprule
+        \rowcolor{gobmxDorado}
+        \encabezadodorado{Tecnología} & 
+        \encabezadodorado{Capacidad (MW)} & 
+        \encabezadodorado{Factor de Planta (\%)} & 
+        \encabezadodorado{Costo LCOE (USD/MWh)} & 
+        \encabezadodorado{Emisiones (kg CO₂/MWh)} & 
+        \encabezadodorado{Vida Útil (años)} & 
+        \encabezadodorado{Clasificación CEL} \\
+        \midrule
+        \endhead
+        
+        \textbf{Solar Fotovoltaica} & 15,000 & 25 & 45 & 0 & 25 & Limpia \\
+        \hline
+        \textbf{Eólica} & 12,500 & 35 & 38 & 0 & 20 & Limpia \\
+        \hline
+        \textbf{Hidroeléctrica} & 8,200 & 45 & 42 & 0 & 50 & Limpia \\
+        \hline
+        \textbf{Geotérmica} & 1,200 & 75 & 55 & 0 & 30 & Limpia \\
+        \hline
+        \textbf{Ciclo Combinado} & 25,000 & 60 & 65 & 350 & 25 & Convencional \\
+        \hline
+        \textbf{Carboeléctrica} & 5,500 & 70 & 75 & 820 & 40 & Convencional \\
+        \bottomrule
+        \end{xltabular}
+    \end{tabladoradoLargo}
+    
+    \fuenteHorizontal{Elaboración SENER con datos de PRODESEN 2024-2038 y reportes de la CNE}
+\end{tablaespecial}
+
+\section{Conclusiones}
+
+El modo horizontal de la clase \texttt{cel.cls} proporciona una herramienta poderosa para la presentación de información compleja manteniendo la identidad institucional de SENER. Su implementación automática facilita la creación de documentos profesionales sin comprometer la funcionalidad.
+
+\end{document}
